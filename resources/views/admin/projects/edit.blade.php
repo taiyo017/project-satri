@@ -1,0 +1,30 @@
+<x-app-layout>
+    <x-slot name="header">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+                <h2 class="font-bold text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ __('Edit Project') }}
+                </h2>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    Editing: <span class="font-semibold text-gray-700 dark:text-gray-300">{{ $project->title }}</span>
+                </p>
+            </div>
+            <a href="{{ route('projects.index') }}"
+                class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                {{ __('Back to Project') }}
+            </a>
+        </div>
+    </x-slot>
+    <div class="space-y-6">
+        <form method="POST" action="{{ route('projects.update', $project->id) }}" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            @include('admin.projects.form', ['project' => $project, 'button' => 'Update Project'])
+        </form>
+
+    </div>
+</x-app-layout>\
