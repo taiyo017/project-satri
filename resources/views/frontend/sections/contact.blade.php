@@ -10,7 +10,7 @@
 @endphp
 
 <section
-    class="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 overflow-hidden">
+    class="relative py-8 lg:py-12 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 overflow-hidden">
 
     {{-- Decorative background --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">

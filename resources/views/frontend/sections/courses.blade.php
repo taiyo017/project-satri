@@ -26,7 +26,7 @@
 @endphp
 
 <section
-    class="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 overflow-hidden">
+    class="relative py-8 lg:py-12 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 overflow-hidden">
 
     {{-- Decorative background --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -38,7 +38,7 @@
 
         {{-- Section Header --}}
         @if ($title || $subtitle || $content)
-            <div class="text-center max-w-3xl mx-auto mb-16">
+            <div class="text-center max-w-3xl mx-auto ">
 
                 @if ($subtitle)
                     <span
@@ -60,6 +60,8 @@
                     </h2>
                 @endif
 
+            </div>
+            <div class="px-6 sm:px-10 md:px-16 py-2">
                 @if ($content)
                     <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
                         {!! $content !!}
@@ -70,7 +72,7 @@
 
         {{-- Courses Grid --}}
         @if ($displayCourses->count())
-            <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-12">
+            <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-12 pt-8">
                 @foreach ($displayCourses as $course)
                     <div
                         class="group bg-white dark:bg-gray-900 rounded-xl overflow-hidden 

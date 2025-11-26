@@ -2,10 +2,10 @@
     <x-slot name="header">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-                <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                <h2 class="font-bold text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Add New Course Category') }}
                 </h2>
-                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p class="mt-1 text-xs text-gray-600 dark:text-gray-400">
                     Create a new category to organize your courses
                 </p>
             </div>

@@ -72,7 +72,7 @@
 @endphp
 
 <section
-    class="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 overflow-hidden">
+    class="relative py-8 lg:py-12 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 overflow-hidden">
 
     {{-- Decorative background --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -84,7 +84,7 @@
 
         {{-- Section Header --}}
         @if ($heading)
-            <div class="text-center max-w-3xl mx-auto mb-16">
+            <div class="text-center max-w-3xl mx-auto">
                 <span
                     class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm tracking-wide font-semibold
                     bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8]
@@ -101,6 +101,8 @@
                     {{ $heading }}
                 </h2>
 
+            </div>
+            <div class="px-6 sm:px-10 md:px-16 py-2">
                 @if ($fields['content'])
                     <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
                         {!! $fields['content'] !!}

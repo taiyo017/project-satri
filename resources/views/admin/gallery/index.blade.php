@@ -51,41 +51,31 @@
 
         <!-- Flash Messages -->
         @if (session('success'))
-            <div class="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-4">
-                <div class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <p class="text-sm font-medium text-green-800 dark:text-green-200">{{ session('success') }}</p>
-                </div>
+            <div class="mb-4">
+                <x-alert type="success" :message="session('success')" dismissible="true" />
             </div>
         @endif
 
         @if (session('error'))
-            <div class="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4">
-                <div class="flex items-center gap-3">
-                    <svg class="w-5 h-5 text-red-600 dark:text-red-400" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                    <p class="text-sm font-medium text-red-800 dark:text-red-200">{{ session('error') }}</p>
-                </div>
+            <div class="mb-4">
+                <x-alert type="error" :message="session('error')" dismissible="true" />
             </div>
         @endif
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+            <!-- Total Images -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Images</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ $totalImages }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Images</p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">{{ $totalImages }}</p>
                     </div>
-                    <div class="p-3 rounded-xl" style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-2.5 rounded-lg"
+                        style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
@@ -93,15 +83,16 @@
                 </div>
             </div>
 
+            <!-- Active Images -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Images</p>
-                        <p class="text-3xl font-bold text-green-600 dark:text-green-400 mt-1">{{ $activeCount }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Active Images</p>
+                        <p class="text-xl font-bold text-green-600 dark:text-green-400 mt-1">{{ $activeCount }}</p>
                     </div>
-                    <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
+                    <div class="p-2.5 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                        <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
@@ -109,15 +100,16 @@
                 </div>
             </div>
 
+            <!-- Inactive Images -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Inactive Images</p>
-                        <p class="text-3xl font-bold text-amber-600 dark:text-amber-400 mt-1">{{ $inactiveCount }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Inactive Images</p>
+                        <p class="text-xl font-bold text-amber-600 dark:text-amber-400 mt-1">{{ $inactiveCount }}</p>
                     </div>
-                    <div class="p-3 bg-amber-100 dark:bg-amber-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor"
+                    <div class="p-2.5 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
+                        <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -125,22 +117,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Trash Bin -->
             <a href="javascript:void(0);" onclick="openTrashModal()"
-                class="bg-gradient-to-br from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.02] group cursor-pointer">
+                class="bg-gradient-to-br from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 rounded-xl p-4 shadow-sm hover:shadow-md transition-transform duration-200 hover:scale-[1.02] group cursor-pointer">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-red-100">Trash Bin</p>
-                        <p class="text-3xl font-bold text-white mt-1">{{ $trashedCount }}</p>
+                        <p class="text-xs font-medium text-red-100">Trash Bin</p>
+                        <p class="text-xl font-bold text-white mt-1">{{ $trashedCount }}</p>
                     </div>
-                    <div class="p-3 bg-white/20 rounded-xl group-hover:bg-white/30 transition-colors">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-2.5 bg-white/20 rounded-lg group-hover:bg-white/30 transition">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
                     </div>
                 </div>
             </a>
+
         </div>
+
 
         <!-- Gallery Grid -->
         <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">

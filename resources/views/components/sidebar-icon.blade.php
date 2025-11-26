@@ -18,6 +18,15 @@
         </svg>
     @break
 
+    @case('gallery')
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 15l4-4a2 2 0 012 0l3 3 4-4a2 2 0 012 0l3 3" />
+        </svg>
+    @break
+
     @case('contact')
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24"
             stroke="currentColor" stroke-width="2">
@@ -80,7 +89,8 @@
     @case('testimonials')
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24"
             stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-4.2-7.5L21 3l-2.5 3A8.96 8.96 0 0121 12z" />
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21 12a9 9 0 11-4.2-7.5L21 3l-2.5 3A8.96 8.96 0 0121 12z" />
         </svg>
     @break
 

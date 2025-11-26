@@ -127,31 +127,31 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
                     @foreach ($features as $feature)
                         <div
-                            class="group relative bg-white dark:bg-gray-900 rounded-xl p-5 
-                            border border-gray-100 dark:border-gray-800 
-                            hover:border-[#1363C6]/40 dark:hover:border-[#1363C6]/50 
-                            hover:shadow-lg hover:shadow-[#1363C6]/5 
-                            transition-all duration-300 hover:-translate-y-0.5
-                            text-center">
-                            @if (!empty($feature['icon']))
-                                <div
-                                    class="w-12 h-12 flex items-center justify-center rounded-lg 
-                                    bg-gradient-to-br from-[#1363C6] to-[#0d4a94] 
-                                    text-white text-[20px] mx-auto mb-3 
-                                    group-hover:scale-110 transition-transform duration-300">
-                                    <i class="{{ $feature['icon'] }}"></i>
-                                </div>
-                            @endif
-                            @if (!empty($feature['title']))
-                                <h3
-                                    class="text-[18px] font-semibold text-gray-900 dark:text-white
-                                    group-hover:text-[#1363C6] dark:group-hover:text-[#4a8dd8] transition-colors duration-300">
-                                    {{ $feature['title'] }}
-                                </h3>
-                            @endif
+                            class="group relative bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800  hover:border-[#1363C6]/40 dark:hover:border-[#1363C6]/50 hover:shadow-lg hover:shadow-[#1363C6]/5 transition-all duration-300 hover:-translate-y-0.5">
+
+                            <div class="flex items-center gap-3 justify-center">
+
+                                @if (!empty($feature['icon']))
+                                    <div
+                                        class="w-8 h-8 flex items-center justify-center rounded-lg  bg-gradient-to-br from-[#1363C6] to-[#0d4a94] text-white text-[16px]  group-hover:scale-110 transition-transform duration-300">
+                                        <i class="{{ $feature['icon'] }}"></i>
+                                    </div>
+                                @endif
+
+                                @if (!empty($feature['title']))
+                                    <h3
+                                        class="text-[15px] font-medium text-gray-900 dark:text-white group-hover:text-[#1363C6] dark:group-hover:text-[#4a8dd8] transition-colors duration-300">
+                                        {{ $feature['title'] }}
+                                    </h3>
+                                @endif
+
+                            </div>
+
                         </div>
                     @endforeach
                 </div>
+
+
             </div>
         @endif
 

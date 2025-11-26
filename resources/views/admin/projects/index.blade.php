@@ -34,15 +34,18 @@
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            {{-- Total Projects --}}
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Projects</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white mt-1">{{ $projects->total() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Projects</p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">{{ $projects->total() }}</p>
                     </div>
-                    <div class="p-3 rounded-xl" style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                    <div class="p-2.5 rounded-lg bg-gradient-to-br from-[#1363C6] to-[#0d4a99] shadow-sm">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                         </svg>
@@ -50,16 +53,19 @@
                 </div>
             </div>
 
+            {{-- Active Projects --}}
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active</p>
-                        <p class="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">
-                            {{ $projects->where('status', 1)->count() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Active</p>
+                        <p class="text-xl font-bold text-green-600 dark:text-green-400 mt-1">
+                            {{ $projects->where('status', 1)->count() }}
+                        </p>
                     </div>
-                    <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
+
+                    <div class="p-2.5 rounded-lg bg-green-100 dark:bg-green-900/30 shadow-sm">
+                        <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -68,16 +74,19 @@
                 </div>
             </div>
 
+            {{-- Categories --}}
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Categories</p>
-                        <p class="text-2xl font-bold text-purple-600 dark:text-purple-400 mt-1">
-                            {{ $projects->unique('category')->count() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Categories</p>
+                        <p class="text-xl font-bold text-purple-600 dark:text-purple-400 mt-1">
+                            {{ $projects->unique('category')->count() }}
+                        </p>
                     </div>
-                    <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor"
+
+                    <div class="p-2.5 rounded-lg bg-purple-100 dark:bg-purple-900/30 shadow-sm">
+                        <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
@@ -85,7 +94,9 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
 
         <!-- Projects Table -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden"

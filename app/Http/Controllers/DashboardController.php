@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Course;
 use App\Models\Page;
+use App\Models\Project;
 use App\Models\Section;
+use App\Models\TeamMember;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -15,6 +18,9 @@ class DashboardController extends Controller
         $stats = [
             'pages' => Page::count(),
             'sections' => Section::count(),
+            'team' => TeamMember::count(),
+            'projects' => Project::count(),
+            'courses' => Course::count(),
             'unread_messages' => Contact::where('is_read', false)->count(),
             'total_messages' => Contact::count(),
         ];

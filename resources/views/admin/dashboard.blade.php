@@ -12,104 +12,97 @@
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            {{-- Welcome Banner --}}
-            <div class="mb-8 bg-gradient-to-r from-[#1A66C5] to-[#2E7FDB] rounded-2xl shadow-lg p-8 text-white">
+            <div class="mb-6 bg-gradient-to-r from-[#1A66C5] to-[#2E7FDB] rounded-xl shadow-md p-5 text-white">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h1 class="text-3xl font-bold mb-2">Welcome back, {{ Auth::user()->name }}!</h1>
-                        <p class="text-blue-100">Here's what's happening with your website today.</p>
+                        <h1 class="text-xl font-semibold mb-1">Welcome back, {{ Auth::user()->name }}!</h1>
+                        <p class="text-blue-100 text-sm">Here's what's happening with your website today.</p>
                     </div>
+
                     <div class="hidden md:block">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 opacity-20" fill="none"
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 opacity-15" fill="none"
                             stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 3h8v8H3V3zm10 3h8v14h-8V6zM3 13h8v8H3v-8z" />
                         </svg>
-
                     </div>
+
                 </div>
             </div>
 
+
             {{-- Stats Cards --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                {{-- Pages Stat --}}
-                <div
-                    class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 p-6 border border-gray-100">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 rounded-lg bg-gradient-to-br from-[#1A66C5] to-[#2E7FDB]">
-                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="text-sm font-medium text-gray-600 mb-1">Pages</p>
-                        <p class="text-3xl font-bold text-gray-900">{{ $stats['pages'] }}</p>
-                    </div>
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 pb-8">
 
-                {{-- Sections Stat --}}
-                <div
-                    class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 p-6 border border-gray-100">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 rounded-lg bg-gradient-to-br from-[#1A66C5] to-[#2E7FDB]">
-                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="text-sm font-medium text-gray-600 mb-1">Sections</p>
-                        <p class="text-3xl font-bold text-gray-900">{{ $stats['sections'] }}</p>
-                    </div>
-                </div>
+                {{-- Single Stat Card Component --}}
+                @php
+                    $items = [
+                        [
+                            'label' => 'Pages',
+                            'count' => $stats['pages'],
+                            'route' => route('pages.index'),
+                            'icon' =>
+                                'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586l6.414 6.414V19a2 2 0 01-2 2z',
+                        ],
+                        [
+                            'label' => 'Projects',
+                            'count' => $stats['projects'],
+                            'route' => route('projects.index'),
+                            'icon' => 'M3 7h18M3 12h18M3 17h18',
+                        ],
+                        [
+                            'label' => 'Courses',
+                            'count' => $stats['courses'],
+                            'route' => route('courses.index'),
+                            'icon' => 'M12 6v12m6-6H6',
+                        ],
+                        [
+                            'label' => 'Team',
+                            'count' => $stats['team'],
+                            'route' => route('team-members.index'),
+                            'icon' =>
+                                'M17 20h5v-2a4 4 0 00-5-3.87M9 20H4v-2a4 4 0 015-3.87m4-.13a4 4 0 100-8 4 4 0 000 8z',
+                        ],
+                        [
+                            'label' => 'Unread',
+                            'count' => $stats['unread_messages'],
+                            'route' => route('contacts.index'),
+                            'icon' => 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8',
+                        ],
+                    ];
+                @endphp
 
-                {{-- Messages Stat --}}
-                <div
-                    class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 p-6 border border-gray-100">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 rounded-lg bg-gradient-to-br from-[#1A66C5] to-[#2E7FDB]">
-                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                        @if ($stats['unread_messages'] > 0)
-                            <span class="px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded-full">
-                                New
-                            </span>
-                        @endif
-                    </div>
-                    <div>
-                        <p class="text-sm font-medium text-gray-600 mb-1">Unread Messages</p>
-                        <p class="text-3xl font-bold text-gray-900">{{ $stats['unread_messages'] }}</p>
-                    </div>
-                </div>
+                @foreach ($items as $item)
+                    <a href="{{ $item['route'] }}"
+                        class="group block bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
 
-                {{-- Total Messages Stat --}}
-                <div
-                    class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 p-6 border border-gray-100">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 rounded-lg bg-gradient-to-br from-[#1A66C5] to-[#2E7FDB]">
-                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                            </svg>
+                        <div class="flex items-center gap-3">
+                            {{-- Icon --}}
+                            <div class="p-2 rounded-md bg-gradient-to-br from-[#1A66C5] to-[#2E7FDB] text-white">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="{{ $item['icon'] }}" />
+                                </svg>
+                            </div>
+
+                            {{-- Title + Number --}}
+                            <div class="flex flex-col">
+                                <span class="text-[13px] font-medium text-gray-600 dark:text-gray-400">
+                                    {{ $item['label'] }}
+                                </span>
+                                <span class="text-xl font-bold text-gray-900 dark:text-white">
+                                    {{ $item['count'] }}
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <p class="text-sm font-medium text-gray-600 mb-1">Total Messages</p>
-                        <p class="text-3xl font-bold text-gray-900">{{ $stats['total_messages'] }}</p>
-                    </div>
-                </div>
+                    </a>
+                @endforeach
+
             </div>
 
             {{-- Quick Actions --}}
             <div class="mb-8">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Quick Actions</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <a href="{{ route('pages.create') }}"
                         class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100 hover:border-[#1A66C5]">

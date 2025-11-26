@@ -17,7 +17,7 @@
 @endphp
 
 <section
-    class="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
+    class="relative py-8 lg:py-12 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
 
     {{-- Decorative Background Elements --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -28,7 +28,7 @@
     <div class="max-w-7xl mx-auto relative">
 
         {{-- HEADER --}}
-        <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="text-center max-w-3xl mx-auto mb-4">
 
             {{-- Badge --}}
             @if ($subtitle)
@@ -41,12 +41,14 @@
                 </span>
             @endif
             {{-- Title --}}
-            <h2 class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
+            <h2 class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-2 leading-tight">
                 {{ $title }}
             </h2>
             {{-- Description --}}
+        </div>
+        <div class="px-6 sm:px-10 md:px-16 pb-8">
             @if ($description)
-                <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
+                <div class="text-[16px] sm:text-[16px] leading-[28px] text-gray-600 dark:text-gray-400 text-justify">
                     {!! $description !!}
                 </div>
             @endif
@@ -81,12 +83,12 @@
                         {{-- Content --}}
                         <div class="flex-1">
                             <h3
-                                class="text-[18px] font-semibold text-gray-900 dark:text-white mb-1.5 
+                                class="text-[14px] font-semibold text-gray-900 dark:text-white mb-1.5 
                                 group-hover:text-[#1363C6] dark:group-hover:text-[#4a8dd8]
                                 transition-colors duration-300">
                                 {{ $feature['title'] }}
                             </h3>
-                            <p class="text-[15px] leading-[24px] text-gray-600 dark:text-gray-400">
+                            <p class="text-[12px] leading-[24px] text-gray-600 dark:text-gray-400">
                                 {{ $feature['content'] }}
                             </p>
                         </div>
@@ -106,11 +108,11 @@
                         hover:shadow-lg hover:shadow-[#1363C6]/5
                         transition-all duration-300">
                         <div
-                            class="text-[34px] font-extrabold text-[#1363C6] dark:text-[#4a8dd8] mb-1
+                            class="text-[16px] font-extrabold text-[#1363C6] dark:text-[#4a8dd8] mb-1
                             group-hover:scale-105 transition-transform duration-300">
                             {{ $internships }}+
                         </div>
-                        <p class="text-[15px] text-gray-600 dark:text-gray-400 font-medium">
+                        <p class="text-[12px] text-gray-600 dark:text-gray-400 font-medium">
                             Internships
                         </p>
                     </div>
@@ -125,11 +127,11 @@
                         hover:shadow-lg hover:shadow-[#1363C6]/5
                         transition-all duration-300">
                         <div
-                            class="text-[34px] font-extrabold text-[#1363C6] dark:text-[#4a8dd8] mb-1
+                            class="text-[18px] font-extrabold text-[#1363C6] dark:text-[#4a8dd8] mb-1
                             group-hover:scale-105 transition-transform duration-300">
                             {{ $projects }}+
                         </div>
-                        <p class="text-[15px] text-gray-600 dark:text-gray-400 font-medium">
+                        <p class="text-[12px] text-gray-600 dark:text-gray-400 font-medium">
                             Projects Completed
                         </p>
                     </div>

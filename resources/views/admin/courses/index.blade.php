@@ -33,59 +33,92 @@
 
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+
+            <!-- Total Courses -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 
+               border border-gray-200 dark:border-gray-700 
+               shadow-sm hover:shadow-md transition-all">
                 <div class="flex items-center justify-between">
+
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Courses</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white mt-1">{{ $courses->total() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">
+                            Total Courses
+                        </p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">
+                            {{ $courses->total() }}
+                        </p>
                     </div>
-                    <div class="p-3 rounded-xl" style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                    <div class="p-2.5 rounded-lg"
+                        style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
                     </div>
+
                 </div>
             </div>
 
+            <!-- Active Courses -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 
+               border border-gray-200 dark:border-gray-700 
+               shadow-sm hover:shadow-md transition-all">
                 <div class="flex items-center justify-between">
+
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Courses</p>
-                        <p class="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">
-                            {{ $courses->where('status', 1)->count() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">
+                            Active Courses
+                        </p>
+                        <p class="text-xl font-bold text-green-600 dark:text-green-400 mt-1">
+                            {{ $courses->where('status', 1)->count() }}
+                        </p>
                     </div>
-                    <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
+
+                    <div class="p-2.5 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                        <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
+
                 </div>
             </div>
 
+            <!-- Categories -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 
+               border border-gray-200 dark:border-gray-700 
+               shadow-sm hover:shadow-md transition-all">
                 <div class="flex items-center justify-between">
+
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Categories</p>
-                        <p class="text-2xl font-bold text-purple-600 dark:text-purple-400 mt-1">
-                            {{ $courses->unique('category_id')->count() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">
+                            Categories
+                        </p>
+                        <p class="text-xl font-bold text-purple-600 dark:text-purple-400 mt-1">
+                            {{ $courses->unique('category_id')->count() }}
+                        </p>
                     </div>
-                    <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor"
+
+                    <div class="p-2.5 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+                        <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                         </svg>
                     </div>
+
                 </div>
             </div>
+
         </div>
+
+
 
         <!-- Courses Table -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden"

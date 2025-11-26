@@ -23,7 +23,7 @@
 @endphp
 
 <section
-    class="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 overflow-hidden">
+    class="relative py-8 lg:py-12 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 overflow-hidden">
 
     {{-- Decorative background --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -38,7 +38,7 @@
 
         {{-- Section Header --}}
         @if ($title || $subtitle || $content)
-            <div class="text-center max-w-3xl mx-auto mb-16">
+            <div class="text-center max-w-3xl mx-auto">
                 @if ($subtitle)
                     <span
                         class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold tracking-wide
@@ -58,6 +58,8 @@
                     </h2>
                 @endif
 
+            </div>
+            <div class="px-6 sm:px-10 md:px-16 pb-8">
                 @if ($content)
                     <div class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400">{!! $content !!}
                     </div>
@@ -167,61 +169,58 @@
 </section>
 
 {{-- Lightbox Modal --}}
-<div id="galleryLightbox" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-sm">
-    <div class="absolute inset-0 flex items-center justify-center p-4">
+{{-- Lightbox Modal --}}
+<div id="galleryLightbox" class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4">
 
-        {{-- Close Button --}}
-        <button id="closeLightbox"
-            class="absolute top-6 right-6 z-50 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300 group">
-            <svg class="w-6 h-6 text-white group-hover:rotate-90 transition-transform duration-300" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
+    <!-- Close Button -->
+    <button id="closeLightbox" class="absolute top-4 right-4 p-3 bg-white/20 hover:bg-white/30 rounded-full transition">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
 
-        {{-- Previous Button --}}
-        <button id="prevImage"
-            class="absolute left-6 z-50 p-4 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300 group">
-            <svg class="w-8 h-8 text-white group-hover:-translate-x-1 transition-transform" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-        </button>
+    <!-- Previous Button -->
+    <button id="prevImage"
+        class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 bg-white/20 hover:bg-white/30 rounded-full">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </button>
 
-        {{-- Image Container --}}
-        <div class="relative max-w-6xl max-h-[90vh] w-full">
-            <img id="lightboxImage" src="" alt=""
-                class="w-full h-full object-contain rounded-lg shadow-2xl">
+    <!-- Image Container -->
+    <div class="relative w-full max-w-3xl max-h-[80vh] flex items-center justify-center">
+        <img id="lightboxImage" src="" alt=""
+            class="max-w-full max-h-[70vh] object-contain rounded-lg shadow-lg">
 
-            {{-- Image Info --}}
-            <div
-                class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-lg">
-                <h3 id="lightboxTitle" class="text-2xl font-bold text-white mb-2"></h3>
-                <p id="lightboxDescription" class="text-gray-300"></p>
-            </div>
-        </div>
-
-        {{-- Next Button --}}
-        <button id="nextImage"
-            class="absolute right-6 z-50 p-4 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300 group">
-            <svg class="w-8 h-8 text-white group-hover:translate-x-1 transition-transform" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-        </button>
-
-        {{-- Counter --}}
-        <div
-            class="absolute top-6 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-            <span id="lightboxCounter" class="text-white font-semibold"></span>
+        <!-- Image Info -->
+        <div class="absolute bottom-4 left-4 text-white">
+            <h3 id="lightboxTitle" class="text-lg font-semibold"></h3>
+            <p id="lightboxDescription" class="text-sm text-gray-200"></p>
         </div>
     </div>
+
+    <!-- Next Button -->
+    <button id="nextImage"
+        class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 bg-white/20 hover:bg-white/30 rounded-full">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </button>
+
+    <!-- Counter -->
+    <div
+        class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white/20 px-4 py-2 rounded-full text-white font-semibold">
+        <span id="lightboxCounter"></span>
+    </div>
+
 </div>
 
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const galleries = @json($displayGalleries);
+            const galleries = @json($displayGalleries) || [];
+            if (galleries.length === 0) return;
+
             const lightbox = document.getElementById('galleryLightbox');
             const lightboxImage = document.getElementById('lightboxImage');
             const lightboxTitle = document.getElementById('lightboxTitle');
@@ -235,7 +234,7 @@
 
             // Open lightbox
             document.querySelectorAll('.gallery-item').forEach((item, index) => {
-                item.addEventListener('click', function() {
+                item.addEventListener('click', () => {
                     currentIndex = index;
                     openLightbox();
                 });
@@ -243,35 +242,40 @@
 
             function openLightbox() {
                 const gallery = galleries[currentIndex];
-                lightboxImage.src = "{{ asset('storage') }}/" + gallery.image;
-                lightboxTitle.textContent = gallery.title;
-                lightboxDescription.textContent = gallery.description || '';
-                lightboxCounter.textContent = `${currentIndex + 1} / ${galleries.length}`;
-                lightbox.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
+
+                // Preload image for smoother experience
+                const img = new Image();
+                img.src = "{{ asset('storage') }}/" + gallery.image;
+                img.onload = () => {
+                    lightboxImage.src = img.src;
+                    lightboxTitle.textContent = gallery.title || '';
+                    lightboxDescription.textContent = gallery.description || '';
+                    lightboxCounter.textContent = `${currentIndex + 1} / ${galleries.length}`;
+                    lightbox.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                };
             }
 
             function closeLightboxFunc() {
                 lightbox.classList.add('hidden');
                 document.body.style.overflow = 'auto';
+                lightboxImage.src = ''; // Clear previous image
             }
 
             closeLightbox.addEventListener('click', closeLightboxFunc);
 
-            // Previous image
-            prevImage.addEventListener('click', function() {
+            prevImage.addEventListener('click', () => {
                 currentIndex = (currentIndex - 1 + galleries.length) % galleries.length;
                 openLightbox();
             });
 
-            // Next image
-            nextImage.addEventListener('click', function() {
+            nextImage.addEventListener('click', () => {
                 currentIndex = (currentIndex + 1) % galleries.length;
                 openLightbox();
             });
 
             // Keyboard navigation
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', (e) => {
                 if (!lightbox.classList.contains('hidden')) {
                     if (e.key === 'Escape') closeLightboxFunc();
                     if (e.key === 'ArrowLeft') prevImage.click();
@@ -279,8 +283,8 @@
                 }
             });
 
-            // Click outside to close
-            lightbox.addEventListener('click', function(e) {
+            // Click outside image to close
+            lightbox.addEventListener('click', (e) => {
                 if (e.target === lightbox) closeLightboxFunc();
             });
         });

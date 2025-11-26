@@ -37,16 +37,19 @@
         @endif
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+            <!-- Total Categories -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Categories</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white mt-1">{{ $categories->count() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Categories</p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">{{ $categories->count() }}</p>
                     </div>
-                    <div class="p-3 rounded-xl" style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-2.5 rounded-lg"
+                        style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M7 7h10M7 11h10M7 15h10M7 19h10" />
                         </svg>
@@ -54,16 +57,18 @@
                 </div>
             </div>
 
+            <!-- Active Categories -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Categories</p>
-                        <p class="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">
-                            {{ $categories->where('is_active', true)->count() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Active Categories</p>
+                        <p class="text-xl font-bold text-green-600 dark:text-green-400 mt-1">
+                            {{ $categories->where('is_active', true)->count() }}
+                        </p>
                     </div>
-                    <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
+                    <div class="p-2.5 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                        <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
@@ -71,17 +76,18 @@
                 </div>
             </div>
 
+            <!-- Last Added -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Last Added</p>
-                        <p class="text-sm font-bold text-blue-600 dark:text-blue-400 mt-1">
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Last Added</p>
+                        <p class="text-xl font-bold text-blue-600 dark:text-blue-400 mt-1">
                             {{ $categories->sortByDesc('created_at')->first()?->created_at?->diffForHumans() ?? 'N/A' }}
                         </p>
                     </div>
-                    <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor"
+                    <div class="p-2.5 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -89,7 +95,9 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
 
         <!-- Categories Table -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden"

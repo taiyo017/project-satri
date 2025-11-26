@@ -17,7 +17,7 @@
 @endphp
 
 <section
-    class="relative py-20 lg:py-28 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 overflow-hidden">
+    class="relative py-8 lg:py-12 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 overflow-hidden">
 
     {{-- Decorative background --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -28,7 +28,7 @@
     <div class="max-w-7xl mx-auto relative">
 
         {{-- Section Header --}}
-        <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="text-center max-w-3xl mx-auto">
             @if ($subtitle)
                 <span
                     class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm tracking-wide font-semibold
@@ -52,6 +52,8 @@
                 </h2>
             @endif
 
+        </div>
+        <div class="px-6 sm:px-10 md:px-16 pb-8">
             @if ($contents)
                 <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
                     {!! $contents !!}

@@ -37,16 +37,24 @@
         @endif
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+
+            <!-- Total Members -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 
+               border border-gray-200 dark:border-gray-700 
+               shadow-sm hover:shadow-md transition-all">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Members</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white mt-1">{{ $members->total() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Members</p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">
+                            {{ $members->total() }}
+                        </p>
                     </div>
-                    <div class="p-3 rounded-xl" style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                    <div class="p-2.5 rounded-lg"
+                        style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
@@ -54,16 +62,21 @@
                 </div>
             </div>
 
+            <!-- With Photos -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 
+               border border-gray-200 dark:border-gray-700 
+               shadow-sm hover:shadow-md transition-all">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">With Photos</p>
-                        <p class="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">
-                            {{ $members->filter(fn($m) => $m->photo)->count() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">With Photos</p>
+                        <p class="text-xl font-bold text-green-600 dark:text-green-400 mt-1">
+                            {{ $members->filter(fn($m) => $m->photo)->count() }}
+                        </p>
                     </div>
-                    <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
+
+                    <div class="p-2.5 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                        <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -72,16 +85,21 @@
                 </div>
             </div>
 
+            <!-- Designations -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 
+               border border-gray-200 dark:border-gray-700 
+               shadow-sm hover:shadow-md transition-all">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Designations</p>
-                        <p class="text-2xl font-bold text-purple-600 dark:text-purple-400 mt-1">
-                            {{ $members->unique('designation')->count() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Designations</p>
+                        <p class="text-xl font-bold text-purple-600 dark:text-purple-400 mt-1">
+                            {{ $members->unique('designation')->count() }}
+                        </p>
                     </div>
-                    <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor"
+
+                    <div class="p-2.5 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+                        <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -90,17 +108,21 @@
                 </div>
             </div>
 
+            <!-- Last Added -->
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 
+               border border-gray-200 dark:border-gray-700 
+               shadow-sm hover:shadow-md transition-all">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Last Added</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Last Added</p>
                         <p class="text-sm font-bold text-blue-600 dark:text-blue-400 mt-1">
                             {{ $members->sortByDesc('created_at')->first()?->created_at?->diffForHumans() ?? 'N/A' }}
                         </p>
                     </div>
-                    <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor"
+
+                    <div class="p-2.5 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -108,7 +130,9 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
 
         <!-- Team Members Table -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden"
