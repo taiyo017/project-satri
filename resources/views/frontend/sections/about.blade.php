@@ -11,7 +11,7 @@
 @endphp
 
 <section class="py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-950">
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto px-4">
         <div
             class="grid {{ $image ? 'lg:grid-cols-2' : 'grid-cols-1' }} gap-12 lg:gap-16 items-center {{ !$image ? 'max-w-4xl mx-auto text-center' : '' }}">
 

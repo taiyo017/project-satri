@@ -13,7 +13,7 @@
 @endphp
 
 <section
-    class="relative bg-gradient-to-br from-[#1363C6] via-[#115CB8] to-[#0D4A8F] overflow-hidden flex items-center justify-center min-h-[550px] md:min-h-[650px] lg:min-h-[750px] py-20 md:py-24 lg:py-28"
+    class="relative bg-gradient-to-br from-[#1363C6] via-[#115CB8] to-[#0D4A8F] overflow-hidden flex items-center justify-center min-h-[250px] md:min-h-[250px] lg:min-h-[350px] py-14 md:py-12 lg:py-20"
     aria-label="{{ $title ?: 'Hero Section' }}">
 
     {{-- Background Image with Parallax --}}
