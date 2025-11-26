@@ -169,7 +169,6 @@
 </section>
 
 {{-- Lightbox Modal --}}
-{{-- Lightbox Modal --}}
 <div id="galleryLightbox" class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4">
 
     <!-- Close Button -->
