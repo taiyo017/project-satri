@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-200">Edit Gallery Category</h2>
+        <h2 class="font-semibold text-xs text-gray-700 dark:text-gray-200">Edit Gallery Category</h2>
     </x-slot>
 
     <div class="p-6">

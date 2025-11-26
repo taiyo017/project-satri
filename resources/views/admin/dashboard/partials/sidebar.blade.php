@@ -74,7 +74,7 @@
         [
             'title' => 'Gallery',
             'route' => null,
-            'routePattern' => 'faqs.*',
+            'routePattern' => ['galleries.*', 'gallery-categories.*'],
             'icon' => 'gallery',
             'subItems' => [
                 [
