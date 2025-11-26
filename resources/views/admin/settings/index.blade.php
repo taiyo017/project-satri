@@ -194,11 +194,16 @@
                                 </div>
                             </div>
 
-                            <!-- SEO Settings Card -->
+
+
+                            <!-- SEO & Social Media Settings -->
                             <div
                                 class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+
+                                <!-- Header -->
                                 <div
-                                    class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                                    class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-800/50">
+
                                     <h3
                                         class="text-lg font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-2">
                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -207,53 +212,201 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                         </svg>
-                                        SEO Settings
+                                        SEO & Social Media
                                     </h3>
-                                    <button @click="toggleEdit('seo')" type="button"
+
+                                    <!-- Toggle Edit Button -->
+                                    <button @click="toggleEdit('seo_media')" type="button"
                                         class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200"
-                                        :class="editingSection === 'seo'
+                                        :class="editingSection === 'seo_media'
                                             ?
                                             'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50' :
                                             'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50'">
+
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                :d="editingSection === 'seo' ? 'M6 18L18 6M6 6l12 12' :
+                                                :d="editingSection === 'seo_media'
+                                                    ?
+                                                    'M6 18L18 6M6 6l12 12' :
                                                     'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'" />
                                         </svg>
-                                        <span x-text="editingSection === 'seo' ? 'Cancel' : 'Edit'"></span>
+
+                                        <span x-text="editingSection === 'seo_media' ? 'Cancel' : 'Edit'"></span>
                                     </button>
                                 </div>
-                                <div class="p-6 space-y-5">
-                                    <!-- Meta Title -->
-                                    <div>
-                                        <x-input-label for="meta_title" :value="__('Meta Title')"
-                                            class="text-gray-700 dark:text-gray-300" />
-                                        <x-text-input id="meta_title" x-bind:disabled="editingSection !== 'seo'"
-                                            type="text" name="meta_title"
-                                            class="block mt-2 w-full text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500"
-                                            :value="old('meta_title', $setting->meta_title ?? '')"
-                                            x-bind:class="editingSection !== 'seo' ?
-                                                'bg-gray-100 dark:bg-gray-700 cursor-not-allowed opacity-75' :
-                                                'bg-white dark:bg-gray-800'" />
-                                        <x-input-error :messages="$errors->get('meta_title')" class="mt-2" />
+
+                                <!-- Content -->
+                                <div class="p-6 space-y-6">
+
+                                    <!-- Meta Fields -->
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                                        <!-- Meta Title -->
+                                        <div class="md:col-span-2">
+                                            <x-input-label for="meta_title" value="Meta Title" />
+                                            <x-text-input id="meta_title" name="meta_title" type="text"
+                                                x-bind:disabled="editingSection !== 'seo_media'"
+                                                class="mt-2 block w-full"
+                                                x-bind:class="editingSection !== 'seo_media'
+                                                    ?
+                                                    'bg-gray-100 dark:bg-gray-700 opacity-75 cursor-not-allowed' :
+                                                    'bg-white dark:bg-gray-800'"
+                                                :value="old('meta_title')" />
+                                        </div>
+
+                                        <!-- Meta Description -->
+                                        <div class="md:col-span-2">
+                                            <x-input-label for="meta_description" value="Meta Description" />
+                                            <textarea id="meta_description" name="meta_description" rows="3" maxlength="160"
+                                                x-bind:disabled="editingSection !== 'seo_media'"
+                                                class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 focus:ring-blue-500 resize-none"
+                                                x-bind:class="editingSection !== 'seo_media'
+                                                    ?
+                                                    'bg-gray-100 dark:bg-gray-700 opacity-75 cursor-not-allowed' :
+                                                    'bg-white dark:bg-gray-800'">{{ old('meta_description') }}</textarea>
+                                        </div>
+
+                                        <!-- Meta Keywords -->
+                                        <div>
+                                            <x-input-label for="meta_keywords" value="Meta Keywords" />
+                                            <x-text-input id="meta_keywords" name="meta_keywords" type="text"
+                                                x-bind:disabled="editingSection !== 'seo_media'"
+                                                class="mt-2 block w-full"
+                                                x-bind:class="editingSection !== 'seo_media'
+                                                    ?
+                                                    'bg-gray-100 dark:bg-gray-700 cursor-not-allowed opacity-75' :
+                                                    'bg-white dark:bg-gray-800'"
+                                                :value="old('meta_keywords')" />
+                                        </div>
+
+                                        <!-- Canonical URL -->
+                                        <div>
+                                            <x-input-label for="canonical_url" value="Canonical URL" />
+                                            <x-text-input id="canonical_url" name="canonical_url" type="text"
+                                                x-bind:disabled="editingSection !== 'seo_media'"
+                                                class="mt-2 block w-full"
+                                                x-bind:class="editingSection !== 'seo_media'
+                                                    ?
+                                                    'bg-gray-100 dark:bg-gray-700 cursor-not-allowed opacity-75' :
+                                                    'bg-white dark:bg-gray-800'"
+                                                :value="old('canonical_url')" />
+                                        </div>
+
                                     </div>
 
-                                    <!-- Meta Description -->
-                                    <div>
-                                        <x-input-label for="meta_description" :value="__('Meta Description')"
-                                            class="text-gray-700 dark:text-gray-300" />
-                                        <textarea id="meta_description" x-bind:disabled="editingSection !== 'seo'" name="meta_description"
-                                            rows="4"
-                                            class="block mt-2 w-full rounded-lg border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 shadow-sm focus:border-blue-500 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500"
-                                            x-bind:class="editingSection !== 'seo' ?
-                                                'bg-gray-100 dark:bg-gray-700 cursor-not-allowed opacity-75' :
-                                                'bg-white dark:bg-gray-800'">{{ old('meta_description', $setting->meta_description ?? '') }}</textarea>
-                                        <x-input-error :messages="$errors->get('meta_description')" class="mt-2" />
+                                    <!-- Open Graph -->
+                                    <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+
+                                        <h4
+                                            class="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-blue-600 dark:text-blue-500" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                            </svg>
+                                            Open Graph (Facebook, LinkedIn)
+                                        </h4>
+
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                                            <!-- OG Title -->
+                                            <div>
+                                                <x-input-label for="og_title" value="OG Title" />
+                                                <x-text-input id="og_title" name="og_title" type="text"
+                                                    x-bind:disabled="editingSection !== 'seo_media'"
+                                                    class="mt-2 block w-full"
+                                                    x-bind:class="editingSection !== 'seo_media'
+                                                        ?
+                                                        'bg-gray-100 dark:bg-gray-700 opacity-75 cursor-not-allowed' :
+                                                        'bg-white dark:bg-gray-800'"
+                                                    :value="old('og_title')" />
+                                            </div>
+
+                                            <!-- OG Image -->
+                                            <div>
+                                                <x-input-label for="og_image" value="OG Image" />
+                                                <input type="file" id="og_image" name="og_image"
+                                                    accept="image/*" x-bind:disabled="editingSection !== 'seo_media'"
+                                                    class="mt-2 block w-full file:py-2 file:px-4 file:rounded-lg file:bg-gray-100 dark:file:bg-gray-700"
+                                                    x-bind:class="editingSection !== 'seo_media'
+                                                        ?
+                                                        'opacity-75 cursor-not-allowed' :
+                                                        'cursor-pointer'" />
+                                            </div>
+
+                                            <!-- OG Description -->
+                                            <div class="md:col-span-2">
+                                                <x-input-label for="og_description" value="OG Description" />
+                                                <textarea id="og_description" name="og_description" rows="2" x-bind:disabled="editingSection !== 'seo_media'"
+                                                    class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-600 resize-none"
+                                                    x-bind:class="editingSection !== 'seo_media'
+                                                        ?
+                                                        'bg-gray-100 dark:bg-gray-700 cursor-not-allowed opacity-75' :
+                                                        'bg-white dark:bg-gray-800'">{{ old('og_description') }}</textarea>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Twitter -->
+                                    <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+
+                                        <h4
+                                            class="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-blue-600 dark:text-blue-500" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                            </svg>
+                                            Twitter Card
+                                        </h4>
+
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                                            <!-- Twitter Title -->
+                                            <div>
+                                                <x-input-label for="twitter_title" value="Twitter Title" />
+                                                <x-text-input id="twitter_title" name="twitter_title" type="text"
+                                                    x-bind:disabled="editingSection !== 'seo_media'"
+                                                    class="mt-2 block w-full"
+                                                    x-bind:class="editingSection !== 'seo_media'
+                                                        ?
+                                                        'bg-gray-100 dark:bg-gray-700 cursor-not-allowed opacity-75' :
+                                                        'bg-white dark:bg-gray-800'"
+                                                    :value="old('twitter_title')" />
+                                            </div>
+
+                                            <!-- Twitter Image -->
+                                            <div>
+                                                <x-input-label for="twitter_image" value="Twitter Image" />
+                                                <input type="file" id="twitter_image" name="twitter_image"
+                                                    accept="image/*" x-bind:disabled="editingSection !== 'seo_media'"
+                                                    class="mt-2 block w-full file:py-2 file:px-4"
+                                                    x-bind:class="editingSection !== 'seo_media'
+                                                        ?
+                                                        'cursor-not-allowed opacity-75' :
+                                                        'cursor-pointer'" />
+                                            </div>
+
+                                            <!-- Twitter Description -->
+                                            <div class="md:col-span-2">
+                                                <x-input-label for="twitter_description"
+                                                    value="Twitter Description" />
+                                                <textarea id="twitter_description" name="twitter_description" rows="2"
+                                                    x-bind:disabled="editingSection !== 'seo_media'"
+                                                    class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-600 resize-none"
+                                                    x-bind:class="editingSection !== 'seo_media'
+                                                        ?
+                                                        'bg-gray-100 dark:bg-gray-700 cursor-not-allowed opacity-75' :
+                                                        'bg-white dark:bg-gray-800'">{{ old('twitter_description') }}</textarea>
+                                            </div>
+
+                                        </div>
                                     </div>
 
                                     <!-- Save Button -->
-                                    <div class="pt-4" x-show="editingSection === 'seo'">
+                                    <div class="pt-4" x-show="editingSection === 'seo_media'">
                                         <button type="submit"
                                             class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-all duration-200">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
@@ -264,6 +417,7 @@
                                             Save Changes
                                         </button>
                                     </div>
+
                                 </div>
                             </div>
 

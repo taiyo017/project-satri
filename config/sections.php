@@ -192,6 +192,16 @@ return [
                 ['key' => 'text', 'type' => 'text', 'label' => 'Button Text'],
                 ['key' => 'url', 'type' => 'url', 'label' => 'Button URL'],
             ]],
+            [
+                'key' => 'features',
+                'type' => 'repeater',
+                'label' => 'Key Features',
+                'fields' => [
+                    ['key' => 'icon', 'type' => 'text', 'label' => 'Icon (class or URL)'],
+                    ['key' => 'title', 'type' => 'text', 'label' => 'Feature Title'],
+                    ['key' => 'content', 'type' => 'textarea', 'label' => 'Feature Description'],
+                ],
+            ],
         ],
     ],
 

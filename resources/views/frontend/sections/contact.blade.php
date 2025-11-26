@@ -4,6 +4,9 @@
     $fields = $section->fields->pluck('field_value', 'field_key')->toArray();
     $heading = $fields['heading'] ?? 'Contact Us';
     $subheading = $fields['subheading'] ?? 'We would love to hear from you.';
+    $content =
+        $fields['content'] ??
+        'Feel free to reach out to us with any questions, comments, or inquiries you may have. Our team is here to assist you and provide the information you need.';
 @endphp
 
 <section
@@ -36,6 +39,11 @@
             <h2 class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
                 {{ $heading }}
             </h2>
+
+            @if ($content)
+                <div class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400">{!! $content !!}
+                </div>
+            @endif
         </div>
 
         {{-- Validation Errors --}}
