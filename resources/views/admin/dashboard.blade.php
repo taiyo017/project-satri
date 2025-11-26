@@ -103,12 +103,12 @@
             {{-- Quick Actions --}}
             <div class="mb-8">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Quick Actions</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 dark:bg-gray-900">
                     <a href="{{ route('pages.create') }}"
-                        class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100 hover:border-[#1A66C5]">
+                        class="group bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100 dark:border-gray-800 hover:border-[#1A66C5]">
                         <div class="flex items-center space-x-4">
                             <div
-                                class="p-3 rounded-lg bg-blue-50 group-hover:bg-[#1A66C5] transition-colors duration-300">
+                                class="p-3 rounded-lg bg-blue-50  group-hover:bg-[#1A66C5] transition-colors duration-300">
                                 <svg class="h-6 w-6 text-[#1A66C5] group-hover:text-white" fill="none"
                                     stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -116,14 +116,14 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="font-semibold text-gray-900">New Page</p>
+                                <p class="font-semibold text-gray-900 dark:text-gray-200">New Page</p>
                                 <p class="text-sm text-gray-500">Create content</p>
                             </div>
                         </div>
                     </a>
 
                     <a href="{{ route('pages.index') }}"
-                        class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100 hover:border-[#1A66C5]">
+                        class="group bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100 dark:border-gray-800 hover:border-[#1A66C5]">
                         <div class="flex items-center space-x-4">
                             <div
                                 class="p-3 rounded-lg bg-blue-50 group-hover:bg-[#1A66C5] transition-colors duration-300">
@@ -134,14 +134,14 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="font-semibold text-gray-900">All Pages</p>
+                                <p class="font-semibold text-gray-900 dark:text-gray-200">All Pages</p>
                                 <p class="text-sm text-gray-500">Manage content</p>
                             </div>
                         </div>
                     </a>
 
                     <a href="{{ route('contacts.index') }}"
-                        class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100 hover:border-[#1A66C5]">
+                        class="group bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100 dark:border-gray-800 hover:border-[#1A66C5]">
                         <div class="flex items-center space-x-4">
                             <div
                                 class="p-3 rounded-lg bg-blue-50 group-hover:bg-[#1A66C5] transition-colors duration-300">
@@ -152,14 +152,14 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="font-semibold text-gray-900">Messages</p>
+                                <p class="font-semibold text-gray-900 dark:text-gray-200">Messages</p>
                                 <p class="text-sm text-gray-500">View inquiries</p>
                             </div>
                         </div>
                     </a>
 
                     <a href="{{ route('settings.index') }}"
-                        class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100 hover:border-[#1A66C5]">
+                        class="group bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100 dark:border-gray-800 hover:border-[#1A66C5]">
                         <div class="flex items-center space-x-4">
                             <div
                                 class="p-3 rounded-lg bg-blue-50 group-hover:bg-[#1A66C5] transition-colors duration-300">
@@ -172,7 +172,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="font-semibold text-gray-900">Settings</p>
+                                <p class="font-semibold text-gray-900 dark:text-gray-200">Settings</p>
                                 <p class="text-sm text-gray-500">Site config</p>
                             </div>
                         </div>
@@ -184,7 +184,8 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                 {{-- Activity Timeline --}}
-                <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <div
+                    class="lg:col-span-2 bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-800">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>
                         <span class="text-sm text-gray-500">Last 10 activities</span>
@@ -194,7 +195,7 @@
                         <div class="space-y-4">
                             @foreach ($activities as $act)
                                 <div
-                                    class="flex items-start space-x-4 p-4 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                                    class="flex items-start space-x-4 p-4 rounded-lg hover:bg-blue-400 transition-colors duration-200">
                                     <div class="flex-shrink-0 mt-1">
                                         @if ($act['type'] === 'page')
                                             <div class="p-2 rounded-lg bg-blue-50">
@@ -217,7 +218,8 @@
                                         @endif
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate">
+                                        <p
+                                            class="text-sm font-medium text-gray-900 dark:text-gray-200 hover:text-blue-600 truncate">
                                             {{ $act['title'] }}
                                         </p>
                                         <p class="text-sm text-gray-500">
@@ -232,7 +234,7 @@
                                             </span>
                                         @else
                                             <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100  text-green-800">
                                                 Message
                                             </span>
                                         @endif
@@ -256,9 +258,10 @@
                 <div class="space-y-6">
 
                     {{-- Recent Pages --}}
-                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                    <div
+                        class="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-800">
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-lg font-semibold text-gray-900">Recent Pages</h3>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-200">Recent Pages</h3>
                             <a href="{{ route('pages.index') }}"
                                 class="text-sm text-[#1A66C5] hover:text-[#2E7FDB] font-medium">
                                 View all
@@ -272,7 +275,7 @@
                                         <a href="{{ route('pages.edit', $page->id) }}"
                                             class="block p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200 group">
                                             <p
-                                                class="text-sm font-medium text-gray-900 group-hover:text-[#1A66C5] truncate">
+                                                class="text-sm font-medium text-gray-900 dark:text-gray-200 group-hover:text-[#1A66C5] truncate">
                                                 {{ $page->title }}
                                             </p>
                                             <p class="text-xs text-gray-500 mt-1">
@@ -295,7 +298,8 @@
                     </div>
 
                     {{-- New Messages --}}
-                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                    <div
+                        class="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-800">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-semibold text-gray-900">Unread Messages</h3>
                             <a href="{{ route('contacts.index') }}"
@@ -312,7 +316,7 @@
                                             class="block p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200 group">
                                             <div class="flex items-start justify-between">
                                                 <p
-                                                    class="text-sm font-medium text-gray-900 group-hover:text-[#1A66C5] truncate flex-1">
+                                                    class="text-sm font-medium text-gray-900 dark:text-gray-200 group-hover:text-[#1A66C5] truncate flex-1">
                                                     {{ $msg->subject ?? 'No Subject' }}
                                                 </p>
                                                 <span
