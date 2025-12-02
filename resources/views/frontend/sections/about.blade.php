@@ -32,8 +32,7 @@
                 @endif
 
                 @if ($content)
-                    <div
-                        class="text-[16px] leading-[26px] mt-0 mb-4 text-gray-600 dark:text-gray-400 {{ !$image ? 'max-w-3xl mx-auto' : '' }}">
+                    <div class="text-[16px] sm:text-[16px] leading-[28px] text-gray-600 dark:text-gray-400 text-justify">
                         {!! $content !!}
                     </div>
                 @endif

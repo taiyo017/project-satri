@@ -104,7 +104,7 @@
             </div>
             <div class="px-6 sm:px-10 md:px-16 py-2">
                 @if ($fields['content'])
-                    <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
+                    <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400 text-justify">
                         {!! $fields['content'] !!}
                     </div>
                 @endif

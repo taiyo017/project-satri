@@ -67,7 +67,7 @@
                 @endif
 
                 @if (!empty($initialParagraphs))
-                    <div class="space-y-4 text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
+                    <div class="space-y-4 text-[16px] leading-[26px] text-gray-600 dark:text-gray-400 text-justify">
                         @foreach ($initialParagraphs as $para)
                             <p>{!! $para['paragraph'] !!}</p>
                         @endforeach
@@ -98,7 +98,8 @@
 
         {{-- Remaining Paragraphs - Full Width --}}
         @if (!empty($remainingParagraphs))
-            <div class="bg-white dark:bg-gray-900 rounded-xl p-8 border border-gray-100 dark:border-gray-800">
+            <div
+                class="bg-white dark:bg-gray-900 rounded-xl p-8 border border-gray-100 dark:border-gray-800 text-justify">
                 <div class="space-y-4 text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
                     @foreach ($remainingParagraphs as $para)
                         <p>{!! $para['paragraph'] !!}</p>
@@ -193,7 +194,7 @@
                         </div>
                     </div>
                     @if (!empty($mission['content']))
-                        <p class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
+                        <p class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400 text-justify">
                             {!! $mission['content'] !!}
                         </p>
                     @endif
@@ -237,7 +238,7 @@
                         </div>
                     </div>
                     @if (!empty($vision['content']))
-                        <p class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
+                        <p class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400 text-justify">
                             {!! $vision['content'] !!}
                         </p>
                     @endif

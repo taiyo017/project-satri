@@ -31,7 +31,7 @@
         </div>
         <div class="px-6 sm:px-10 md:px-16 py-2">
             @if ($content)
-                <div class="text-[16px] leading-[26px] mt-0 mb-4 text-gray-600 dark:text-gray-400">
+                <div class="text-[16px] sm:text-[16px] leading-[28px] text-gray-600 dark:text-gray-400 text-justify">
                     {!! $content !!}
                 </div>
             @endif

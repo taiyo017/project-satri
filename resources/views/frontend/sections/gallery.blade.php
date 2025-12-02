@@ -61,7 +61,8 @@
             </div>
             <div class="px-6 sm:px-10 md:px-16 pb-8">
                 @if ($content)
-                    <div class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400">{!! $content !!}
+                    <div class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400 text-justify">
+                        {!! $content !!}
                     </div>
                 @endif
             </div>

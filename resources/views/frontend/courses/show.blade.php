@@ -154,7 +154,7 @@
                             <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">About This Course</h2>
                         </div>
                         <div
-                            class="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
+                            class="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 text-justify">
                             {!! $course->description !!}
                         </div>
                     </div>

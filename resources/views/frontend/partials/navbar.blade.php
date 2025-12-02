@@ -15,7 +15,7 @@
     isAboutOpen: false,
     activeDropdown: null
 }" @click.away="activeDropdown = null"
-    class="sticky top-0 z-50 bg-gradient-to-r from-[#1363C6] to-[#0d4a94] backdrop-blur-md shadow-lg transition-all duration-300">
+    class="sticky top-0 z-50 bg-gradient-to-r from-[#1363C6] to-[#0d4a94] backdrop-blur-md dark:bg-gray-900 shadow-lg transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
 

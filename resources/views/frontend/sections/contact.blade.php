@@ -41,7 +41,8 @@
             </h2>
 
             @if ($content)
-                <div class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400">{!! $content !!}
+                <div class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400 text-justify">
+                    {!! $content !!}
                 </div>
             @endif
         </div>
