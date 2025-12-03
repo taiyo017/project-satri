@@ -28,7 +28,7 @@
     <div class="max-w-7xl mx-auto relative">
 
         {{-- Section Header --}}
-        <div class="text-center max-w-3xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-4">
             @if ($subtitle)
                 <span
                     class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm tracking-wide font-semibold
@@ -45,21 +45,25 @@
                     {{ strtoupper($subtitle) }}
                 </span>
             @endif
+        </div>
 
+        @if ($contents)
+            <div class="max-w-7xl mx-auto mb-8">
+                <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400 text-justify">
+                    {!! $contents !!}
+                </div>
+            </div>
+        @endif
+
+        <div class="text-center max-w-3xl mx-auto">
             @if ($heading)
                 <h2 class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
                     {{ $heading }}
                 </h2>
             @endif
+        </div>
 
-        </div>
-        <div class="px-6 sm:px-10 md:px-16 pb-8">
-            @if ($contents)
-                <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400 text-justify">
-                    {!! $contents !!}
-                </div>
-            @endif
-        </div>
+
 
         <div x-data="{ activeTab: 'All' }">
 

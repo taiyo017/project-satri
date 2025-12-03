@@ -9,11 +9,14 @@
     $buttons = isset($fields['buttons']) ? json_decode($fields['buttons'], true) : [];
     $image = $fields['background'] ?? ($fields['image'] ?? null);
     $imageUrl = asset('storage/' . $image);
+
+    $content_image_field = $fields['image'] ?? null;
+    $contentImageUrl = asset('storage/' . $content_image_field);
     $textAlign = $fields['text_align'] ?? 'center';
 @endphp
 
 <section
-    class="relative bg-gradient-to-br from-[#1363C6] via-[#115CB8] to-[#0D4A8F] dark:bg-gray-900 overflow-hidden flex items-center justify-center min-h-[250px] md:min-h-[250px] lg:min-h-[350px] py-14 md:py-12 lg:py-20"
+    class="relative bg-[#1363C6] dark:bg-gray-900 overflow-hidden flex items-center justify-center min-h-[250px] md:min-h-[250px] lg:min-h-[350px] py-14 md:py-12 lg:py-20"
     aria-label="{{ $title ?: 'Hero Section' }}">
 
     {{-- Background Image with Parallax --}}
@@ -106,38 +109,11 @@
                 </div>
             @endif
 
-            {{-- Trust Indicators / Stats with Primary Color Accents --}}
-            @if (isset($fields['show_stats']) && $fields['show_stats'])
-                <div class="scroll-reveal border-t border-white/20" style="padding-top: 48px; margin-top: 32px;">
-                    <div class="grid grid-cols-3 gap-8 md:gap-12">
-                        <div class="text-center">
-                            <div class="font-bold text-white mb-2" style="font-size: 44px; line-height: 52px;">
-                                500<span class="text-[#4CAFF9]">+</span>
-                            </div>
-                            <div class="text-white/80" style="font-size: 16px; line-height: 24px;">Happy Clients</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="font-bold text-white mb-2" style="font-size: 44px; line-height: 52px;">
-                                1000<span class="text-[#4CAFF9]">+</span>
-                            </div>
-                            <div class="text-white/80" style="font-size: 16px; line-height: 24px;">Projects Done</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="font-bold text-white mb-2" style="font-size: 44px; line-height: 52px;">
-                                98<span class="text-[#4CAFF9]">%</span>
-                            </div>
-                            <div class="text-white/80" style="font-size: 16px; line-height: 24px;">Satisfaction</div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
         </div>
     </div>
 
 </section>
 
-{{-- Optimized Scripts --}}
 <script>
     (function() {
         'use strict';

@@ -24,7 +24,7 @@ class TeamMemberController extends Controller
         $data = $request->validate([
             'name'            => 'required|string|max:255',
             'designation'     => 'nullable|string|max:255',
-            'bio'             => 'nullable|max:24',
+            'bio'             => 'nullable|max:255',
             'photo'           => 'nullable|image|max:2048',
             'social_links'    => 'nullable|array',
             'order_index'     => 'nullable|integer',
@@ -54,7 +54,7 @@ class TeamMemberController extends Controller
         $data = $request->validate([
             'name'            => 'required|string|max:255',
             'designation'     => 'nullable|string|max:255',
-            'bio'             => 'nullable',
+            'bio'             => 'nullable|max:255',
             'photo'           => 'nullable|image|max:2048',
             'social_links'    => 'nullable|array',
             'order_index'     => 'nullable|integer',

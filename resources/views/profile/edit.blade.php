@@ -7,6 +7,13 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            @foreach (['success', 'error'] as $msg)
+                @if (session($msg))
+                    <div class="mb-4">
+                        <x-alert type="{{ $msg }}" :message="session($msg)" dismissible="true" />
+                    </div>
+                @endif
+            @endforeach
             <div class="p-4 sm:p-8 dark:bg-[#1F2937] shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.update-profile-information-form')

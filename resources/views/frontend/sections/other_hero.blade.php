@@ -20,8 +20,7 @@
 
     @if ($imageUrl)
         <div class="absolute inset-0 z-0 hero-parallax">
-            <img src="{{ $imageUrl }}"
-                class="w-full h-full object-cover object-center blur-[3px] opacity-85 transition-opacity duration-500"
+            <img src="{{ $imageUrl }}" class="w-full h-full object-cover object-center  opacity-15"
                 alt="{{ $title }} Background">
 
         </div>
@@ -74,9 +73,8 @@
             {{-- Right Column: Optional Image (Hidden on mobile) --}}
             @if ($contentImageUrl)
                 <div class="lg:col-span-4 hidden lg:block scroll-reveal" style="animation-delay: 0.4s;">
-                    {{-- Optional Image Display (Right-Aligned, Best Size/Look) --}}
                     <img src="{{ $contentImageUrl }}" alt="{{ $title }} Visual"
-                        class="w-full max-h-[300px] object-contain object-right mx-auto drop-shadow-2xl rounded-lg border-2 border-white/10" />
+                        class="w-full max-h-[300px] object-contain object-right mx-auto drop-shadow-2xl rounded-lg" />
                 </div>
             @endif
 
@@ -110,22 +108,77 @@
 
 <script>
     (function() {
-        const revealEls = document.querySelectorAll(".scroll-reveal");
+        'use strict';
 
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("opacity-100", "translate-y-0");
-                    entry.target.classList.remove("opacity-0", "translate-y-4");
-                }
-            });
-        }, {
-            threshold: 0.1
+        // Smooth Parallax Effect
+        let ticking = false;
+        const parallaxBg = document.querySelector('.hero-parallax');
+
+        function updateParallax() {
+            if (parallaxBg) {
+                const scrolled = window.pageYOffset;
+                const parallaxSpeed = 0.3;
+                parallaxBg.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+            }
+            ticking = false;
+        }
+
+        function requestTick() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', requestTick, {
+            passive: true
         });
 
-        revealEls.forEach(el => {
-            el.classList.add("opacity-0", "translate-y-4", "transition-all", "duration-700");
-            observer.observe(el);
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-6');
+                    }, index * 150);
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Initialize reveal elements
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+        revealElements.forEach(el => {
+            el.classList.add('opacity-0', 'translate-y-6', 'transition-all', 'duration-700', 'ease-out');
+            revealObserver.observe(el);
+        });
+
+        // Cleanup
+        window.addEventListener('beforeunload', () => {
+            revealObserver.disconnect();
         });
     })();
 </script>
+
+<style>
+    .scroll-reveal {
+        will-change: opacity, transform;
+    }
+
+    .hero-parallax {
+        will-change: transform;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 32px !important;
+            line-height: 40px !important;
+        }
+    }
+</style>

@@ -26,7 +26,7 @@
 @endphp
 
 <section
-    class="relative py-8 lg:py-12 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 overflow-hidden">
+    class="relative py-4 lg:py-12 px-6 sm:px-10 lg:px-14 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 overflow-hidden">
 
     {{-- Decorative background --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -38,7 +38,24 @@
 
         {{-- Section Header --}}
         @if ($title || $subtitle || $content)
-            <div class="text-center max-w-3xl mx-auto ">
+            <div class="text-center max-w-3xl mx-auto pb-4">
+                @if ($title)
+                    <h2 class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
+                        {{ $title }}
+                    </h2>
+                @endif
+
+            </div>
+
+            @if ($content)
+                <div class=" max-w-7xl mx-auto pb-8 ">
+                    <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400 text-justify">
+                        {!! $content !!}
+                    </div>
+                </div>
+            @endif
+
+            <div class="text-center max-w-3xl mx-auto pb-8">
 
                 @if ($subtitle)
                     <span
@@ -52,20 +69,6 @@
                         </svg>
                         {{ $subtitle }}
                     </span>
-                @endif
-
-                @if ($title)
-                    <h2 class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
-                        {{ $title }}
-                    </h2>
-                @endif
-
-            </div>
-            <div class="px-6 sm:px-10 md:px-16 py-2">
-                @if ($content)
-                    <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400 text-justify">
-                        {!! $content !!}
-                    </div>
                 @endif
             </div>
         @endif

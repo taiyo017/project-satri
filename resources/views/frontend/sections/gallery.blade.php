@@ -38,7 +38,7 @@
 
         {{-- Section Header --}}
         @if ($title || $subtitle || $content)
-            <div class="text-center max-w-3xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-4">
                 @if ($subtitle)
                     <span
                         class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold tracking-wide
@@ -51,21 +51,25 @@
                         {{ $subtitle }}
                     </span>
                 @endif
+            </div>
 
+            @if ($content)
+                <div class="max-w-7xl mx-auto mb-4">
+                    <div class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400 text-justify">
+                        {!! $content !!}
+                    </div>
+                </div>
+            @endif
+
+            <div class="text-center max-w-3xl mx-auto mb-8">
                 @if ($title)
                     <h2 class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
                         {{ $title }}
                     </h2>
                 @endif
+            </div>
 
-            </div>
-            <div class="px-6 sm:px-10 md:px-16 pb-8">
-                @if ($content)
-                    <div class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400 text-justify">
-                        {!! $content !!}
-                    </div>
-                @endif
-            </div>
+
         @endif
 
         {{-- Galleries Grid --}}
