@@ -37,7 +37,7 @@
 
         {{-- Section Header --}}
         @if ($title || $subtitle || $content)
-            <div class="text-center max-w-3xl mx-auto mb-2">
+            <div class="text-center max-w-3xl mx-auto mb-4">
 
                 @if ($subtitle)
                     <span

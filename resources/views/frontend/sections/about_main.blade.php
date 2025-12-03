@@ -27,8 +27,8 @@
 
     {{-- Decorative background --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-20 right-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 left-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-20 right-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl animate-bg-1"></div>
+        <div class="absolute bottom-20 left-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl animate-bg-2"></div>
     </div>
 
     <div class="max-w-7xl mx-auto relative space-y-16">
@@ -38,7 +38,7 @@
 
             {{-- Image Section --}}
             @if (!empty($image))
-                <div class="relative group">
+                <div class="relative group animate-image">
                     <div class="relative rounded-2xl overflow-hidden shadow-xl shadow-gray-900/10 dark:shadow-black/30">
                         <img src="{{ asset('storage/' . $image) }}" alt="{{ $title }}"
                             class="w-full h-[420px] object-cover group-hover:scale-105 transition-transform duration-700">
@@ -55,21 +55,21 @@
             {{-- Text Content --}}
             <div class="space-y-5">
                 @if ($title)
-                    <h1 class="text-[40px] font-extrabold text-gray-900 dark:text-white leading-tight">
+                    <h1 class="text-[40px] font-extrabold text-gray-900 dark:text-white leading-tight animate-title">
                         {{ $title }}
                     </h1>
                 @endif
 
                 @if ($subtitle)
-                    <p class="text-[20px] text-gray-600 dark:text-gray-400 font-medium">
+                    <p class="text-[20px] text-[#1363C6] dark:text-[#4a8dd8]  font-medium animate-subtitle">
                         {{ $subtitle }}
                     </p>
                 @endif
 
                 @if (!empty($initialParagraphs))
                     <div class="space-y-4 text-[16px] leading-[26px] text-gray-600 dark:text-gray-400 text-justify">
-                        @foreach ($initialParagraphs as $para)
-                            <p>{!! $para['paragraph'] !!}</p>
+                        @foreach ($initialParagraphs as $index => $para)
+                            <p class="animate-paragraph" data-index="{{ $index }}">{!! $para['paragraph'] !!}</p>
                         @endforeach
                     </div>
                 @endif
@@ -77,13 +77,14 @@
                 {{-- Buttons --}}
                 @if (!empty($buttons))
                     <div class="flex flex-wrap gap-4 pt-2">
-                        @foreach ($buttons as $button)
+                        @foreach ($buttons as $index => $button)
                             <a href="{{ $button['url'] ?? '#' }}"
                                 class="inline-flex items-center gap-2 px-6 py-3 
                                 bg-gradient-to-r from-[#1363C6] to-[#0d4a94] 
                                 text-white font-semibold rounded-lg 
                                 hover:shadow-lg hover:shadow-[#1363C6]/30 
-                                transition-all duration-300 hover:scale-105">
+                                transition-all duration-300 hover:scale-105 animate-button"
+                                data-index="{{ $index }}">
                                 <span>{{ $button['text'] }}</span>
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -98,9 +99,9 @@
 
         {{-- Remaining Paragraphs - Full Width --}}
         @if (!empty($remainingParagraphs))
-            <div
-                class="bg-white dark:bg-gray-900 rounded-xl p-8 border border-gray-100 dark:border-gray-800 text-justify">
-                <div class="space-y-4 text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
+            <div class="dark:bg-gray-900 rounded-xl p-8 text-justify
+                animate-remaining-content">
+                <div class=" text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
                     @foreach ($remainingParagraphs as $para)
                         <p>{!! $para['paragraph'] !!}</p>
                     @endforeach
@@ -111,7 +112,7 @@
         {{-- Features Section (Icon + Title Only) --}}
         @if (!empty($features))
             <div>
-                <div class="text-center mb-8 ">
+                <div class="text-center mb-8 animate-features-badge">
                     <span
                         class="inline-flex items-center gap-2 px-5 py-2 mt-3 rounded-full text-sm tracking-wide font-semibold
                         bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8]
@@ -125,17 +126,24 @@
                     </span>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
-                    @foreach ($features as $feature)
-                        <div
-                            class="group relative bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800  hover:border-[#1363C6]/40 dark:hover:border-[#1363C6]/50 hover:shadow-lg hover:shadow-[#1363C6]/5 transition-all duration-300 hover:-translate-y-0.5">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    @foreach ($features as $index => $feature)
+                        <div class="animate-feature group relative p-6 rounded-xl bg-white dark:bg-gray-900 
+                        border border-gray-200 dark:border-gray-800 
+                        hover:border-[#1363C6]/30 dark:hover:border-[#1363C6]/40 
+                        shadow-sm hover:shadow-lg hover:shadow-[#1363C6]/5 dark:hover:shadow-[#1363C6]/10 
+                        transition-all duration-300 opacity-0"
+                            data-index="{{ $index }}">
 
                             <div class="flex items-center gap-3 justify-center">
 
                                 @if (!empty($feature['icon']))
                                     <div
-                                        class="w-8 h-8 flex items-center justify-center rounded-lg  bg-gradient-to-br from-[#1363C6] to-[#0d4a94] text-white text-[16px]  group-hover:scale-110 transition-transform duration-300">
-                                        <i class="{{ $feature['icon'] }}"></i>
+                                        class="w-8 h-8 flex items-center justify-center rounded-lg 
+                    bg-gradient-to-br from-[#1363C6] to-[#0d4a94] text-white text-[16px]
+                    transition-transform duration-300 group-hover:scale-110">
+
+                                        <i class="{{ $feature['icon'] }} text-white text-lg"></i>
                                     </div>
                                 @endif
 
@@ -161,12 +169,12 @@
 
             {{-- Mission --}}
             @if (!empty($mission))
-                <div
-                    class="group relative bg-white dark:bg-gray-900 rounded-xl p-6 
-                    border border-gray-100 dark:border-gray-800 
-                    hover:border-[#1363C6]/40 dark:hover:border-[#1363C6]/50 
-                    hover:shadow-lg hover:shadow-[#1363C6]/5 
-                    transition-all duration-300">
+                <div class="animate-mission group relative p-6 rounded-xl bg-white dark:bg-gray-900 
+                        border border-gray-200 dark:border-gray-800 
+                        hover:border-[#1363C6]/30 dark:hover:border-[#1363C6]/40 
+                        shadow-sm hover:shadow-lg hover:shadow-[#1363C6]/5 dark:hover:shadow-[#1363C6]/10 
+                        transition-all duration-300 opacity-0"
+                    data-index="{{ $index }}">
 
                     <div class="flex items-start gap-4 mb-4">
                         <div
@@ -203,12 +211,12 @@
 
             {{-- Vision --}}
             @if (!empty($vision))
-                <div
-                    class="group relative bg-white dark:bg-gray-900 rounded-xl p-6 
-                    border border-gray-100 dark:border-gray-800 
-                    hover:border-[#1363C6]/40 dark:hover:border-[#1363C6]/50 
-                    hover:shadow-lg hover:shadow-[#1363C6]/5 
-                    transition-all duration-300">
+                <div class="animate-vision group relative p-6 rounded-xl bg-white dark:bg-gray-900 
+                        border border-gray-200 dark:border-gray-800 
+                        hover:border-[#1363C6]/30 dark:hover:border-[#1363C6]/40 
+                        shadow-sm hover:shadow-lg hover:shadow-[#1363C6]/5 dark:hover:shadow-[#1363C6]/10 
+                        transition-all duration-300 opacity-0"
+                    data-index="{{ $index }}">
 
                     <div class="flex items-start gap-4 mb-4">
                         <div
@@ -248,3 +256,179 @@
 
     </div>
 </section>
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Set initial states (invisible and shifted down)
+            gsap.set(
+                '.animate-title, .animate-subtitle, .animate-paragraph, .animate-button, .animate-image, .animate-remaining-content, .animate-features-badge, .animate-feature, .animate-mission, .animate-vision', {
+                    opacity: 0,
+                    y: 40
+                });
+
+            // Background animations (subtle floating)
+            gsap.to('.animate-bg-1', {
+                y: -20,
+                x: -10,
+                duration: 6,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power1.inOut'
+            });
+
+            gsap.to('.animate-bg-2', {
+                y: 20,
+                x: 10,
+                duration: 7,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power1.inOut'
+            });
+
+            // Hero Section - Image
+            gsap.to('.animate-image', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-image',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Hero Section - Title
+            gsap.to('.animate-title', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: 0.1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-title',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Hero Section - Subtitle
+            gsap.to('.animate-subtitle', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: 0.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-subtitle',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Hero Section - Paragraphs (stagger)
+            document.querySelectorAll('.animate-paragraph').forEach((el, index) => {
+                gsap.to(el, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: 0.3 + (index * 0.1),
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+
+            // Hero Section - Buttons
+            document.querySelectorAll('.animate-button').forEach((el, index) => {
+                gsap.to(el, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: 0.5 + (index * 0.1),
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+
+            // Remaining Content
+            gsap.to('.animate-remaining-content', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-remaining-content',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Features Badge
+            gsap.to('.animate-features-badge', {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-features-badge',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Features Grid (stagger)
+            document.querySelectorAll('.animate-feature').forEach((el, index) => {
+                gsap.to(el, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: index * 0.08,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+
+            // Mission Card
+            gsap.to('.animate-mission', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-mission',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Vision Card
+            gsap.to('.animate-vision', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: 0.15,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-vision',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+    </script>
+@endpush

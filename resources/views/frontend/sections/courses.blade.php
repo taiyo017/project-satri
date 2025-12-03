@@ -30,8 +30,9 @@
 
     {{-- Decorative background --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 right-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-20 left-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl animate-course-bg-1"></div>
+        <div class="absolute bottom-20 right-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl animate-course-bg-2">
+        </div>
     </div>
 
     <div class="max-w-7xl mx-auto relative">
@@ -40,7 +41,8 @@
         @if ($title || $subtitle || $content)
             <div class="text-center max-w-3xl mx-auto pb-4">
                 @if ($title)
-                    <h2 class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
+                    <h2
+                        class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight animate-course-title">
                         {{ $title }}
                     </h2>
                 @endif
@@ -48,7 +50,7 @@
             </div>
 
             @if ($content)
-                <div class=" max-w-7xl mx-auto pb-8 ">
+                <div class="max-w-7xl mx-auto pb-8 animate-course-content">
                     <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400 text-justify">
                         {!! $content !!}
                     </div>
@@ -62,7 +64,7 @@
                         class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm tracking-wide font-semibold
                         bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8]
                         border border-[#1363C6]/20 dark:border-[#1363C6]/30
-                        shadow-sm shadow-[#1363C6]/10">
+                        shadow-sm shadow-[#1363C6]/10 animate-course-subtitle">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                             <path
                                 d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
@@ -76,14 +78,14 @@
         {{-- Courses Grid --}}
         @if ($displayCourses->count())
             <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-12 pt-8">
-                @foreach ($displayCourses as $course)
-                    <div
-                        class="group bg-white dark:bg-gray-900 rounded-xl overflow-hidden 
+                @foreach ($displayCourses as $index => $course)
+                    <div class="group bg-white dark:bg-gray-900 rounded-xl overflow-hidden 
                         border border-gray-100 dark:border-gray-800 
                         hover:border-[#1363C6]/40 dark:hover:border-[#1363C6]/50 
                         transition-all duration-300 
                         hover:shadow-lg hover:shadow-[#1363C6]/5 
-                        hover:-translate-y-0.5">
+                        hover:-translate-y-0.5 animate-course-card"
+                        data-course-index="{{ $index }}">
 
                         {{-- Course Image --}}
                         <div
@@ -180,7 +182,7 @@
 
             {{-- Pagination for Full Page (Left Aligned) --}}
             @if ($fullPage && method_exists($courses, 'links'))
-                <div class="mt-12">
+                <div class="mt-12 animate-course-pagination">
                     {{ $courses->links() }}
                 </div>
             @endif
@@ -193,7 +195,7 @@
                         bg-gradient-to-r from-[#1363C6] to-[#0d4a94] 
                         text-white font-semibold rounded-xl 
                         hover:shadow-xl hover:shadow-[#1363C6]/30 
-                        transition-all duration-300 hover:scale-105 hover:from-[#0d4a94] hover:to-[#1363C6]">
+                        transition-all duration-300 hover:scale-105 hover:from-[#0d4a94] hover:to-[#1363C6] animate-course-action-btn">
                         <span>View Full Projects</span>
                         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -212,7 +214,7 @@
                         bg-gradient-to-r from-[#1363C6] to-[#0d4a94] 
                         text-white font-semibold rounded-lg 
                         hover:shadow-lg hover:shadow-[#1363C6]/30 
-                        transition-all duration-300 hover:scale-105">
+                        transition-all duration-300 hover:scale-105 animate-course-view-all">
                         <span>View All Courses ({{ $totalCoursesCount }})</span>
                         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -224,7 +226,7 @@
             @endif
         @else
             {{-- Empty State --}}
-            <div class="text-center py-20">
+            <div class="text-center py-20 animate-course-empty">
                 <div
                     class="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full mb-6">
                     <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -240,3 +242,147 @@
 
     </div>
 </section>
+
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Set initial states
+            gsap.set(
+                '.animate-course-title, .animate-course-content, .animate-course-subtitle, .animate-course-card, .animate-course-action-btn, .animate-course-view-all, .animate-course-pagination, .animate-course-empty', {
+                    opacity: 0,
+                    y: 40
+                });
+
+            // Background animations (subtle floating)
+            gsap.to('.animate-course-bg-1', {
+                y: 20,
+                x: 10,
+                duration: 7,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power1.inOut'
+            });
+
+            gsap.to('.animate-course-bg-2', {
+                y: -20,
+                x: -10,
+                duration: 6,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power1.inOut'
+            });
+
+            // Section Title
+            gsap.to('.animate-course-title', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-course-title',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Section Content
+            gsap.to('.animate-course-content', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: 0.1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-course-content',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Section Subtitle Badge
+            gsap.to('.animate-course-subtitle', {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                delay: 0.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-course-subtitle',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Course Cards (stagger animation)
+            document.querySelectorAll('.animate-course-card').forEach((card, index) => {
+                gsap.to(card, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.7,
+                    delay: index * 0.1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+
+            // Action Button (View Full Projects)
+            gsap.to('.animate-course-action-btn', {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-course-action-btn',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // View All Button
+            gsap.to('.animate-course-view-all', {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-course-view-all',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Pagination
+            gsap.to('.animate-course-pagination', {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-course-pagination',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Empty State
+            gsap.to('.animate-course-empty', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-course-empty',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+    </script>
+@endpush

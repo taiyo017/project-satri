@@ -21,8 +21,9 @@
 
     {{-- Decorative background --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 right-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-20 left-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl animate-career-bg-1"></div>
+        <div class="absolute bottom-20 right-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl animate-career-bg-2">
+        </div>
     </div>
 
     <div class="max-w-7xl mx-auto relative">
@@ -34,7 +35,7 @@
                     class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm tracking-wide font-semibold
                     bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8]
                     border border-[#1363C6]/20 dark:border-[#1363C6]/30
-                    shadow-sm shadow-[#1363C6]/10">
+                    shadow-sm shadow-[#1363C6]/10 animate-career-subtitle">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
                             d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
@@ -48,7 +49,7 @@
         </div>
 
         @if ($contents)
-            <div class="max-w-7xl mx-auto mb-8">
+            <div class="max-w-7xl mx-auto mb-8 animate-career-content">
                 <div class="text-[16px] leading-[26px] text-gray-600 dark:text-gray-400 text-justify">
                     {!! $contents !!}
                 </div>
@@ -57,7 +58,8 @@
 
         <div class="text-center max-w-3xl mx-auto">
             @if ($heading)
-                <h2 class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
+                <h2
+                    class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight animate-career-heading">
                     {{ $heading }}
                 </h2>
             @endif
@@ -70,11 +72,12 @@
             {{-- Category Filter Tabs --}}
             @if ($categories->count() > 0)
                 <div
-                    class="w-full sticky top-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md py-4 mb-10 border-y border-gray-100 dark:border-gray-800">
+                    class="w-full sticky top-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md py-4 mb-10 border-y border-gray-100 dark:border-gray-800 animate-career-tabs">
                     <div class="flex flex-wrap justify-center gap-3">
                         {{-- All Jobs Tab --}}
                         <button @click="activeTab = 'All'"
-                            class="px-4 py-2 rounded-lg font-semibold text-[15px] transition-all duration-300"
+                            class="px-4 py-2 rounded-lg font-semibold text-[15px] transition-all duration-300 animate-career-tab"
+                            data-tab-index="0"
                             :class="activeTab === 'All' ?
                                 'bg-[#1363C6] text-white shadow-md' :
                                 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-[#1363C6]/40'">
@@ -87,9 +90,10 @@
                         </button>
 
                         {{-- Dynamic Category Tabs --}}
-                        @foreach ($categories as $cat)
+                        @foreach ($categories as $index => $cat)
                             <button @click="activeTab = '{{ $cat }}'"
-                                class="px-4 py-2 rounded-lg font-semibold text-[15px] transition-all duration-300 capitalize"
+                                class="px-4 py-2 rounded-lg font-semibold text-[15px] transition-all duration-300 capitalize animate-career-tab"
+                                data-tab-index="{{ $index + 1 }}"
                                 :class="activeTab === '{{ $cat }}' ?
                                     'bg-[#1363C6] text-white shadow-md' :
                                     'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-[#1363C6]/40'">
@@ -107,11 +111,12 @@
 
             {{-- Job Listings Grid --}}
             <div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
-                @forelse ($jobs as $job)
+                @forelse ($jobs as $index => $job)
                     <div x-show="activeTab === 'All' || activeTab === '{{ $job->job_type }}'"
                         x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 transform scale-95"
-                        x-transition:enter-end="opacity-100 transform scale-100" class="group">
+                        x-transition:enter-end="opacity-100 transform scale-100" class="group animate-career-card"
+                        data-job-index="{{ $index }}">
 
                         {{-- Job Card --}}
                         <div
@@ -225,7 +230,7 @@
                 @empty
                     <div
                         class="col-span-full text-center py-20 bg-white dark:bg-gray-900 rounded-xl 
-                        border border-gray-100 dark:border-gray-800">
+                        border border-gray-100 dark:border-gray-800 animate-career-empty">
                         <div
                             class="inline-flex items-center justify-center w-16 h-16 rounded-full 
                             bg-gradient-to-br from-[#1363C6] to-[#0d4a94] mb-6 shadow-lg">
@@ -244,3 +249,136 @@
         </div>
     </div>
 </section>
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Set initial states
+            gsap.set(
+                '.animate-career-subtitle, .animate-career-content, .animate-career-heading, .animate-career-tabs, .animate-career-tab, .animate-career-card, .animate-career-empty', {
+                    opacity: 0,
+                    y: 40
+                });
+
+            // Background animations (subtle floating)
+            gsap.to('.animate-career-bg-1', {
+                y: -20,
+                x: -15,
+                duration: 8,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power1.inOut'
+            });
+
+            gsap.to('.animate-career-bg-2', {
+                y: 20,
+                x: 15,
+                duration: 7,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power1.inOut'
+            });
+
+            // Section Subtitle Badge
+            gsap.to('.animate-career-subtitle', {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-career-subtitle',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Section Content
+            gsap.to('.animate-career-content', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: 0.1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-career-content',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Section Heading
+            gsap.to('.animate-career-heading', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: 0.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-career-heading',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Category Tabs Container
+            gsap.to('.animate-career-tabs', {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-career-tabs',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Individual Tab Buttons (stagger)
+            document.querySelectorAll('.animate-career-tab').forEach((tab, index) => {
+                gsap.to(tab, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    delay: 0.3 + (index * 0.05),
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.animate-career-tabs',
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+
+            // Job Cards (stagger animation)
+            document.querySelectorAll('.animate-career-card').forEach((card, index) => {
+                gsap.to(card, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.7,
+                    delay: index * 0.08,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+
+            // Empty State
+            gsap.to('.animate-career-empty', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-career-empty',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+    </script>
+@endpush
