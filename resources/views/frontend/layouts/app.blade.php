@@ -231,9 +231,9 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
 
     {{-- Back to Top Button --}}
     <button id="back-to-top"
-        class="fixed bottom-8 right-8 z-40 p-4 bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-2xl shadow-lg shadow-blue-600/30 opacity-0 invisible transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-blue-600/40 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 group"
+        class="fixed bottom-8 right-8 z-40 p-2 bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-2xl shadow-lg shadow-blue-600/30 opacity-0 invisible transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-blue-600/40 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 group"
         aria-label="Back to top">
-        <svg class="w-6 h-6 transform group-hover:-translate-y-1 transition-transform" fill="none"
+        <svg class="w-4 h-4 transform group-hover:-translate-y-1 transition-transform" fill="none"
             stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
         </svg>
