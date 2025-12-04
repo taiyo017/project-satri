@@ -135,15 +135,13 @@
                         transition-all duration-300 opacity-0"
                             data-index="{{ $index }}">
 
-                            <div class="flex items-center gap-3 justify-center">
+                            <div class="flex items-center gap-3">
 
                                 @if (!empty($feature['icon']))
                                     <div
-                                        class="w-8 h-8 flex items-center justify-center rounded-lg 
-                    bg-gradient-to-br from-[#1363C6] to-[#0d4a94] text-white text-[16px]
-                    transition-transform duration-300 group-hover:scale-110">
+                                        class="w-8 h-8 flex items-center justify-center rounded-lg bg-gradient-to-br from-[#1363C6] to-[#0d4a94] text-white text-[16px]transition-transform duration-300 group-hover:scale-110">
 
-                                        <i class="{{ $feature['icon'] }} text-white text-lg"></i>
+                                        <i class="{{ $feature['icon'] }} text-white text-sm "></i>
                                     </div>
                                 @endif
 

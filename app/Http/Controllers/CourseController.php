@@ -120,9 +120,9 @@ class CourseController extends Controller
             'image'             => 'nullable|image|max:2048',
             'syllabus'          => 'nullable|array',
             'syllabus.*.id'     => 'nullable|exists:course_syllabuses,id',
-            'syllabus.*.title'  => 'required|string|max:255',
+            'syllabus.*.title'  => 'nullable|string|max:255',
             'syllabus.*.content' => 'nullable|string',
-            'syllabus.*.file_path'   => 'required|file|mimes:pdf,doc,docx',
+            'syllabus.*.file_path'   => 'nullable|file|mimes:pdf,doc,docx',
         ]);
 
         // Handle image
