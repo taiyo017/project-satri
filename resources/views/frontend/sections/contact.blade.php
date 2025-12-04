@@ -14,8 +14,9 @@
 
     {{-- Decorative background --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 right-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-20 left-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl animate-contact-bg-1"></div>
+        <div class="absolute bottom-20 right-10 w-72 h-72 bg-[#1363C6]/5 rounded-full blur-3xl animate-contact-bg-2">
+        </div>
     </div>
 
     <div class="max-w-4xl mx-auto relative">
@@ -27,7 +28,7 @@
                     class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm tracking-wide font-semibold
                     bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8]
                     border border-[#1363C6]/20 dark:border-[#1363C6]/30
-                    shadow-sm shadow-[#1363C6]/10">
+                    shadow-sm shadow-[#1363C6]/10 animate-contact-subheading">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
@@ -36,12 +37,14 @@
                 </span>
             @endif
 
-            <h2 class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
+            <h2
+                class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight animate-contact-heading">
                 {{ $heading }}
             </h2>
 
             @if ($content)
-                <div class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400 text-justify">
+                <div
+                    class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400 text-justify animate-contact-content">
                     {!! $content !!}
                 </div>
             @endif
@@ -49,7 +52,8 @@
 
         {{-- Validation Errors --}}
         @if ($errors->any())
-            <div class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+            <div
+                class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl animate-contact-errors">
                 <div class="flex items-start gap-3">
                     <svg class="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="currentColor"
                         viewBox="0 0 20 20">
@@ -72,14 +76,14 @@
 
         {{-- Contact Form --}}
         <form action="{{ route('contact.submit') }}" method="POST"
-            class="bg-white dark:bg-gray-900 rounded-xl p-8 border border-gray-100 dark:border-gray-800 shadow-lg">
+            class="bg-white dark:bg-gray-900 rounded-xl p-8 border border-gray-100 dark:border-gray-800 shadow-lg animate-contact-form">
             @csrf
 
             <div class="space-y-6">
                 {{-- Name & Email Row --}}
                 <div class="grid md:grid-cols-2 gap-6">
                     {{-- Name Field --}}
-                    <div>
+                    <div class="animate-contact-field" data-field-index="0">
                         <label for="name"
                             class="block text-[15px] font-semibold text-gray-900 dark:text-white mb-2">
                             Name <span class="text-red-500">*</span>
@@ -97,7 +101,7 @@
                     </div>
 
                     {{-- Email Field --}}
-                    <div>
+                    <div class="animate-contact-field" data-field-index="1">
                         <label for="email"
                             class="block text-[15px] font-semibold text-gray-900 dark:text-white mb-2">
                             Email <span class="text-red-500">*</span>
@@ -116,7 +120,7 @@
                 </div>
 
                 {{-- Subject Field --}}
-                <div>
+                <div class="animate-contact-field" data-field-index="2">
                     <label for="subject" class="block text-[15px] font-semibold text-gray-900 dark:text-white mb-2">
                         Subject <span class="text-gray-400 text-[13px] font-normal">(Optional)</span>
                     </label>
@@ -133,7 +137,7 @@
                 </div>
 
                 {{-- Message Field --}}
-                <div>
+                <div class="animate-contact-field" data-field-index="3">
                     <label for="message" class="block text-[15px] font-semibold text-gray-900 dark:text-white mb-2">
                         Message <span class="text-red-500">*</span>
                     </label>
@@ -150,7 +154,7 @@
                 </div>
 
                 {{-- Submit Button --}}
-                <div class="pt-2">
+                <div class="pt-2 animate-contact-submit">
                     <button type="submit"
                         class="w-full px-6 py-3 
                         bg-gradient-to-r from-[#1363C6] to-[#0d4a94] 
@@ -170,7 +174,7 @@
         </form>
 
         {{-- Additional Info (Optional) --}}
-        <div class="mt-8 text-center">
+        <div class="mt-8 text-center animate-contact-info">
             <p class="text-[15px] text-gray-600 dark:text-gray-400">
                 We'll get back to you within <span class="font-semibold text-[#1363C6] dark:text-[#4a8dd8]">24
                     hours</span>
@@ -179,3 +183,189 @@
 
     </div>
 </section>
+
+{{-- GSAP Animation Script --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Set initial states
+        gsap.set(
+            '.animate-contact-subheading, .animate-contact-heading, .animate-contact-content, .animate-contact-errors, .animate-contact-form, .animate-contact-field, .animate-contact-submit, .animate-contact-info', {
+                opacity: 0,
+                y: 40
+            });
+
+        // Background animations (subtle floating)
+        gsap.to('.animate-contact-bg-1', {
+            y: -20,
+            x: -10,
+            duration: 7,
+            repeat: -1,
+            yoyo: true,
+            ease: 'power1.inOut'
+        });
+
+        gsap.to('.animate-contact-bg-2', {
+            y: 20,
+            x: 10,
+            duration: 8,
+            repeat: -1,
+            yoyo: true,
+            ease: 'power1.inOut'
+        });
+
+        // Section Subheading Badge
+        gsap.to('.animate-contact-subheading', {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.animate-contact-subheading',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Section Heading
+        gsap.to('.animate-contact-heading', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.animate-contact-heading',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Section Content
+        gsap.to('.animate-contact-content', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.animate-contact-content',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Validation Errors (if present)
+        gsap.to('.animate-contact-errors', {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.animate-contact-errors',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Contact Form Container
+        gsap.to('.animate-contact-form', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.animate-contact-form',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Form Fields (stagger animation)
+        document.querySelectorAll('.animate-contact-field').forEach((field, index) => {
+            gsap.to(field, {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                delay: 0.2 + (index * 0.1),
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-contact-form',
+                    start: 'top 75%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // Submit Button
+        gsap.to('.animate-contact-submit', {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            delay: 0.6,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.animate-contact-form',
+                start: 'top 75%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Additional Info
+        gsap.to('.animate-contact-info', {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.animate-contact-info',
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Focus animations for form inputs
+        const formInputs = document.querySelectorAll('input, textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                gsap.to(this, {
+                    scale: 1.01,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+            });
+
+            input.addEventListener('blur', function() {
+                gsap.to(this, {
+                    scale: 1,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+            });
+        });
+
+        // Submit button hover animation enhancement
+        const submitBtn = document.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.addEventListener('mouseenter', function() {
+                gsap.to(this, {
+                    scale: 1.02,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+
+            submitBtn.addEventListener('mouseleave', function() {
+                gsap.to(this, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        }
+    });
+</script>

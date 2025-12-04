@@ -27,10 +27,11 @@
 
     {{-- Decorative background --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-20 right-10 w-96 h-96 bg-[#1363C6]/5 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 left-10 w-96 h-96 bg-[#1363C6]/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-20 right-10 w-96 h-96 bg-[#1363C6]/5 rounded-full blur-3xl animate-gallery-bg-1"></div>
+        <div class="absolute bottom-20 left-10 w-96 h-96 bg-[#1363C6]/5 rounded-full blur-3xl animate-gallery-bg-2">
+        </div>
         <div
-            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#1363C6]/3 to-purple-500/3 rounded-full blur-3xl">
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#1363C6]/3 to-purple-500/3 rounded-full blur-3xl animate-gallery-bg-3">
         </div>
     </div>
 
@@ -43,7 +44,7 @@
                     <span
                         class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold tracking-wide
                         bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8]
-                        border border-[#1363C6]/20 dark:border-[#1363C6]/30 shadow-sm shadow-[#1363C6]/10">
+                        border border-[#1363C6]/20 dark:border-[#1363C6]/30 shadow-sm shadow-[#1363C6]/10 animate-gallery-subtitle">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -54,7 +55,7 @@
             </div>
 
             @if ($content)
-                <div class="max-w-7xl mx-auto mb-4">
+                <div class="max-w-7xl mx-auto mb-4 animate-gallery-content">
                     <div class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400 text-justify">
                         {!! $content !!}
                     </div>
@@ -63,7 +64,8 @@
 
             <div class="text-center max-w-3xl mx-auto mb-8">
                 @if ($title)
-                    <h2 class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
+                    <h2
+                        class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight animate-gallery-title">
                         {{ $title }}
                     </h2>
                 @endif
@@ -76,7 +78,7 @@
         @if ($displayGalleries->count())
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-12">
                 @foreach ($displayGalleries as $index => $gallery)
-                    <div class="gallery-item group relative bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-[#1363C6]/40 dark:hover:border-[#1363C6]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#1363C6]/20 hover:-translate-y-1 cursor-pointer"
+                    <div class="gallery-item group relative bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-[#1363C6]/40 dark:hover:border-[#1363C6]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#1363C6]/20 hover:-translate-y-1 cursor-pointer animate-gallery-item"
                         data-gallery-index="{{ $index }}">
 
                         {{-- Gallery Image --}}
@@ -142,7 +144,7 @@
 
             {{-- Custom Buttons (Homepage Only) --}}
             @if (!$fullPage)
-                <div class="text-center mt-12">
+                <div class="text-center mt-12 animate-gallery-load-more">
                     <button id="loadMoreBtn"
                         class="group inline-flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-[#1363C6] to-[#0d4a94] text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-[#1363C6]/30 transition-all duration-300 hover:scale-105">
                         <span>Load More Galleries</span>
@@ -156,7 +158,7 @@
             @endif
         @else
             {{-- Empty State --}}
-            <div class="text-center py-20">
+            <div class="text-center py-20 animate-gallery-empty">
                 <div
                     class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-2xl mb-6">
                     <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -174,10 +176,12 @@
 </section>
 
 {{-- Lightbox Modal --}}
-<div id="galleryLightbox" class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4">
+<div id="galleryLightbox"
+    class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-sm flex items-center justify-center p-4">
 
     <!-- Close Button -->
-    <button id="closeLightbox" class="absolute top-4 right-4 p-3 bg-white/20 hover:bg-white/30 rounded-full transition">
+    <button id="closeLightbox"
+        class="absolute top-4 right-4 z-50 p-3 bg-white/20 hover:bg-white/30 rounded-full transition-all duration-300 hover:scale-110">
         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
@@ -185,40 +189,189 @@
 
     <!-- Previous Button -->
     <button id="prevImage"
-        class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 bg-white/20 hover:bg-white/30 rounded-full">
-        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 z-50 p-2 sm:p-3 bg-white/20 hover:bg-white/30 rounded-full transition-all duration-300 hover:scale-110">
+        <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
     </button>
 
     <!-- Image Container -->
-    <div class="relative w-full max-w-3xl max-h-[80vh] flex items-center justify-center">
+    <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center px-12 sm:px-16">
         <img id="lightboxImage" src="" alt=""
-            class="max-w-full max-h-[70vh] object-contain rounded-lg shadow-lg">
+            class="max-w-full max-h-[80vh] sm:max-h-[85vh] object-contain rounded-lg shadow-2xl lightbox-image-animate">
 
         <!-- Image Info -->
-        <div class="absolute bottom-4 left-4 text-white">
-            <h3 id="lightboxTitle" class="text-lg font-semibold"></h3>
-            <p id="lightboxDescription" class="text-sm text-gray-200"></p>
+        <div
+            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 sm:p-6 rounded-b-lg">
+            <h3 id="lightboxTitle" class="text-base sm:text-lg font-semibold text-white mb-1"></h3>
+            <p id="lightboxDescription" class="text-xs sm:text-sm text-gray-200"></p>
         </div>
     </div>
 
     <!-- Next Button -->
     <button id="nextImage"
-        class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 bg-white/20 hover:bg-white/30 rounded-full">
-        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        class="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 z-50 p-2 sm:p-3 bg-white/20 hover:bg-white/30 rounded-full transition-all duration-300 hover:scale-110">
+        <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
     </button>
 
     <!-- Counter -->
     <div
-        class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white/20 px-4 py-2 rounded-full text-white font-semibold">
+        class="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 bg-white/20 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-white font-semibold text-sm">
         <span id="lightboxCounter"></span>
     </div>
 
 </div>
 
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Set initial states
+            gsap.set(
+                '.animate-gallery-subtitle, .animate-gallery-content, .animate-gallery-title, .animate-gallery-item, .animate-gallery-load-more, .animate-gallery-empty', {
+                    opacity: 0,
+                    y: 40
+                });
+
+            // Background animations (subtle floating)
+            gsap.to('.animate-gallery-bg-1', {
+                y: 20,
+                x: 15,
+                duration: 9,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power1.inOut'
+            });
+
+            gsap.to('.animate-gallery-bg-2', {
+                y: -20,
+                x: -15,
+                duration: 8,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power1.inOut'
+            });
+
+            gsap.to('.animate-gallery-bg-3', {
+                scale: 1.1,
+                duration: 10,
+                repeat: -1,
+                yoyo: true,
+                ease: 'power1.inOut'
+            });
+
+            // Section Subtitle Badge
+            gsap.to('.animate-gallery-subtitle', {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-gallery-subtitle',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Section Content
+            gsap.to('.animate-gallery-content', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: 0.1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-gallery-content',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Section Title
+            gsap.to('.animate-gallery-title', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: 0.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-gallery-title',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Gallery Items (stagger animation)
+            document.querySelectorAll('.animate-gallery-item').forEach((item, index) => {
+                gsap.to(item, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.7,
+                    delay: index * 0.08,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+
+            // Load More Button
+            gsap.to('.animate-gallery-load-more', {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-gallery-load-more',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Empty State
+            gsap.to('.animate-gallery-empty', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-gallery-empty',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Lightbox image animation
+            const lightboxImageObserver = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.attributeName === 'src' && mutation.target.src) {
+                        gsap.fromTo('.lightbox-image-animate', {
+                            opacity: 0,
+                            scale: 0.9
+                        }, {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0.4,
+                            ease: 'power2.out'
+                        });
+                    }
+                });
+            });
+
+            const lightboxImage = document.getElementById('lightboxImage');
+            if (lightboxImage) {
+                lightboxImageObserver.observe(lightboxImage, {
+                    attributes: true
+                });
+            }
+        });
+    </script>
+@endpush
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -291,6 +444,31 @@
             lightbox.addEventListener('click', (e) => {
                 if (e.target === lightbox) closeLightboxFunc();
             });
+
+            // Touch swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            lightbox.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            lightbox.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    // Swipe left - next image
+                    nextImage.click();
+                }
+                if (touchEndX > touchStartX + swipeThreshold) {
+                    // Swipe right - previous image
+                    prevImage.click();
+                }
+            }
         });
     </script>
 @endpush

@@ -163,7 +163,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
         <main id="main-content" class="flex-1 w-full">
             {{-- Flash Messages --}}
             @if (session('success'))
-                <div class="fixed top-20 right-4 z-50 max-w-md animate-[fadeInUp_0.6s_ease-out]">
+                <div class="fixed top-20 right-4 z-50 max-w-xs animate-[fadeInUp_0.6s_ease-out]">
                     <div class="p-4 bg-green-600 text-white rounded-xl shadow-lg shadow-green-600/30" role="alert">
                         <div class="flex items-center">
                             <div
