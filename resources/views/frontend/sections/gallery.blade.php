@@ -156,6 +156,13 @@
                     </button>
                 </div>
             @endif
+            @if ($fullPage && method_exists($galleries, 'links'))
+                <div class="mt-12 flex justify-center">
+                    <div class="inline-block">
+                        {{ $galleries->links() }}
+                    </div>
+                </div>
+            @endif
         @else
             {{-- Empty State --}}
             <div class="text-center py-20 animate-gallery-empty">
@@ -375,7 +382,7 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const galleries = @json($displayGalleries) || [];
+            const galleries = @json($displayGalleries->items()) || [];
             if (galleries.length === 0) return;
 
             const lightbox = document.getElementById('galleryLightbox');
