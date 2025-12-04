@@ -99,7 +99,7 @@
 
         {{-- Remaining Paragraphs - Full Width --}}
         @if (!empty($remainingParagraphs))
-            <div class="dark:bg-gray-900 rounded-xl p-8 text-justify
+            <div class=" text-justify
                 animate-remaining-content">
                 <div class=" text-[16px] leading-[26px] text-gray-600 dark:text-gray-400">
                     @foreach ($remainingParagraphs as $para)
