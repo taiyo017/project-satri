@@ -84,7 +84,7 @@
         @if ($heading)
             <div class="text-center max-w-3xl mx-auto mb-8">
                 <span
-                    class="team-badge inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm tracking-wide font-semibold 
+                    class="team-badge inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs sm:text-xs md:text-sm lg:text-sm tracking-wide font-semibold 
                     bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8] 
                     border border-[#1363C6]/20 dark:border-[#1363C6]/30 shadow-sm shadow-[#1363C6]/10 opacity-0">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -95,7 +95,7 @@
                 </span>
 
                 <h2
-                    class="team-heading text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight opacity-0">
+                    class="team-heading text-[24px] sm:text-[24px] md:text-[40px] lg:text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight opacity-0">
                     {{ $heading }}
                 </h2>
             </div>

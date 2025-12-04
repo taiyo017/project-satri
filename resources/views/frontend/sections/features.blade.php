@@ -19,14 +19,14 @@
         <div class="text-center max-w-3xl mx-auto">
             @if ($subtitle)
                 <p
-                    class="feature-subtitle text-[20px] leading-[28px] mt-4 mb-4 font-bold tracking-wider uppercase text-[#1363C6] dark:text-[#4a8dd8] opacity-0">
+                    class="feature-subtitle text-xs sm:text-xs md:text-[20px] lg:text-[20px] leading-[28px] mt-4 mb-4 font-bold tracking-wider uppercase text-[#1363C6] dark:text-[#4a8dd8] opacity-0">
                     {{ $subtitle }}
                 </p>
             @endif
 
             @if ($heading)
                 <h2
-                    class="feature-heading text-[40px] leading-[48px] mt-8 mb-6 font-extrabold text-gray-900 dark:text-white opacity-0">
+                    class="feature-heading text-[24px] sm:text-[24px] md:text-[40px] lg:text-[40px] leading-[48px] mt-6 mb-6 font-extrabold text-gray-900 dark:text-white opacity-0">
                     {{ $heading }}
                 </h2>
             @endif

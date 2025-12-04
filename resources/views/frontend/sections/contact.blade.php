@@ -25,7 +25,7 @@
         <div class="text-center mb-16">
             @if ($subheading)
                 <span
-                    class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm tracking-wide font-semibold
+                    class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs sm:text-xs md:text-sm lg:text-sm tracking-wide font-semibold
                     bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8]
                     border border-[#1363C6]/20 dark:border-[#1363C6]/30
                     shadow-sm shadow-[#1363C6]/10 animate-contact-subheading">
@@ -37,17 +37,20 @@
                 </span>
             @endif
 
-            <h2
-                class="text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight animate-contact-heading">
-                {{ $heading }}
-            </h2>
-
             @if ($content)
                 <div
-                    class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400 text-justify animate-contact-content">
+                    class="text-[16px] leading-relaxed text-gray-600 dark:text-gray-400 text-justify animate-contact-content mt-4">
                     {!! $content !!}
                 </div>
             @endif
+
+            @if ($heading)
+                <h2
+                    class="text-[24px] sm:text-[24px] md:text-[40px] lg:text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight animate-contact-heading">
+                    {{ $heading }}
+                </h2>
+            @endif
+
         </div>
 
         {{-- Validation Errors --}}
@@ -183,10 +186,6 @@
 
     </div>
 </section>
-
-{{-- GSAP Animation Script --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

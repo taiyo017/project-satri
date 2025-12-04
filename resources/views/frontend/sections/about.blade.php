@@ -33,21 +33,21 @@
 
                 @if ($subtitle)
                     <p
-                        class="about-subtitle opacity-0 text-[20px] leading-[28px] mt-4 mb-4 font-bold tracking-wider uppercase text-[#1363C6] dark:text-[#4a8dd8]">
+                        class="about-subtitle opacity-0 text-[16px] sm:text-[16px] md:text-[20px]   leading-[28px] mt-4 mb-4 font-bold tracking-wider uppercase text-[#1363C6] dark:text-[#4a8dd8]">
                         {{ $subtitle }}
                     </p>
                 @endif
 
                 @if ($title)
                     <h2
-                        class="about-title text-[40px] leading-[48px] mt-8 mb-6 font-extrabold text-gray-900 dark:text-white">
+                        class="about-title text-[24px] sm:text-[24px] md:text-[40px] lg:text-[40px] leading-[48px] mt-6 mb-6 font-extrabold text-gray-900 dark:text-white">
                         {{ $title }}
                     </h2>
                 @endif
 
                 @if ($content)
                     <div
-                        class="about-content opacity-0 text-[16px] sm:text-[16px] leading-[28px] text-gray-600 dark:text-gray-400 text-justify">
+                        class="about-content opacity-0 text-[16px] leading-[28px] text-gray-600 dark:text-gray-400 text-justify">
                         {!! $content !!}
                     </div>
                 @endif

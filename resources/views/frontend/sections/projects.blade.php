@@ -41,7 +41,7 @@
 
                 @if ($subtitle)
                     <span
-                        class="projects-badge opacity-0 inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm tracking-wide font-semibold
+                        class="projects-badge opacity-0 inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs sm:text-xs md:text-sm lg:text-sm tracking-wide font-semibold
                         bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8]
                         border border-[#1363C6]/20 dark:border-[#1363C6]/30
                         shadow-sm shadow-[#1363C6]/10">
@@ -66,7 +66,7 @@
             <div class="text-center max-w-3xl mx-auto mb-4">
                 @if ($title)
                     <h2
-                        class="projects-title opacity-0 text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
+                        class="projects-title opacity-0 text-[24px] sm:text-[24px] md:text-[40px] lg:text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-4 leading-tight">
                         {{ $title }}
                     </h2>
                 @endif

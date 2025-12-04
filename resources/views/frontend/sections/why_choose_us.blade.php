@@ -19,7 +19,7 @@
 @endphp
 
 <section
-    class="relative py-8 lg:py-12 px-6 sm:px-8 lg:px-12 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900"
+    class="relative py-6 lg:py-12 px-6 sm:px-8 lg:px-12 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900"
     id="{{ $sectionId }}">
 
     {{-- Decorative Background Elements --}}
@@ -35,7 +35,7 @@
             {{-- Badge --}}
             @if ($subtitle)
                 <span
-                    class="about-badge inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm tracking-wide font-semibold
+                    class="about-badge inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs sm:text-xs md:text-sm lg:text-sm tracking-wide font-semibold
                     bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8]
                     border border-[#1363C6]/20 dark:border-[#1363C6]/30
                     shadow-sm shadow-[#1363C6]/10 opacity-0">
@@ -45,7 +45,7 @@
 
             {{-- Title --}}
             <h2
-                class="about-title text-[40px] font-extrabold text-gray-900 dark:text-white mt-6 mb-2 leading-tight opacity-0">
+                class="about-title text-[24px]  sm:text-[24px] md:text-[40px] lg:text-[40px]  font-extrabold text-gray-900 dark:text-white mt-6 mb-2 leading-tight opacity-0">
                 {{ $title }}
             </h2>
         </div>

@@ -55,13 +55,15 @@
             {{-- Text Content --}}
             <div class="space-y-5">
                 @if ($title)
-                    <h1 class="text-[40px] font-extrabold text-gray-900 dark:text-white leading-tight animate-title">
+                    <h1
+                        class="text-[24px] sm:text-[24px] md:text-[40px] lg:text-[40px] font-extrabold text-gray-900 dark:text-white leading-tight animate-title">
                         {{ $title }}
                     </h1>
                 @endif
 
                 @if ($subtitle)
-                    <p class="text-[20px] text-[#1363C6] dark:text-[#4a8dd8]  font-medium animate-subtitle">
+                    <p
+                        class="text-[14px] sm:text-[14px] md:text-[20px] lg:text-[20px] text-[#1363C6] dark:text-[#4a8dd8]  font-medium animate-subtitle">
                         {{ $subtitle }}
                     </p>
                 @endif
@@ -114,7 +116,7 @@
             <div>
                 <div class="text-center mb-8 animate-features-badge">
                     <span
-                        class="inline-flex items-center gap-2 px-5 py-2 mt-3 rounded-full text-sm tracking-wide font-semibold
+                        class="inline-flex items-center gap-2 px-5 py-2 mt-3 rounded-full text-xs sm:text-xs md:text-sm lg:text-sm tracking-wide font-semibold
                         bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8]
                         border border-[#1363C6]/20 dark:border-[#1363C6]/30
                         shadow-sm shadow-[#1363C6]/10">
@@ -141,7 +143,8 @@
                                     <div
                                         class="w-8 h-8 flex items-center justify-center rounded-lg bg-gradient-to-br from-[#1363C6] to-[#0d4a94] text-white text-[16px]transition-transform duration-300 group-hover:scale-110">
 
-                                        <i class="{{ $feature['icon'] }} text-white text-sm "></i>
+                                        <i
+                                            class="{{ $feature['icon'] }} text-white text-xs sm:text-xs md:text-sm lg:text-sm "></i>
                                     </div>
                                 @endif
 
@@ -187,13 +190,14 @@
                         <div>
                             @if (!empty($mission['title']))
                                 <h3
-                                    class="text-[20px] font-bold text-gray-900 dark:text-white mb-1
+                                    class="text-[18px] sm:text-[18px] md:text-[20px] lg:text-[20px] font-bold text-gray-900 dark:text-white mb-1
                                     group-hover:text-[#1363C6] dark:group-hover:text-[#4a8dd8] transition-colors duration-300">
                                     {{ $mission['title'] }}
                                 </h3>
                             @endif
                             @if (!empty($mission['subtitle']))
-                                <p class="text-[15px] text-[#1363C6] dark:text-[#4a8dd8] font-medium">
+                                <p
+                                    class="text-[12px] sm:text-xs md:text-[15px] lg:text-[15px] text-[#1363C6] dark:text-[#4a8dd8] font-medium">
                                     {{ $mission['subtitle'] }}
                                 </p>
                             @endif
@@ -231,13 +235,14 @@
                         <div>
                             @if (!empty($vision['title']))
                                 <h3
-                                    class="text-[20px] font-bold text-gray-900 dark:text-white mb-1
+                                    class="text-[18px] sm:text-[18px] md:text-[20px] lg:text-[20px] font-bold text-gray-900 dark:text-white mb-1
                                     group-hover:text-[#1363C6] dark:group-hover:text-[#4a8dd8] transition-colors duration-300">
                                     {{ $vision['title'] }}
                                 </h3>
                             @endif
                             @if (!empty($vision['subtitle']))
-                                <p class="text-[15px] text-[#1363C6] dark:text-[#4a8dd8] font-medium">
+                                <p
+                                    class="text-[12px] sm:text-xs md:text-[15px] lg:text-[15px] text-[#1363C6] dark:text-[#4a8dd8] font-medium">
                                     {{ $vision['subtitle'] }}
                                 </p>
                             @endif
