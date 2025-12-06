@@ -16,6 +16,7 @@
             'dropdown' => [
                 ['slug' => 'about-us', 'label' => 'About Company'],
                 ['slug' => 'team', 'label' => 'Our Team'],
+                ['slug' => 'interns', 'label' => 'Our Interns'],
                 ['slug' => 'our-projects', 'label' => 'Products'],
             ],
         ],

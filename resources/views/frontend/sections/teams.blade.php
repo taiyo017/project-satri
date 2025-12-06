@@ -4,10 +4,12 @@
     $fields = $section->fields->pluck('field_value', 'field_key')->toArray();
 
     $heading = $fields['heading'] ?? '';
+    $subtitle = $fields['subtitle'] ?? '';
     $layout = $fields['layout'] ?? 'grid';
 
-    $all_members = \App\Models\TeamMember::all();
+    $all_members = \App\Models\TeamMember::orderBy('created_at', 'desc')->get(); // Most recent first
 
+    // Positions
     $executivePositions = ['ceo', 'president', 'founder', 'co-founder', 'chief executive officer'];
     $seniorPositions = [
         'cto',
@@ -22,52 +24,83 @@
         'manager',
         'director',
     ];
-    $juniorPositions = ['intern', 'trainee', 'junior', 'associate', 'jr'];
+    $juniorPositions = ['junior', 'associate', 'jr'];
+    $internPositions = ['intern', 'trainee'];
 
-    // Categorize team members
+    // Categorize members
     $executives = collect();
     $seniors = collect();
     $juniors = collect();
+    $interns = collect();
     $others = collect();
 
     foreach ($all_members as $member) {
         $designation = strtolower($member->designation ?? '');
-        $isExecutive = false;
+        $isMatched = false;
+
         foreach ($executivePositions as $pos) {
             if (str_contains($designation, $pos)) {
                 $executives->push($member);
-                $isExecutive = true;
+                $isMatched = true;
                 break;
             }
         }
-        if (!$isExecutive) {
-            $isSenior = false;
+        if (!$isMatched) {
             foreach ($seniorPositions as $pos) {
                 if (str_contains($designation, $pos)) {
                     $seniors->push($member);
-                    $isSenior = true;
+                    $isMatched = true;
                     break;
                 }
             }
-            if (!$isSenior) {
-                $isJunior = false;
-                foreach ($juniorPositions as $pos) {
-                    if (str_contains($designation, $pos)) {
-                        $juniors->push($member);
-                        $isJunior = true;
-                        break;
-                    }
-                }
-                if (!$isJunior) {
-                    $others->push($member);
+        }
+        if (!$isMatched) {
+            foreach ($juniorPositions as $pos) {
+                if (str_contains($designation, $pos)) {
+                    $juniors->push($member);
+                    $isMatched = true;
+                    break;
                 }
             }
         }
+        if (!$isMatched) {
+            foreach ($internPositions as $pos) {
+                if (str_contains($designation, $pos)) {
+                    $interns->push($member);
+                    $isMatched = true;
+                    break;
+                }
+            }
+        }
+        if (!$isMatched) {
+            $others->push($member);
+        }
     }
+
+    // Pagination for interns page
+    $perPage = 12; // members per page
+    $currentPage = (int) request()->get('page', 1);
+
+    $currentPageSlug = request()->segment(1);
+    if ($currentPageSlug === 'interns') {
+        $groupsToShow = ['interns'];
+        $internsPaginated = $interns->forPage($currentPage, $perPage);
+    } else {
+        $groupsToShow = ['executives', 'seniors', 'juniors', 'others'];
+    }
+
+    $groups = [
+        'executives' => $executives,
+        'seniors' => $seniors,
+        'juniors' => $juniors,
+        'interns' => $internsPaginated ?? $interns,
+        'others' => $others,
+    ];
 
     $allMembersJson = $all_members->toJson();
     $sectionId = 'team-section-' . uniqid();
 @endphp
+
 
 <section
     class="relative py-8 lg:py-12 px-6 sm:px-8 lg:px-12 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 overflow-hidden"
@@ -90,7 +123,7 @@
                         <path
                             d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                     </svg>
-                    OUR TEAM
+                    {{ $subtitle ?? 'Meet Our Team' }}
                 </span>
 
                 <h2
@@ -110,17 +143,29 @@
 
         @if ($layout === 'grid')
             <div class="space-y-16">
-                @foreach (['executives' => 'Leadership', 'seniors' => 'Senior Team', 'others' => 'Team Members', 'juniors' => 'Interns & Trainees'] as $groupKey => $title)
-                    @php
-                        $members = $$groupKey;
-                    @endphp
-
-                    @if (isset($members) && $members->count() > 0)
-                        <x-team-card :title="$title" :members="$members" :group-key="$groupKey" />
+                @foreach (['executives' => 'Leadership', 'seniors' => 'Senior Team', 'juniors' => 'Junior Team', 'interns' => 'Interns & Trainees', 'others' => 'Team Members'] as $groupKey => $title)
+                    @if (in_array($groupKey, $groupsToShow))
+                        @php $members = $groups[$groupKey]; @endphp
+                        @if ($members->count() > 0)
+                            <x-team-card :title="$title" :members="$members" :group-key="$groupKey" />
+                        @endif
                     @endif
                 @endforeach
             </div>
 
+            {{-- Pagination for interns page --}}
+            @if ($currentPageSlug === 'interns')
+                <div class="flex justify-center mt-8 space-x-4">
+                    @if ($currentPage > 1)
+                        <a href="?page={{ $currentPage - 1 }}"
+                            class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded">Prev</a>
+                    @endif
+                    @if ($interns->count() > $currentPage * $perPage)
+                        <a href="?page={{ $currentPage + 1 }}"
+                            class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded">Next</a>
+                    @endif
+                </div>
+            @endif
         @endif
     </div>
 </section>
