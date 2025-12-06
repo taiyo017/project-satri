@@ -34,10 +34,6 @@
                             <span class="text-3xl font-bold text-white">{{ substr($member->name ?? 'U', 0, 1) }}</span>
                         </div>
                     @endif
-
-                    <div class="absolute top-4 right-4">
-                        <span class="px-2 py-1 text-xs font-semibold bg-[#1363C6] text-white rounded-full">Active</span>
-                    </div>
                 </div>
 
                 <div class="p-5 text-center">
