@@ -96,18 +96,19 @@
                         {{-- Dropdown Menu --}}
                         <div class="relative" @mouseenter="activeDropdown = '{{ $key }}'"
                             @mouseleave="activeDropdown = null">
-                            <button
-                                class="relative px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5">
-                                <span>{{ $item['label'] }}</span>
-                                <svg :class="{ 'rotate-180': activeDropdown === '{{ $key }}' }"
-                                    class="w-4 h-4 transition-transform duration-200" fill="none"
-                                    stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                                @if ($isAboutActive)
-                                    <span class="nav-active-indicator"></span>
+                            <a class=" flex flex-col text-gray-100 text-sm font-medium px-4 py-2">
+                                <div class="flex gap-1">
+                                    <span>{{ $item['label'] }}</span>
+                                    <svg :class="{ 'rotate-180': activeDropdown === '{{ $key }}' }"
+                                        class="w-4 h-4 transition-transform duration-200" fill="none"
+                                        stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                                @if ($isAboutActive && $key === 'about')
+                                    <div class="h-0.5 w-7 bg-white"></div>
                                 @endif
-                            </button>
+                            </a>
 
                             <div x-show="activeDropdown === '{{ $key }}'"
                                 x-transition:enter="transition ease-out duration-200"
@@ -130,10 +131,10 @@
                     @else
                         {{-- Regular Link --}}
                         <a href="{{ $getRoute($item, $key === 'home' ? null : $key) }}"
-                            class="relative px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/10 transition-all duration-200 {{ $isActive($key) ? '' : '' }}">
+                            class="relative px-4 py-2 rounded-lg text-sm font-medium text-white transition-all duration-200 {{ $isActive($key) ? '' : '' }}">
                             {{ $item['label'] }}
                             @if ($isActive($key))
-                                <span class="nav-active-indicator"></span>
+                                <div class="h-0.5 w-7 bg-white"></div>
                             @endif
                         </a>
                     @endif
