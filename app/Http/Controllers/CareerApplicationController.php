@@ -28,12 +28,10 @@ class CareerApplicationController extends Controller
         $data = $request->only(['name', 'email', 'phone', 'message']);
         $data['career_id'] = $career_id;
 
-        // Resume upload
         if ($request->hasFile('resume')) {
             $data['resume'] = $request->file('resume')->store('resumes', 'public');
         }
 
-        // Cover letter upload
         if ($request->hasFile('cover_letter')) {
             $data['cover_letter'] = $request->file('cover_letter')->store('cover_letters', 'public');
         }

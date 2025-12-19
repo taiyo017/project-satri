@@ -92,6 +92,7 @@
                             class="relative h-40 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 overflow-hidden">
                             @if ($course->image_path)
                                 <img src="{{ asset('storage/' . $course->image_path) }}" alt="{{ $course->title }}"
+                                    loading="lazy" decoding="async"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
 
                                 {{-- Overlay on hover --}}

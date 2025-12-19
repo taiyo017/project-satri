@@ -194,18 +194,6 @@
                     </span>
                 </label>
 
-                <label
-                    class="relative flex items-center gap-3 cursor-pointer select-none p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
-                    <input type="checkbox" name="is_featured" value="1" class="sr-only toggle-checkbox"
-                        @checked(old('is_featured', $category->is_featured ?? false))>
-                    <div
-                        class="toggle-box relative w-11 h-6 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors duration-200 flex-shrink-0">
-                        <div
-                            class="toggle-circle absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-transform duration-200">
-                        </div>
-                    </div>
-                </label>
-
             </div>
         </div>
     </div>

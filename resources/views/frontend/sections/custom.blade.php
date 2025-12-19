@@ -29,7 +29,7 @@
     @if ($hasImage && $imagePosition === 'background')
         <div class="absolute inset-0 z-0">
             <img src="{{ asset('storage/' . $section->image) }}" alt="{{ $section->title ?? 'Section Background' }}"
-                class="w-full h-full object-cover opacity-10 dark:opacity-5" loading="lazy">
+                class="w-full h-full object-cover opacity-10 dark:opacity-5" loading="lazy" decoding="async">
         </div>
     @endif
 
@@ -40,7 +40,7 @@
             <div class="mb-12">
                 <div class="rounded-2xl overflow-hidden shadow-2xl">
                     <img src="{{ asset('storage/' . $section->image) }}" alt="{{ $section->title ?? 'Section Image' }}"
-                        class="w-full h-auto max-h-96 object-cover" loading="lazy">
+                        class="w-full h-auto max-h-96 object-cover" loading="lazy" decoding="async">
                 </div>
             </div>
         @endif
@@ -56,7 +56,7 @@
                         <img src="{{ asset('storage/' . $section->image) }}"
                             alt="{{ $section->title ?? 'Section Image' }}"
                             class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
-                            loading="lazy">
+                            loading="lazy" decoding="async">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         </div>
@@ -133,7 +133,7 @@
                         <img src="{{ asset('storage/' . $section->image) }}"
                             alt="{{ $section->title ?? 'Section Image' }}"
                             class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
-                            loading="lazy">
+                            loading="lazy" decoding="async">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         </div>
@@ -148,7 +148,7 @@
                 <div class="rounded-2xl overflow-hidden shadow-2xl">
                     <img src="{{ asset('storage/' . $section->image) }}"
                         alt="{{ $section->title ?? 'Section Image' }}" class="w-full h-auto max-h-96 object-cover"
-                        loading="lazy">
+                        loading="lazy" decoding="async">
                 </div>
             </div>
         @endif

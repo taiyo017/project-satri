@@ -2,7 +2,6 @@
 <form action="{{ route('careers.apply', $career->id) }}" method="POST" enctype="multipart/form-data"
     class="max-w-3xl mx-auto">
     @csrf
-
     <div class="space-y-6">
 
         {{-- Application Header --}}

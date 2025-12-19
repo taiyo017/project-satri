@@ -205,7 +205,8 @@
     <!-- Image Container -->
     <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center px-12 sm:px-16">
         <img id="lightboxImage" src="" alt=""
-            class="max-w-full max-h-[80vh] sm:max-h-[85vh] object-contain rounded-lg shadow-2xl lightbox-image-animate">
+            class="max-w-full max-h-[80vh] sm:max-h-[85vh] object-contain rounded-lg shadow-2xl lightbox-image-animate"
+            loading="lazy" decoding="async">
 
         <!-- Image Info -->
         <div

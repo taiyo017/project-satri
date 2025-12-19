@@ -37,7 +37,7 @@ class CareerController extends Controller
             'description' => 'nullable|string',
             'location' => 'nullable|string|max:255',
             'job_type' => 'required|in:full-time,part-time,internship,contract',
-            'deadline' => 'nullable|date',
+            'deadline' => 'nullable|date|after_or_equal:today',
             'is_open' => 'required|boolean',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',

@@ -21,7 +21,7 @@
     @if ($imageUrl)
         <div class="absolute inset-0 z-0 hero-parallax">
             <img src="{{ $imageUrl }}" class="w-full h-full object-cover object-center  opacity-15"
-                alt="{{ $title }} Background">
+                alt="{{ $title }} Background" loading="eager" decoding="async">
 
         </div>
     @endif
@@ -73,7 +73,7 @@
             {{-- Right Column: Optional Image (Hidden on mobile) --}}
             @if ($contentImageUrl)
                 <div class="lg:col-span-4 hidden lg:block scroll-reveal" style="animation-delay: 0.4s;">
-                    <img src="{{ $contentImageUrl }}" alt="{{ $title }} Visual"
+                    <img src="{{ $contentImageUrl }}" alt="{{ $title }} Visual" loading="lazy" decoding="async"
                         class="w-full max-h-[300px] object-contain object-right mx-auto drop-shadow-2xl rounded-lg" />
                 </div>
             @endif

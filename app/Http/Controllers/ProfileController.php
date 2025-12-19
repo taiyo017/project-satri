@@ -57,4 +57,20 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    //2FA 
+    public function toggleTwoFactor(Request $request)
+    {
+        $request->validate([
+            'enable_2fa' => 'required|boolean',
+        ]);
+
+        $user = Auth::user();
+        $user->two_factor_enabled = $request->enable_2fa;
+        $user->save();
+
+        $status = $user->two_factor_enabled ? 'enabled' : 'disabled';
+
+        return back()->with('success', "Two-Factor Authentication has been {$status} successfully.");
+    }
 }

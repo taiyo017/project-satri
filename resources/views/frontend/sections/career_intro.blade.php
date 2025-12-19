@@ -1,6 +1,7 @@
 @props(['section'])
 
 @php
+    use Carbon\Carbon;
     $fields = $section->fields->pluck('field_value', 'field_key')->toArray();
 
     $heading = $fields['title'] ?? 'Open Career Opportunities';
@@ -9,10 +10,11 @@
         $fields['content'] ??
         '<p>We are a growing company always looking for passionate and talented individuals to join our mission. Explore our open roles below.</p>';
 
-    // Fetch jobs
-    $jobs = \App\Models\Career::where('is_open', 1)->orderBy('created_at', 'desc')->get();
+    $jobs = \App\Models\Career::where('is_open', 1)
+        ->whereDate('deadline', '>=', Carbon::today())
+        ->orderBy('created_at', 'desc')
+        ->get();
 
-    // Extract categories dynamically
     $categories = $jobs->pluck('job_type')->unique()->filter()->values();
 @endphp
 

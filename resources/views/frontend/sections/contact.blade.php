@@ -81,7 +81,6 @@
         <form action="{{ route('contact.submit') }}" method="POST"
             class="bg-white dark:bg-gray-900 rounded-xl p-8 border border-gray-100 dark:border-gray-800 shadow-lg animate-contact-form">
             @csrf
-
             <div class="space-y-6">
                 {{-- Name & Email Row --}}
                 <div class="grid md:grid-cols-2 gap-6">

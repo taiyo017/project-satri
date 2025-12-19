@@ -20,14 +20,23 @@ use App\Http\Controllers\SectionFieldController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TeamMemberController;
-use App\Models\Career;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\ConfirmablePasswordController;
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\TwoFactorLoginController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('frontend.page.show', 'home');
 })->name('frontend.home');
 Route::post('/contact-submit', [ContactController::class, 'submit'])
-    ->name('contact.submit');
+    ->name('contact.submit')->middleware('throttle:3, 60');;
 
 Route::middleware('auth')->group(function () {
 
@@ -139,12 +148,55 @@ Route::middleware('auth')->group(function () {
 
     // Gallery Category CRUD
     Route::resource('gallery-categories', GalleryCategoryController::class);
+
+    //2FA enabling 
+    Route::post('/settings/2fa', [ProfileController::class, 'toggleTwoFactor'])->name('settings.2fa');
 });
 
-require __DIR__ . '/auth.php';
 
+//Login Routes
+Route::get('/auth/admin', [AuthenticatedSessionController::class, 'create'])
+    ->name('login');
+Route::post('/auth/admin', [AuthenticatedSessionController::class, 'store']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
+
+Route::get('/two-factor-login', [TwoFactorLoginController::class, 'index'])->name('two-factor.login');
+Route::post('/two-factor-login', [TwoFactorLoginController::class, 'store'])->name('two-factor.login.submit');
+
+// Password Reset
+Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
+    ->name('password.request');
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+    ->name('password.email');
+Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+    ->name('password.reset');
+Route::post('/reset-password', [NewPasswordController::class, 'store'])
+    ->name('password.store');
+
+Route::get('/verify-email', EmailVerificationPromptController::class)->middleware('auth')->name('verification.notice');
+
+Route::get('/verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    ->middleware(['auth', 'signed'])
+    ->name('verification.verify');
+
+Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+    ->middleware(['auth', 'throttle:6,1'])
+    ->name('verification.send');
+
+//Confirmable Password
+Route::put('/update-password', [PasswordController::class, 'update'])->middleware('auth')->name('password.update');
+
+Route::get('/confirm-password', [ConfirmablePasswordController::class, 'show'])
+    ->middleware('auth')
+    ->name('password.confirm');
+
+Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store'])
+    ->middleware('auth');
+
+//Frontend Routes
 Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.page.show');
 Route::get('/career/{slug}', [FrontendCareerController::class, 'show'])->name('career.show');
 Route::get('/course/{slug}', [FrontendCourseController::class, 'show'])->name('course.show');
 Route::post('/careers/{career}/apply', [CareerApplicationController::class, 'store'])
-    ->name('careers.apply');
+    ->name('careers.apply')->middleware('throttle:3, 60');;

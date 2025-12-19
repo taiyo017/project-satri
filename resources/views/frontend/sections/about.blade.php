@@ -93,7 +93,8 @@
                         class="relative rounded-2xl overflow-hidden shadow-2xl shadow-gray-300/30 dark:shadow-black/40">
 
                         {{-- Main Image - full and natural --}}
-                        <img src="{{ asset('storage/' . $image) }}" alt="{{ $title }}"
+                        <img src="{{ asset('storage/' . $image) }}" alt="{{ $title }}" loading="lazy"
+                            decoding="async"
                             class="about-image w-full h-auto object-contain transform transition-all duration-700">
 
                         {{-- Subtle bottom blend only --}}

@@ -67,12 +67,12 @@ class CourseCategoryController extends Controller
             'meta_keywords' => $request->meta_keywords,
         ]);
 
-        return redirect()->route('course_categories.index')->with('success', 'Category updated successfully.');
+        return redirect()->route('course-categories.index')->with('success', 'Category updated successfully.');
     }
 
     public function destroy(CourseCategory $courseCategory)
     {
         $courseCategory->delete();
-        return redirect()->route('course_categories.index')->with('success', 'Category deleted successfully.');
+        return redirect()->route('course-categories.index')->with('success', 'Category deleted successfully.');
     }
 }

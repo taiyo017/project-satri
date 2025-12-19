@@ -40,7 +40,8 @@
             @if (!empty($image))
                 <div class="relative group animate-image">
                     <div class="relative rounded-2xl overflow-hidden shadow-xl shadow-gray-900/10 dark:shadow-black/30">
-                        <img src="{{ asset('storage/' . $image) }}" alt="{{ $title }}"
+                        <img src="{{ asset('storage/' . $image) }}" alt="{{ $title }}" loading="lazy"
+                            decoding="async"
                             class="w-full h-[420px] object-cover group-hover:scale-105 transition-transform duration-700">
 
                         {{-- Overlay gradient --}}

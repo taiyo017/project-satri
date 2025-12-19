@@ -22,7 +22,7 @@
     {{-- Background Image with Parallax --}}
     <div class="absolute inset-0 z-0 hero-parallax">
         <img src="{{ $imageUrl }}" alt="{{ $title }}" loading="eager"
-            class="w-full h-full object-cover opacity-15">
+            class="w-full h-full object-cover opacity-15" decoding="async">
 
         {{-- Enhanced Overlay with Primary Color Blend --}}
         <div class="absolute inset-0 bg-gradient-to-b from-[#1363C6]/40 via-[#115CB8]/30 to-[#0D4A8F]/50"></div>
@@ -56,6 +56,7 @@
                             {{ $subtitle }}
                         </span>
                     </div>
+
                 </div>
             @endif
 

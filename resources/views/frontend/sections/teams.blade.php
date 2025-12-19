@@ -307,7 +307,7 @@
                         const photoDiv = document.getElementById('modalPhoto');
                         if (member.photo) {
                             photoDiv.innerHTML =
-                                `<img src="/storage/${member.photo}" alt="${member.name}" class="w-full h-full object-cover">`;
+                                `<img src="/storage/${member.photo}" alt="${member.name}" class="w-full h-full object-cover" loading="lazy"  decoding="async">`;
                         } else {
                             photoDiv.innerHTML =
                                 `<span class="text-4xl font-bold text-white">${(member.name || 'U').charAt(0)}</span>`;

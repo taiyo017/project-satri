@@ -89,7 +89,8 @@
                             class="relative h-56 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 overflow-hidden">
                             @if ($project->image)
                                 <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}"
-                                    class="project-image w-full h-full object-cover transition-transform duration-700">
+                                    class="project-image w-full h-full object-cover transition-transform duration-700"
+                                    loading="lazy" decoding="async">
 
                                 {{-- Overlay on hover --}}
                                 @if ($project->project_url)

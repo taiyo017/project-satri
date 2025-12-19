@@ -147,7 +147,8 @@
                             {{-- Main Image --}}
                             <img src="{{ asset('storage/' . $image) }}" alt="{{ $title }}"
                                 class="w-full h-[450px] object-cover 
-                                group-hover:scale-105 transition-transform duration-700 ease-out">
+                                group-hover:scale-105 transition-transform duration-700 ease-out"
+                                loading="lazy" decoding="async">
 
                             {{-- Subtle bottom fade for blending --}}
                             <div
