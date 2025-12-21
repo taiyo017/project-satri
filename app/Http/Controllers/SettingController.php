@@ -51,6 +51,8 @@ class SettingController extends Controller
 
         $data = $validated;
 
+        $data['show_logo'] = (int) $request->input('show_logo', 0);
+
         if ($request->hasFile('logo_path')) {
             $data['logo_path'] = $request->file('logo_path')->store('logos', 'public');
         }

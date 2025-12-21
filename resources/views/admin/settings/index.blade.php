@@ -9,6 +9,11 @@
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Success Message -->
+            @if (session('success'))
+                <x-alert type="success" :message="session('success')" />
+            @endif
+
             <!-- Error Messages -->
             @if ($errors->any())
                 <div class="mb-6 space-y-2">
@@ -614,6 +619,32 @@
                                                 PNG, JPG, SVG up to 2MB
                                             </p>
                                             <x-input-error :messages="$errors->get('logo_path')" class="mt-2" />
+                                        </div>
+
+                                        <!-- Logo Visibility Toggle -->
+                                        <div class="w-full mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
+                                            x-show="editingSection === 'logo'">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex-1">
+                                                    <label for="show_logo"
+                                                        class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                                        Show Logo in Navbar
+                                                    </label>
+                                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                        When disabled, site name will be shown instead
+                                                    </p>
+                                                </div>
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <!-- Hidden input to ensure a value is always sent -->
+                                                    <input type="hidden" name="show_logo" value="0">
+                                                    <input type="checkbox" name="show_logo" id="show_logo"
+                                                        value="1" class="sr-only peer"
+                                                        {{ old('show_logo', $setting->show_logo ?? true) ? 'checked' : '' }}>
+                                                    <div
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                                    </div>
+                                                </label>
+                                            </div>
                                         </div>
 
                                         <!-- Save Button -->

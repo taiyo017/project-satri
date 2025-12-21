@@ -28,23 +28,23 @@
             {{-- Company Info --}}
             <div class="lg:col-span-1 space-y-6">
                 <div class="space-y-4">
-                    @if ($setting && $setting->logo_path)
+                    @if ($setting && $setting->show_logo && $setting->logo_path)
+                        {{-- Show Logo --}}
                         <img src="{{ asset('storage/' . $setting->logo_path) }}"
                             alt="{{ $setting->site_name ?? 'Logo' }}"
                             class="h-10 w-auto brightness-110 hover:brightness-125 transition-all duration-300"
                             loading="lazy">
                     @else
-                        <div class="inline-flex">
-                            <div
-                                class="h-12 w-12 bg-gradient-to-br from-[#1A66C5] to-[#2E7FDB] rounded-xl flex items-center justify-center shadow-lg shadow-[#1A66C5]/20 hover:shadow-[#1A66C5]/40 transition-all duration-300 hover:scale-105">
-                                <span
-                                    class="text-white font-bold text-xl">{{ substr($setting->site_name ?? 'ST', 0, 2) }}</span>
-                            </div>
+                        {{-- Show Site Name --}}
+                        <div class="items-center">
+                            <span class="text-white font-bold text-xl">
+                                {{ $setting->site_name ?? 'Satri Technologies' }}
+                            </span>
                         </div>
                     @endif
 
                     <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
-                        {{ $setting->meta_description ?? 'Building innovative technology solutions for the modern world.' }}
+                        {{ $setting->tagline ?? 'Building innovative technology solutions for the modern world.' }}
                     </p>
                 </div>
 

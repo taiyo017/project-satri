@@ -78,14 +78,17 @@
 
             {{-- Logo --}}
             <a href="{{ route('frontend.home') }}" class="flex items-center gap-3 group flex-shrink-0" aria-label="Home">
-                @if ($setting?->logo_path)
+                @if ($setting?->show_logo && $setting?->logo_path)
+                    {{-- Show Logo --}}
                     <img src="{{ asset('storage/' . $setting->logo_path) }}"
                         class="h-8 w-auto transition-transform duration-300 group-hover:scale-105 drop-shadow-lg"
                         alt="{{ $setting->site_name ?? 'Logo' }}">
                 @else
-                    <div
-                        class="h-10 w-10 bg-white rounded-xl flex items-center justify-center text-[#1363C6] font-bold text-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
-                        {{ substr($setting->site_name ?? 'ST', 0, 2) }}
+                    {{-- Show Site Name --}}
+                    <div class=" items-center">
+                        <span class="text-white font-bold text-lg tracking-tight">
+                            {{ $setting->site_name ?? 'Satri Technologies' }}
+                        </span>
                     </div>
                 @endif
             </a>

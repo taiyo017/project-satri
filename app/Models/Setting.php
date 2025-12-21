@@ -10,6 +10,7 @@ class Setting extends Model
         'site_name',
         'tagline',
         'logo_path',
+        'show_logo',
         'favicon_path',
         'email',
         'phone',
@@ -29,5 +30,9 @@ class Setting extends Model
         'twitter_title',
         'twitter_description',
         'twitter_image',
+    ];
+
+    protected $casts = [
+        'show_logo' => 'boolean',
     ];
 }
