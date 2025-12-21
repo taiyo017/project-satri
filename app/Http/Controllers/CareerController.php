@@ -23,7 +23,8 @@ class CareerController extends Controller
      */
     public function create()
     {
-        return view('admin.careers.create');
+        $jobCategories = \App\Models\JobCategory::orderBy('name')->get();
+        return view('admin.careers.create', compact('jobCategories'));
     }
 
     /**
@@ -36,7 +37,7 @@ class CareerController extends Controller
             'slug' => 'required|string|max:255|unique:careers,slug',
             'description' => 'nullable|string',
             'location' => 'nullable|string|max:255',
-            'job_type' => 'required|in:full-time,part-time,internship,contract',
+            'job_category_id' => 'required|exists:job_categories,id',
             'deadline' => 'nullable|date|after_or_equal:today',
             'is_open' => 'required|boolean',
             'meta_title' => 'nullable|string|max:255',
@@ -60,7 +61,8 @@ class CareerController extends Controller
      */
     public function edit(Career $career)
     {
-        return view('admin.careers.edit', compact('career'));
+        $jobCategories = \App\Models\JobCategory::orderBy('name')->get();
+        return view('admin.careers.edit', compact('career', 'jobCategories'));
     }
 
     /**
@@ -73,7 +75,7 @@ class CareerController extends Controller
             'slug' => 'required|string|max:255|unique:careers,slug,' . $career->id,
             'description' => 'nullable|string',
             'location' => 'nullable|string|max:255',
-            'job_type' => 'required|in:full-time,part-time,internship,contract',
+            'job_category_id' => 'required|exists:job_categories,id',
             'deadline' => 'nullable|date',
             'is_open' => 'required|boolean',
             'meta_title' => 'nullable|string|max:255',

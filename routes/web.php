@@ -5,6 +5,7 @@ use App\Http\Controllers\CareerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CourseCategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseApplicationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\Frontend\PageController as FrontendPageController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\SectionFieldController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TeamMemberController;
+use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -29,7 +31,7 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\TwoFactorLoginController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-
+use App\Http\Controllers\JobCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -56,8 +58,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::patch('/settings', [SettingController::class, 'update'])->name('settings.update');
 
-    //Pages
-    Route::resource('pages', PageController::class);
+    // Admin routes with settings check
+    Route::middleware('settings.configured')->group(function () {
+        //Pages
+        Route::resource('pages', PageController::class);
 
     // Sections Routes
     Route::post('pages/{page}/sections', [SectionController::class, 'store'])
@@ -97,6 +101,9 @@ Route::middleware('auth')->group(function () {
     //FAQs
     Route::resource('faqs', FaqController::class)->except('show');
 
+    //Testimonials
+    Route::resource('testimonials', TestimonialController::class);
+
     // Contact List
     Route::get('/contacts', [ContactController::class, 'index'])
         ->name('contacts.index');
@@ -116,8 +123,20 @@ Route::middleware('auth')->group(function () {
     //Courses
     Route::resource('course-categories', CourseCategoryController::class);
     Route::resource('courses', CourseController::class);
+    Route::get('courses/{course}/applications', [CourseController::class, 'applications'])->name('courses.applications');
+
+    // Optional: mark application as read
+    Route::post('course-applications/{application}/mark-read', [CourseController::class, 'markApplicationRead'])->name('course-applications.markRead');
+
+    // Optional: forward email to applicant
+    Route::post('course-applications/{application}/forward-email', [CourseController::class, 'forwardEmail'])->name('course-applications.forwardEmail');
+
+    // Optional: export course applications
+    Route::get('courses/{course}/applications/export', [CourseApplicationController::class, 'export'])
+        ->name('course-applications.export');
 
     //Careers
+    Route::resource('job-categories', JobCategoryController::class);
     Route::resource('careers', CareerController::class);
     Route::get('careers/{career}/applications', [CareerController::class, 'applications'])->name('careers.applications');
 
@@ -151,6 +170,7 @@ Route::middleware('auth')->group(function () {
 
     //2FA enabling 
     Route::post('/settings/2fa', [ProfileController::class, 'toggleTwoFactor'])->name('settings.2fa');
+    });
 });
 
 
@@ -163,6 +183,9 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 Route::get('/two-factor-login', [TwoFactorLoginController::class, 'index'])->name('two-factor.login');
 Route::post('/two-factor-login', [TwoFactorLoginController::class, 'store'])->name('two-factor.login.submit');
+Route::post('/two-factor-resend', [TwoFactorLoginController::class, 'resend'])
+    ->middleware('throttle:3,1')
+    ->name('two-factor.resend');
 
 // Password Reset
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
@@ -199,4 +222,6 @@ Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.p
 Route::get('/career/{slug}', [FrontendCareerController::class, 'show'])->name('career.show');
 Route::get('/course/{slug}', [FrontendCourseController::class, 'show'])->name('course.show');
 Route::post('/careers/{career}/apply', [CareerApplicationController::class, 'store'])
-    ->name('careers.apply')->middleware('throttle:3, 60');;
+    ->name('careers.apply')->middleware('throttle:3, 60');
+Route::post('/courses/{course}/apply', [CourseApplicationController::class, 'store'])
+    ->name('courses.apply')->middleware('throttle:3, 60');

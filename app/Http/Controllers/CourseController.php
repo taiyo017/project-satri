@@ -16,7 +16,13 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::with('category')->latest()->paginate(10);
+        $courses = Course::with(['category', 'applications'])
+            ->withCount(['applications', 'applications as new_applications_count' => function ($query) {
+                $query->where('is_read', false);
+            }])
+            ->latest()
+            ->paginate(10);
+        
         return view('admin.courses.index', compact('courses'));
     }
 
@@ -172,5 +178,52 @@ class CourseController extends Controller
     {
         $course->delete();
         return redirect()->route('courses.index')->with('success', 'Course deleted successfully!');
+    }
+
+    /**
+     * Display course applications
+     */
+    public function applications(Course $course)
+    {
+        $applications = $course->applications()->orderBy('created_at', 'desc')->get();
+        return view('admin.courses.applications', compact('course', 'applications'));
+    }
+
+    /**
+     * Mark application as read
+     */
+    public function markApplicationRead(\App\Models\CourseApplication $application)
+    {
+        $application->update(['is_read' => true]);
+        return response()->json(['success' => true]);
+    }
+
+    /**
+     * Forward email to applicant
+     */
+    public function forwardEmail(Request $request, \App\Models\CourseApplication $application)
+    {
+        $application->load('course'); // ensure course is loaded
+
+        $request->validate([
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ]);
+
+        try {
+            \Illuminate\Support\Facades\Mail::to($application->email)->send(
+                new \App\Mail\ForwardCourseApplicationEmail(
+                    $application,
+                    $request->subject,
+                    $request->message
+                )
+            );
+
+            $application->update(['is_read' => true]);
+
+            return redirect()->back()->with('success', 'Email sent successfully to ' . $application->name);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to send email. Please try again. ' . $e->getMessage());
+        }
     }
 }

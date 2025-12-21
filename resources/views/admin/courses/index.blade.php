@@ -33,7 +33,7 @@
 
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
 
             <!-- Total Courses -->
             <div
@@ -62,6 +62,59 @@
                 </div>
             </div>
 
+            <!-- Total Applications -->
+            <div
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 
+               border border-gray-200 dark:border-gray-700 
+               shadow-sm hover:shadow-md transition-all">
+                <div class="flex items-center justify-between">
+
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">
+                            Total Applications
+                        </p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">
+                            {{ $courses->sum('applications_count') }}
+                        </p>
+                    </div>
+
+                    <div class="p-2.5 rounded-lg bg-blue-100 dark:bg-blue-900/30">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- New Applications -->
+            <div
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 
+               border border-gray-200 dark:border-gray-700 
+               shadow-sm hover:shadow-md transition-all">
+                <div class="flex items-center justify-between">
+
+                    <div>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">
+                            New Applications
+                        </p>
+                        <p class="text-xl font-bold text-orange-600 dark:text-orange-400 mt-1">
+                            {{ $courses->sum('new_applications_count') }}
+                        </p>
+                    </div>
+
+                    <div class="p-2.5 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
+                        <svg class="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+
+                </div>
+            </div>
+
             <!-- Active Courses -->
             <div
                 class="bg-white dark:bg-gray-800 rounded-xl p-4 
@@ -83,33 +136,6 @@
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Categories -->
-            <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-4 
-               border border-gray-200 dark:border-gray-700 
-               shadow-sm hover:shadow-md transition-all">
-                <div class="flex items-center justify-between">
-
-                    <div>
-                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">
-                            Categories
-                        </p>
-                        <p class="text-xl font-bold text-purple-600 dark:text-purple-400 mt-1">
-                            {{ $courses->unique('category_id')->count() }}
-                        </p>
-                    </div>
-
-                    <div class="p-2.5 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                        <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                         </svg>
                     </div>
 
@@ -197,11 +223,11 @@
                             </th>
                             <th
                                 class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                                Status
+                                Applications
                             </th>
                             <th
                                 class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300">
-                                Syllabuses
+                                Status
                             </th>
                             <th
                                 class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300">
@@ -282,6 +308,40 @@
                                     </div>
                                 </td>
 
+                                <!-- Applications -->
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-2">
+                                        @if ($course->applications_count > 0)
+                                            <a href="{{ route('courses.applications', $course) }}"
+                                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-medium hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                </svg>
+                                                {{ $course->applications_count }}
+                                                @if ($course->new_applications_count > 0)
+                                                    <span class="ml-1 px-1.5 py-0.5 bg-red-500 text-white rounded-full text-[10px] font-bold">
+                                                        {{ $course->new_applications_count }}
+                                                    </span>
+                                                @endif
+                                            </a>
+                                        @else
+                                            <span
+                                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs font-medium">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                </svg>
+                                                0
+                                            </span>
+                                        @endif
+                                    </div>
+                                </td>
+
                                 <!-- Status -->
                                 <td class="px-6 py-4">
                                     @if ($course->status)
@@ -299,42 +359,20 @@
                                     @endif
                                 </td>
 
-                                <!-- Syllabuses -->
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center gap-2">
-                                        @if ($course->syllabus->count() > 0)
-                                            <a href=""
-                                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-medium hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
-                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                                </svg>
-                                                <svg class="w-3 h-3" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2" d="M9 5l7 7-7 7" />
-                                                </svg>
-                                            </a>
-                                        @else
-                                            <span
-                                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs font-medium">
-                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                                </svg>
-                                                No Syllabus
-                                            </span>
-                                        @endif
-                                    </div>
-                                </td>
-
                                 <!-- Actions -->
                                 <td class="px-6 py-4">
                                     <div class="flex items-center justify-end gap-2">
+
+                                        <!-- View Applications -->
+                                        <a href="{{ route('courses.applications', $course) }}"
+                                            class="p-2 rounded-lg text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                                            title="View Applications">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </a>
 
                                         <!-- Edit -->
                                         <a href="{{ route('courses.edit', $course) }}"

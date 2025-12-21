@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable();
-            $table->string('company');
-            $table->string('message');
-            $table->string('photo');
-            $table->number('rating')->range(1, 5);
-            $table->string('meta_title');
-            $table->string('meta_title');
-            $table->string('meta_description');
-            $table->string('meta_keywords');
+            $table->string('position')->nullable();
+            $table->string('company')->nullable();
+            $table->text('message');
+            $table->string('photo')->nullable();
+            $table->unsignedTinyInteger('rating')->default(5);
+            $table->boolean('is_featured')->default(false);
+            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
             $table->timestamps();
         });
     }

@@ -12,10 +12,11 @@
 
     $jobs = \App\Models\Career::where('is_open', 1)
         ->whereDate('deadline', '>=', Carbon::today())
+        ->with('jobCategory')
         ->orderBy('created_at', 'desc')
         ->get();
 
-    $categories = $jobs->pluck('job_type')->unique()->filter()->values();
+    $categories = $jobs->pluck('jobCategory.name')->unique()->filter()->values();
 @endphp
 
 <section
@@ -99,11 +100,11 @@
                                 :class="activeTab === '{{ $cat }}' ?
                                     'bg-[#1363C6] text-white shadow-md' :
                                     'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-[#1363C6]/40'">
-                                {{ str_replace('-', ' ', $cat) }}
+                                {{ $cat }}
                                 <span class="ml-2 px-2 py-0.5 rounded-full text-xs font-bold"
                                     :class="activeTab === '{{ $cat }}' ? 'bg-white/20' :
                                         'bg-[#1363C6]/10 text-[#1363C6] dark:text-[#4a8dd8]'">
-                                    {{ $jobs->where('job_type', $cat)->count() }}
+                                    {{ $jobs->where('jobCategory.name', $cat)->count() }}
                                 </span>
                             </button>
                         @endforeach
@@ -114,7 +115,7 @@
             {{-- Job Listings Grid --}}
             <div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
                 @forelse ($jobs as $index => $job)
-                    <div x-show="activeTab === 'All' || activeTab === '{{ $job->job_type }}'"
+                    <div x-show="activeTab === 'All' || activeTab === '{{ $job->jobCategory?->name }}'"
                         x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 transform scale-95"
                         x-transition:enter-end="opacity-100 transform scale-100" class="group animate-career-card"
@@ -140,7 +141,7 @@
                                 <span
                                     class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider 
                                     bg-[#1363C6]/10 text-[#1363C6] dark:bg-[#1363C6]/20 dark:text-[#4a8dd8]">
-                                    {{ str_replace('-', ' ', $job->job_type) }}
+                                    {{ $job->jobCategory?->name ?? 'Uncategorized' }}
                                 </span>
                             </div>
 

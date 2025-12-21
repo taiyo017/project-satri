@@ -115,6 +115,10 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
         <!-- ===== Content Area End ===== -->
     </div>
     <!-- ===== Page Wrapper End ===== -->
+
+    {{-- Email Verification Modal --}}
+    <x-email-verification-modal />
+
     <script>
         function sidebarMenu() {
             return {
@@ -125,7 +129,33 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                         'li[data-active="1"]');
                     if (activeItem) {
                         this.activeDropdown = parseInt(activeItem.dataset.index, 10);
+                        
+                        // Auto-scroll to active item
+                        this.$nextTick(() => {
+                            this.scrollToActiveItem(activeItem);
+                        });
                     }
+                },
+
+                scrollToActiveItem(activeItem) {
+                    // Get the scrollable container (sidebar menu)
+                    const scrollContainer = this.$root?.querySelector('.overflow-y-auto') || 
+                                          document.querySelector('.sidebar .overflow-y-auto');
+                    
+                    if (!scrollContainer || !activeItem) return;
+
+                    // Calculate positions
+                    const containerRect = scrollContainer.getBoundingClientRect();
+                    const itemRect = activeItem.getBoundingClientRect();
+                    
+                    // Calculate the offset needed to center the item
+                    const offset = itemRect.top - containerRect.top - (containerRect.height / 2) + (itemRect.height / 2);
+                    
+                    // Smooth scroll to the active item
+                    scrollContainer.scrollTo({
+                        top: scrollContainer.scrollTop + offset,
+                        behavior: 'smooth'
+                    });
                 },
 
                 toggleDropdown(index) {

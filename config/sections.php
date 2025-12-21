@@ -272,6 +272,16 @@ return [
         ],
     ],
 
+    'intern_messages' => [
+        'name' => 'Intern Messages Section',
+        'layouts' => ['carousel', 'grid'],
+        'fields' => [
+            ['key' => 'heading', 'type' => 'text', 'label' => 'Heading'],
+            ['key' => 'subtitle', 'type' => 'text', 'label' => 'Subtitle'],
+            ['key' => 'content', 'type' => 'wysiwyg', 'label' => 'Content'],
+        ],
+    ],
+
     'testimonials' => [
         'name' => 'Testimonials Section',
         'layouts' => ['carousel', 'grid'],

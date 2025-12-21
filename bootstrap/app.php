@@ -12,6 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web([]);
+        $middleware->alias([
+            'settings.configured' => \App\Http\Middleware\EnsureSettingsConfigured::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

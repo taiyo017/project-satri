@@ -41,16 +41,19 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         if ($user->two_factor_enabled) {
+            TwoFactorLogin::where('user_id', $user->id)->delete();
+            
+            // Generate new code
             $code = random_int(100000, 999999);
 
-            TwoFactorLogin::updateOrCreate(
-                ['user_id' => $user->id],
-                [
-                    'code' => $code,
-                    'expires_at' => now()->addMinutes(10),
-                ]
-            );
+            // Create new 2FA code with hashed value
+            TwoFactorLogin::create([
+                'user_id' => $user->id,
+                'code' => \Hash::make($code), // Hash the code before storing
+                'expires_at' => now()->addMinutes(10),
+            ]);
 
+            // Send email with plain code (user needs to see it)
             Mail::to($user->email)->send(new TwoFactorCodeMail($code, $user->name));
 
             Auth::logout();

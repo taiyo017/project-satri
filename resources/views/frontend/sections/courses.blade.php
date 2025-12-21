@@ -23,6 +23,9 @@
 
     // Total count for "View All" button logic
     $totalCoursesCount = \App\Models\Course::where('status', true)->count();
+    
+    // Get unique categories from courses
+    $categories = $displayCourses->pluck('category.name')->unique()->filter()->values();
 @endphp
 
 <section
@@ -77,9 +80,56 @@
 
         {{-- Courses Grid --}}
         @if ($displayCourses->count())
+
+            <div x-data="{ activeTab: 'All' }">
+
+                {{-- Category Filter Tabs --}}
+                @if ($categories->count() > 0)
+                    <div
+                        class="w-full sticky top-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md py-4 mb-10 border-y border-gray-100 dark:border-gray-800 animate-course-tabs">
+                        <div class="flex flex-wrap justify-center gap-3">
+                            {{-- All Courses Tab --}}
+                            <button @click="activeTab = 'All'"
+                                class="px-4 py-2 rounded-lg font-semibold text-[15px] transition-all duration-300 animate-course-tab"
+                                data-tab-index="0"
+                                :class="activeTab === 'All' ?
+                                    'bg-[#1363C6] text-white shadow-md' :
+                                    'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-[#1363C6]/40'">
+                                All Courses
+                                <span class="ml-2 px-2 py-0.5 rounded-full text-xs font-bold"
+                                    :class="activeTab === 'All' ? 'bg-white/20' :
+                                        'bg-[#1363C6]/10 text-[#1363C6] dark:text-[#4a8dd8]'">
+                                    {{ $displayCourses->count() }}
+                                </span>
+                            </button>
+
+                            {{-- Dynamic Category Tabs --}}
+                            @foreach ($categories as $index => $cat)
+                                <button @click="activeTab = '{{ $cat }}'"
+                                    class="px-4 py-2 rounded-lg font-semibold text-[15px] transition-all duration-300 capitalize animate-course-tab"
+                                    data-tab-index="{{ $index + 1 }}"
+                                    :class="activeTab === '{{ $cat }}' ?
+                                        'bg-[#1363C6] text-white shadow-md' :
+                                        'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-[#1363C6]/40'">
+                                    {{ $cat }}
+                                    <span class="ml-2 px-2 py-0.5 rounded-full text-xs font-bold"
+                                        :class="activeTab === '{{ $cat }}' ? 'bg-white/20' :
+                                            'bg-[#1363C6]/10 text-[#1363C6] dark:text-[#4a8dd8]'">
+                                        {{ $displayCourses->where('category.name', $cat)->count() }}
+                                    </span>
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
             <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-12 pt-8">
                 @foreach ($displayCourses as $index => $course)
-                    <div class="group bg-white dark:bg-gray-900 rounded-xl overflow-hidden 
+                    <div x-show="activeTab === 'All' || activeTab === '{{ $course->category?->name }}'"
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform scale-95"
+                        x-transition:enter-end="opacity-100 transform scale-100"
+                        class="group bg-white dark:bg-gray-900 rounded-xl overflow-hidden 
                         border border-gray-100 dark:border-gray-800 
                         hover:border-[#1363C6]/40 dark:hover:border-[#1363C6]/50 
                         transition-all duration-300 
@@ -181,6 +231,8 @@
                 @endforeach
             </div>
 
+            </div>
+
             {{-- Pagination for Full Page (Left Aligned) --}}
             @if ($fullPage && method_exists($courses, 'links'))
                 <div class="mt-12 animate-course-pagination">
@@ -252,7 +304,7 @@
 
             // Set initial states
             gsap.set(
-                '.animate-course-title, .animate-course-content, .animate-course-subtitle, .animate-course-card, .animate-course-action-btn, .animate-course-view-all, .animate-course-pagination, .animate-course-empty', {
+                '.animate-course-title, .animate-course-content, .animate-course-subtitle, .animate-course-tabs, .animate-course-tab, .animate-course-card, .animate-course-action-btn, .animate-course-view-all, .animate-course-pagination, .animate-course-empty', {
                     opacity: 0,
                     y: 40
                 });
@@ -315,6 +367,35 @@
                     start: 'top 80%',
                     toggleActions: 'play none none none'
                 }
+            });
+
+            // Category Tabs Container
+            gsap.to('.animate-course-tabs', {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.animate-course-tabs',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Individual Tab Buttons (stagger)
+            document.querySelectorAll('.animate-course-tab').forEach((tab, index) => {
+                gsap.to(tab, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    delay: 0.3 + (index * 0.05),
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.animate-course-tabs',
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                });
             });
 
             // Course Cards (stagger animation)

@@ -266,7 +266,7 @@
                                                 'bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-400',
                                         ];
                                         $colorClass =
-                                            $typeColors[$career->job_type] ??
+                                            $typeColors[$career->jobCategory?->slug] ??
                                             'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300';
                                     @endphp
                                     <span
@@ -276,7 +276,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
-                                        {{ ucfirst(str_replace('-', ' ', $career->job_type)) }}
+                                        {{ $career->jobCategory?->name ?? 'Uncategorized' }}
                                     </span>
                                 </td>
 

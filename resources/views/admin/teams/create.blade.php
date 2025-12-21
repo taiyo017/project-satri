@@ -209,6 +209,20 @@
                             </p>
                         </div>
 
+                        {{-- Message --}}
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                Message
+                            </label>
+                            <textarea name="message" rows="4"
+                                class="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-700 rounded-xl 
+                                focus:border-[#1363C6] focus:ring-4 focus:ring-[#1363C6]/10 
+                                dark:bg-gray-800 dark:text-white transition-all duration-300 resize-none"
+                                placeholder="Write a message from the team member...">{{ old('message') }}</textarea>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Optional: A message or quote from the team member
+                            </p>
+                        </div>
+
                         {{-- Order Index --}}
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">

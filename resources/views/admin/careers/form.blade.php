@@ -39,23 +39,23 @@
                     <x-input-error :messages="$errors->get('location')" class="mt-2" />
                 </div>
 
-                {{-- Job Type --}}
+                {{-- Job Category --}}
                 <div>
-                    <x-input-label for="job_type" value="Job Type" required />
-                    <select id="job_type" name="job_type"
+                    <x-input-label for="job_category_id" value="Job Category" required />
+                    <select id="job_category_id" name="job_category_id"
                         class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                         required>
-                        @php
-                            $types = ['full-time', 'part-time', 'internship', 'contract'];
-                            $selected = old('job_type', $career->job_type ?? 'full-time');
-                        @endphp
-                        @foreach ($types as $type)
-                            <option value="{{ $type }}" @selected($selected === $type)>
-                                {{ ucfirst(str_replace('-', ' ', $type)) }}
+                        <option value="">Select a category</option>
+                        @foreach ($jobCategories as $category)
+                            <option value="{{ $category->id }}" @selected(old('job_category_id', $career->job_category_id ?? '') == $category->id)>
+                                {{ $category->name }}
                             </option>
                         @endforeach
                     </select>
-                    <x-input-error :messages="$errors->get('job_type')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('job_category_id')" class="mt-2" />
+                    @if($jobCategories->isEmpty())
+                        <p class="mt-1 text-xs text-red-500">No categories available. <a href="{{ route('job-categories.create') }}" class="underline">Create one</a></p>
+                    @endif
                 </div>
 
                 {{-- Deadline --}}

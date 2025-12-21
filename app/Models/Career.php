@@ -15,7 +15,7 @@ class Career extends Model
         'slug',
         'description',
         'location',
-        'job_type',
+        'job_category_id',
         'deadline',
         'is_open',
         'meta_title',
@@ -27,6 +27,14 @@ class Career extends Model
         'is_open' => 'boolean',
         'deadline' => 'date',
     ];
+
+    /**
+     * Relationship: Career belongs to a job category
+     */
+    public function jobCategory()
+    {
+        return $this->belongsTo(JobCategory::class, 'job_category_id');
+    }
 
     /**
      * Relationship: Career has many applications
@@ -49,10 +57,18 @@ class Career extends Model
     }
 
     /**
-     * Get job type label
+     * Get job type label (from category)
      */
     public function getJobTypeLabelAttribute(): string
     {
-        return ucfirst(str_replace('-', ' ', $this->job_type));
+        return $this->jobCategory?->name ?? 'Uncategorized';
+    }
+
+    /**
+     * Accessor for backward compatibility
+     */
+    public function getJobTypeAttribute()
+    {
+        return $this->jobCategory?->slug;
     }
 }

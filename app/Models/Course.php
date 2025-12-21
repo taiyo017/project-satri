@@ -56,4 +56,12 @@ class Course extends Model
     {
         return $query->where('status', true);
     }
+
+    /**
+     * Relationship: A course has many applications
+     */
+    public function applications()
+    {
+        return $this->hasMany(CourseApplication::class);
+    }
 }

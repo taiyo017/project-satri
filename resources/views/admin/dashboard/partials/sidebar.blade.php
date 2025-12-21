@@ -18,15 +18,15 @@
                 ['title' => 'Add New Page', 'route' => 'pages.create'],
             ],
         ],
-        // [
-        //     'title' => 'Services',
-        //     'routePattern' => 'services.*',
-        //     'icon' => 'services',
-        //     'subItems' => [
-        //         ['title' => 'All Services', 'route' => 'services.index'],
-        //         ['title' => 'Add New Service', 'route' => 'services.create'],
-        //     ],
-        // ],
+        [
+            'title' => 'Services',
+            'routePattern' => 'services.*',
+            'icon' => 'services',
+            'subItems' => [
+                ['title' => 'All Services', 'route' => 'services.index'],
+                ['title' => 'Add New Service', 'route' => 'services.create'],
+            ],
+        ],
         [
             'title' => 'Projects',
             'routePattern' => 'projects.*',
@@ -103,13 +103,13 @@
                 ],
             ],
         ],
-        // [
-        //     'title' => 'Testimonials',
-        //     'route' => null,
-        //     'routePattern' => 'testimonials.*',
-        //     'icon' => 'testimonials',
-        //     'subItems' => [],
-        // ],
+        [
+            'title' => 'Testimonials',
+            'route' => 'testimonials.index',
+            'routePattern' => 'testimonials.*',
+            'icon' => 'testimonials',
+            'subItems' => [],
+        ],
         [
             'title' => 'Contacts',
             'route' => 'contacts.index',
@@ -119,11 +119,12 @@
         ],
         [
             'title' => 'Careers',
-            'routePattern' => 'careers.*',
+            'routePattern' => ['careers.*', 'job-categories.*'],
             'icon' => 'careers',
             'subItems' => [
                 ['title' => 'Job Posts', 'route' => 'careers.index'],
                 ['title' => 'Create Job Post', 'route' => 'careers.create'],
+                ['title' => 'Add Job Category', 'route' => 'job-categories.index'],
             ],
         ],
         [

@@ -26,7 +26,14 @@ class PageController extends Controller
             ? \App\Models\Gallery::where('is_active', true)->paginate(12)
             : collect();
 
+        $testimonials = $slug === 'testimonial'
+            ? \App\Models\Testimonial::where('status', 'active')->paginate(12)
+            : collect();
 
-        return view('frontend.pages.show', compact(['page', 'courses', 'projects', 'galleries']));
+        $services = $slug === 'service'
+            ? \App\Models\Service::where('status', 'published')->paginate(12)
+            : collect();
+
+        return view('frontend.pages.show', compact(['page', 'courses', 'projects', 'galleries', 'testimonials', 'services']));
     }
 }
