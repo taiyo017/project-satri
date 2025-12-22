@@ -33,18 +33,18 @@
         @endforeach
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
             {{-- Total Projects --}}
             <div
-                class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Projects</p>
                         <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">{{ $projects->total() }}</p>
                     </div>
 
-                    <div class="p-2.5 rounded-lg bg-gradient-to-br from-[#1363C6] to-[#0d4a99] shadow-sm">
+                    <div class="p-2.5 rounded-lg" style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -55,7 +55,7 @@
 
             {{-- Active Projects --}}
             <div
-                class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Active</p>
@@ -64,7 +64,7 @@
                         </p>
                     </div>
 
-                    <div class="p-2.5 rounded-lg bg-green-100 dark:bg-green-900/30 shadow-sm">
+                    <div class="p-2.5 rounded-lg bg-green-100 dark:bg-green-900/30">
                         <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -76,7 +76,7 @@
 
             {{-- Categories --}}
             <div
-                class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Categories</p>
@@ -85,7 +85,7 @@
                         </p>
                     </div>
 
-                    <div class="p-2.5 rounded-lg bg-purple-100 dark:bg-purple-900/30 shadow-sm">
+                    <div class="p-2.5 rounded-lg bg-purple-100 dark:bg-purple-900/30">
                         <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -117,20 +117,28 @@
             }">
 
             <!-- Table Header with Search -->
-            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">All Projects</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                            Showing {{ $projects->count() }} of {{ $projects->total() }} results
-                        </p>
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-800/50">
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" style="color: #1363C6;" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">All Projects</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                ({{ $projects->count() }} of {{ $projects->total() }})
+                            </p>
+                        </div>
                     </div>
 
-                    <!-- Search & Filter -->
-                    <div class="flex items-center gap-3">
-                        <div class="relative">
-                            <input type="text" placeholder="Search projects..."
-                                class="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-colors text-sm">
+                    <!-- Search & Filter Form -->
+                    <form method="GET" action="{{ route('projects.index') }}" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                        <div class="relative flex-1">
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="Search by title, client, category..."
+                                class="pl-10 pr-4 py-2 w-full border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-colors text-sm">
                             <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -138,13 +146,51 @@
                             </svg>
                         </div>
 
-                        <select
+                        <select name="status"
                             class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-colors text-sm">
                             <option value="">All Status</option>
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
+                            <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Inactive</option>
                         </select>
-                    </div>
+
+                        <select name="category"
+                            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-colors text-sm">
+                            <option value="">All Categories</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category }}" {{ request('category') === $category ? 'selected' : '' }}>
+                                    {{ $category }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <select name="featured"
+                            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-colors text-sm">
+                            <option value="">All Featured</option>
+                            <option value="yes" {{ request('featured') === 'yes' ? 'selected' : '' }}>Featured</option>
+                            <option value="no" {{ request('featured') === 'no' ? 'selected' : '' }}>Not Featured</option>
+                        </select>
+
+                        <button type="submit"
+                            class="inline-flex items-center justify-center gap-2 px-4 py-2 text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-[1.02] whitespace-nowrap"
+                            style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <span class="hidden sm:inline">Search</span>
+                        </button>
+
+                        @if (request('search') || request('status') || request('category') || request('featured'))
+                            <a href="{{ route('projects.index') }}"
+                                class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors whitespace-nowrap">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span class="hidden sm:inline">Clear</span>
+                            </a>
+                        @endif
+                    </form>
                 </div>
             </div>
 

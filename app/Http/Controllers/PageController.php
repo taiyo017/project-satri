@@ -8,9 +8,28 @@ use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pages = Page::orderBy('created_at', 'desc')->paginate();
+        $query = Page::query();
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('slug', 'like', "%{$search}%")
+                    ->orWhere('meta_title', 'like', "%{$search}%")
+                    ->orWhere('meta_description', 'like', "%{$search}%");
+            });
+        }
+
+        // Status filter
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $pages = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
+        
         return view('admin.pages.index', compact('pages'));
     }
 

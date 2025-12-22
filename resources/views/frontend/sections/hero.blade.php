@@ -44,73 +44,147 @@
 
     {{-- Content Container --}}
     <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-16 lg:px-20">
-        <div class="text-{{ $textAlign }} max-w-4xl {{ $textAlign === 'center' ? 'mx-auto' : '' }}">
+        @if ($content_image_field)
+            {{-- Two Column Layout: Text Left, Image Right --}}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
+                {{-- Left Column: Text Content --}}
+                <div class="text-{{ $textAlign === 'center' ? 'left' : $textAlign }}">
+                    {{-- Subtitle Badge with Primary Color Accent --}}
+                    @if ($subtitle)
+                        <div class="scroll-reveal inline-block mb-3">
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-md shadow-lg shadow-[#1363C6]/20">
+                                <span class="text-white font-semibold uppercase tracking-wider text-xs">
+                                    {{ $subtitle }}
+                                </span>
+                            </div>
+                        </div>
+                    @endif
 
-            {{-- Subtitle Badge with Primary Color Accent --}}
-            @if ($subtitle)
-                <div class="scroll-reveal inline-block" style="margin-bottom: 24px;">
-                    <div
-                        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/15 backdrop-blur-md shadow-lg shadow-[#1363C6]/20">
-                        <span class="text-white font-semibold uppercase tracking-wider"
-                            style="font-size: 14px; line-height: 20px;">
-                            {{ $subtitle }}
-                        </span>
+                    {{-- Main Title with Proper Typography --}}
+                    @if ($title)
+                        <h1 class="scroll-reveal font-bold text-white text-2xl md:text-3xl lg:text-4xl leading-tight mb-3">
+                            <span class="block md:inline">{{ $title }}</span>
+                        </h1>
+                    @endif
+
+                    {{-- Description Content with Body Text Specs --}}
+                    @if ($content)
+                        <div class="scroll-reveal mb-4">
+                            <div class="text-white/90 leading-relaxed text-sm md:text-base">
+                                {!! $content !!}
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- Call-to-Action Buttons with Proper Sizing --}}
+                    @if (count($buttons))
+                        <div class="scroll-reveal flex flex-col sm:flex-row items-center justify-start gap-3">
+                            @foreach ($buttons as $i => $btn)
+                                @if ($i === 0)
+                                    {{-- Primary Button with Enhanced Shadow --}}
+                                    <a href="{{ $btn['url'] ?? '#' }}"
+                                        class="group inline-flex items-center justify-center gap-2 bg-white text-[#1363C6] font-bold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-white/30 hover:scale-105 active:scale-95 w-full sm:w-auto px-5 py-2.5 text-sm">
+                                        <span>{{ $btn['text'] ?? 'Get Started' }}</span>
+                                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                        </svg>
+                                    </a>
+                                @else
+                                    {{-- Secondary Button with Primary Border Glow --}}
+                                    <a href="{{ $btn['url'] ?? '#' }}"
+                                        class="group inline-flex items-center justify-center gap-2 bg-transparent text-white font-bold rounded-full border-2 border-white/40 hover:bg-white/10 hover:border-white/60 hover:shadow-lg hover:shadow-white/20 transition-all duration-300 hover:scale-105 active:scale-95 w-full sm:w-auto px-5 py-2.5 text-sm">
+                                        <span>{{ $btn['text'] ?? 'Learn More' }}</span>
+                                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                        </svg>
+                                    </a>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
+                {{-- Right Column: Content Image --}}
+                <div class="scroll-reveal hidden lg:flex items-center justify-end">
+                    <div class="relative w-full">
+                        <img src="{{ $contentImageUrl }}" alt="{{ $title }}" 
+                            class="w-full max-h-[300px] object-contain object-right drop-shadow-2xl rounded-lg"
+                            loading="eager" decoding="async">
                     </div>
-
                 </div>
-            @endif
+            </div>
+        @else
+            {{-- Original Single Column Layout --}}
+            <div class="text-{{ $textAlign }} max-w-4xl {{ $textAlign === 'center' ? 'mx-auto' : '' }}">
+                {{-- Subtitle Badge with Primary Color Accent --}}
+                @if ($subtitle)
+                    <div class="scroll-reveal inline-block" style="margin-bottom: 24px;">
+                        <div
+                            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/15 backdrop-blur-md shadow-lg shadow-[#1363C6]/20">
+                            <span class="text-white font-semibold uppercase tracking-wider"
+                                style="font-size: 14px; line-height: 20px;">
+                                {{ $subtitle }}
+                            </span>
+                        </div>
 
-            {{-- Main Title with Proper Typography --}}
-            @if ($title)
-                <h1 class="scroll-reveal font-bold text-white"
-                    style="font-size: 40px; line-height: 48px; margin-top: 0; margin-bottom: 24px; letter-spacing: -0.02em;">
-                    <span class="block md:inline">{{ $title }}</span>
-                </h1>
-            @endif
-
-            {{-- Description Content with Body Text Specs --}}
-            @if ($content)
-                <div class="scroll-reveal max-w-3xl {{ $textAlign === 'center' ? 'mx-auto' : '' }}"
-                    style="margin-bottom: 32px;">
-                    <div class="text-white/90 leading-relaxed" style="font-size: 18px; line-height: 28px;">
-                        {!! $content !!}
                     </div>
-                </div>
-            @endif
+                @endif
 
-            {{-- Call-to-Action Buttons with Proper Sizing --}}
-            @if (count($buttons))
-                <div class="scroll-reveal flex flex-col sm:flex-row items-center {{ $textAlign === 'center' ? 'justify-center' : 'justify-start' }} gap-4"
-                    style="margin-bottom: 48px;">
-                    @foreach ($buttons as $i => $btn)
-                        @if ($i === 0)
-                            {{-- Primary Button with Enhanced Shadow --}}
-                            <a href="{{ $btn['url'] ?? '#' }}"
-                                class="group inline-flex items-center justify-center gap-2 bg-white text-[#1363C6] font-bold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-white/30 hover:scale-105 active:scale-95 w-full sm:w-auto"
-                                style="padding: 12px 24px; font-size: 14px; line-height: 20px; box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25), 0 2px 8px rgba(255, 255, 255, 0.15);">
-                                <span>{{ $btn['text'] ?? 'Get Started' }}</span>
-                                <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </a>
-                        @else
-                            {{-- Secondary Button with Primary Border Glow --}}
-                            <a href="{{ $btn['url'] ?? '#' }}"
-                                class="group inline-flex items-center justify-center gap-2 bg-transparent text-white font-bold rounded-full border-2 border-white/40 hover:bg-white/10 hover:border-white/60 hover:shadow-lg hover:shadow-white/20 transition-all duration-300 hover:scale-105 active:scale-95 w-full sm:w-auto"
-                                style="padding: 12px 24px; font-size: 14px; line-height: 20px;">
-                                <span>{{ $btn['text'] ?? 'Learn More' }}</span>
-                                <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </a>
-                        @endif
-                    @endforeach
-                </div>
-            @endif
+                {{-- Main Title with Proper Typography --}}
+                @if ($title)
+                    <h1 class="scroll-reveal font-bold text-white"
+                        style="font-size: 40px; line-height: 48px; margin-top: 0; margin-bottom: 24px; letter-spacing: -0.02em;">
+                        <span class="block md:inline">{{ $title }}</span>
+                    </h1>
+                @endif
 
-        </div>
+                {{-- Description Content with Body Text Specs --}}
+                @if ($content)
+                    <div class="scroll-reveal max-w-3xl {{ $textAlign === 'center' ? 'mx-auto' : '' }}"
+                        style="margin-bottom: 32px;">
+                        <div class="text-white/90 leading-relaxed" style="font-size: 18px; line-height: 28px;">
+                            {!! $content !!}
+                        </div>
+                    </div>
+                @endif
+
+                {{-- Call-to-Action Buttons with Proper Sizing --}}
+                @if (count($buttons))
+                    <div class="scroll-reveal flex flex-col sm:flex-row items-center {{ $textAlign === 'center' ? 'justify-center' : 'justify-start' }} gap-4"
+                        style="margin-bottom: 48px;">
+                        @foreach ($buttons as $i => $btn)
+                            @if ($i === 0)
+                                {{-- Primary Button with Enhanced Shadow --}}
+                                <a href="{{ $btn['url'] ?? '#' }}"
+                                    class="group inline-flex items-center justify-center gap-2 bg-white text-[#1363C6] font-bold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-white/30 hover:scale-105 active:scale-95 w-full sm:w-auto"
+                                    style="padding: 12px 24px; font-size: 14px; line-height: 20px; box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25), 0 2px 8px rgba(255, 255, 255, 0.15);">
+                                    <span>{{ $btn['text'] ?? 'Get Started' }}</span>
+                                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </a>
+                            @else
+                                {{-- Secondary Button with Primary Border Glow --}}
+                                <a href="{{ $btn['url'] ?? '#' }}"
+                                    class="group inline-flex items-center justify-center gap-2 bg-transparent text-white font-bold rounded-full border-2 border-white/40 hover:bg-white/10 hover:border-white/60 hover:shadow-lg hover:shadow-white/20 transition-all duration-300 hover:scale-105 active:scale-95 w-full sm:w-auto"
+                                    style="padding: 12px 24px; font-size: 14px; line-height: 20px;">
+                                    <span>{{ $btn['text'] ?? 'Learn More' }}</span>
+                                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </a>
+                            @endif
+                        @endforeach
+                    </div>
+                @endif
+
+            </div>
+        @endif
     </div>
 
 </section>

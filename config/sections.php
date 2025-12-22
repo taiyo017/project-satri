@@ -325,4 +325,19 @@ return [
         ],
     ],
 
+    'newsletter_subscription' => [
+        'name' => 'Newsletter Subscription Section',
+        'layouts' => ['subscription_inline', 'subscription_card', 'subscription_fullwidth'],
+        'fields' => [
+            ['key' => 'title', 'type' => 'text', 'label' => 'Section Title', 'placeholder' => 'Stay Updated'],
+            ['key' => 'subtitle', 'type' => 'text', 'label' => 'Subtitle', 'placeholder' => 'Subscribe to our newsletter'],
+            ['key' => 'description', 'type' => 'wysiwyg', 'label' => 'Description'],
+            ['key' => 'background_color', 'type' => 'text', 'label' => 'Background Color', 'placeholder' => '#f3f4f6'],
+            ['key' => 'show_topics', 'type' => 'checkbox', 'label' => 'Show Topic Selection'],
+            ['key' => 'button_text', 'type' => 'text', 'label' => 'Button Text', 'placeholder' => 'Subscribe Now'],
+            ['key' => 'success_message', 'type' => 'text', 'label' => 'Success Message', 'placeholder' => 'Thank you for subscribing!'],
+            ['key' => 'image', 'type' => 'image', 'label' => 'Side Image (Optional)'],
+        ],
+    ],
+
 ];

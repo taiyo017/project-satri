@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\JobPosted;
 use App\Mail\ForwardApplicationEmail;
 use App\Models\Career;
 use App\Models\CareerApplication;
@@ -11,10 +12,51 @@ use Illuminate\Support\Facades\Mail;
 class CareerController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $careers = Career::orderBy('created_at', 'desc')->paginate();
-        return view('admin.careers.index', compact('careers'));
+        $query = Career::query();
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%")
+                    ->orWhereHas('jobCategory', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        // Status filter (active/expired)
+        if ($request->filled('status')) {
+            if ($request->status === 'active') {
+                $query->where(function ($q) {
+                    $q->whereNull('deadline')
+                        ->orWhere('deadline', '>=', now());
+                });
+            } elseif ($request->status === 'expired') {
+                $query->where('deadline', '<', now());
+            }
+        }
+
+        // Job category filter
+        if ($request->filled('category')) {
+            $query->where('job_category_id', $request->category);
+        }
+
+        // Open/Closed filter
+        if ($request->filled('is_open')) {
+            $query->where('is_open', $request->is_open);
+        }
+
+        $careers = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
+        
+        // Get job categories for filter dropdown
+        $jobCategories = \App\Models\JobCategory::orderBy('name')->get();
+        
+        return view('admin.careers.index', compact('careers', 'jobCategories'));
     }
 
 
@@ -45,7 +87,10 @@ class CareerController extends Controller
             'meta_keywords' => 'nullable|string',
         ]);
 
-        Career::create($validated);
+        $career = Career::create($validated);
+
+        // Trigger event to notify subscribers
+        event(new JobPosted($career));
 
         return redirect()->route('careers.index')->with('success', 'Career created successfully.');
     }

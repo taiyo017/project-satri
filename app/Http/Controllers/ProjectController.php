@@ -10,10 +10,46 @@ use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::latest()->paginate(10);
-        return view('admin.projects.index', compact('projects'));
+        $query = Project::query();
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('client', 'like', "%{$search}%")
+                    ->orWhere('category', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('tech_stack', 'like', "%{$search}%");
+            });
+        }
+
+        // Status filter
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Category filter
+        if ($request->filled('category')) {
+            $query->where('category', $request->category);
+        }
+
+        // Featured filter
+        if ($request->filled('featured')) {
+            $query->where('is_featured', $request->featured === 'yes');
+        }
+
+        $projects = $query->latest()->paginate(10)->withQueryString();
+        
+        // Get unique categories for filter dropdown
+        $categories = Project::whereNotNull('category')
+            ->distinct()
+            ->pluck('category')
+            ->sort();
+        
+        return view('admin.projects.index', compact('projects', 'categories'));
     }
 
     public function create()

@@ -10,7 +10,7 @@
             'subItems' => [],
         ],
         [
-            'title' => 'Pages',
+            'title' => 'Content Management',
             'routePattern' => 'pages.*',
             'icon' => 'pages',
             'subItems' => [
@@ -36,23 +36,35 @@
                 ['title' => 'Add New Project', 'route' => 'projects.create'],
             ],
         ],
-        // [
-        //     'title' => 'Blogs',
-        //     'routePattern' => 'blogs.*',
-        //     'icon' => 'blogs',
-        //     'subItems' => [
-        //         ['title' => 'All Blogs', 'route' => null],
-        //         ['title' => 'Add New Blog', 'route' => null],
-        //         ['title' => 'Categories', 'route' => null],
-        //     ],
-        // ],
         [
             'title' => 'Courses',
             'routePattern' => ['courses.*', 'course-categories.*'],
             'icon' => 'courses',
             'subItems' => [
                 ['title' => 'All Courses', 'route' => 'courses.index'],
+                ['title' => 'Add New Course', 'route' => 'courses.create'],
                 ['title' => 'Categories', 'route' => 'course-categories.index'],
+            ],
+        ],
+        [
+            'title' => 'Careers',
+            'routePattern' => ['careers.*', 'job-categories.*'],
+            'icon' => 'careers',
+            'subItems' => [
+                ['title' => 'Job Posts', 'route' => 'careers.index'],
+                ['title' => 'Create Job Post', 'route' => 'careers.create'],
+                ['title' => 'Job Categories', 'route' => 'job-categories.index'],
+            ],
+        ],
+        [
+            'title' => 'Email Subscriptions',
+            'routePattern' => ['admin.subscription-topics.*', 'admin.subscribers.*', 'admin.email-campaigns.*', 'admin.email-analytics.*'],
+            'icon' => 'email',
+            'subItems' => [
+                ['title' => 'Dashboard', 'route' => 'admin.email-analytics.index'],
+                ['title' => 'Subscribers', 'route' => 'admin.subscribers.index'],
+                ['title' => 'Campaigns', 'route' => 'admin.email-campaigns.index'],
+                ['title' => 'Topics', 'route' => 'admin.subscription-topics.index'],
             ],
         ],
         [
@@ -88,13 +100,20 @@
             ],
         ],
         [
+            'title' => 'Testimonials',
+            'route' => 'testimonials.index',
+            'routePattern' => 'testimonials.*',
+            'icon' => 'testimonials',
+            'subItems' => [],
+        ],
+        [
             'title' => 'FAQs',
             'route' => null,
             'routePattern' => 'faqs.*',
-            'icon' => 'team',
+            'icon' => 'faqs',
             'subItems' => [
                 [
-                    'title' => 'FAQs',
+                    'title' => 'All FAQs',
                     'route' => 'faqs.index',
                 ],
                 [
@@ -104,28 +123,11 @@
             ],
         ],
         [
-            'title' => 'Testimonials',
-            'route' => 'testimonials.index',
-            'routePattern' => 'testimonials.*',
-            'icon' => 'testimonials',
-            'subItems' => [],
-        ],
-        [
             'title' => 'Contacts',
             'route' => 'contacts.index',
             'routePattern' => 'contacts.*',
             'icon' => 'contact',
             'subItems' => [],
-        ],
-        [
-            'title' => 'Careers',
-            'routePattern' => ['careers.*', 'job-categories.*'],
-            'icon' => 'careers',
-            'subItems' => [
-                ['title' => 'Job Posts', 'route' => 'careers.index'],
-                ['title' => 'Create Job Post', 'route' => 'careers.create'],
-                ['title' => 'Add Job Category', 'route' => 'job-categories.index'],
-            ],
         ],
         [
             'title' => 'Settings',

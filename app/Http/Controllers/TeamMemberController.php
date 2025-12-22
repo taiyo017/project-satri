@@ -8,10 +8,35 @@ use Illuminate\Support\Facades\Storage;
 
 class TeamMemberController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $members = TeamMember::orderBy('order_index')->paginate();
-        return view('admin.teams.index', compact('members'));
+        $query = TeamMember::query();
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('designation', 'like', "%{$search}%")
+                    ->orWhere('bio', 'like', "%{$search}%")
+                    ->orWhere('message', 'like', "%{$search}%");
+            });
+        }
+
+        // Designation filter
+        if ($request->filled('designation')) {
+            $query->where('designation', $request->designation);
+        }
+
+        $members = $query->orderBy('order_index')->paginate(10)->withQueryString();
+        
+        // Get unique designations for filter dropdown
+        $designations = TeamMember::whereNotNull('designation')
+            ->distinct()
+            ->pluck('designation')
+            ->sort();
+        
+        return view('admin.teams.index', compact('members', 'designations'));
     }
 
     public function create()

@@ -32,6 +32,12 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\TwoFactorLoginController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\JobCategoryController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\EmailTrackingController;
+use App\Http\Controllers\Admin\SubscriptionTopicController;
+use App\Http\Controllers\Admin\SubscriberController;
+use App\Http\Controllers\Admin\EmailCampaignController;
+use App\Http\Controllers\Admin\EmailAnalyticsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -39,6 +45,19 @@ Route::get('/', function () {
 })->name('frontend.home');
 Route::post('/contact-submit', [ContactController::class, 'submit'])
     ->name('contact.submit')->middleware('throttle:3, 60');;
+
+// Email Subscription Routes (Public)
+Route::get('/subscribe', [SubscriptionController::class, 'showForm'])->name('subscription.form');
+Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscription.subscribe')->middleware('throttle:5,60');
+Route::get('/subscription/pending', [SubscriptionController::class, 'pending'])->name('subscription.pending');
+Route::get('/subscription/verify/{token}', [SubscriptionController::class, 'verify'])->name('subscription.verify');
+Route::get('/subscription/unsubscribe/{token}', [SubscriptionController::class, 'unsubscribe'])->name('subscription.unsubscribe');
+Route::get('/subscription/preferences/{token}', [SubscriptionController::class, 'preferences'])->name('subscription.preferences');
+Route::post('/subscription/preferences/{token}', [SubscriptionController::class, 'updatePreferences'])->name('subscription.update-preferences');
+
+// Email Tracking Routes (Public)
+Route::get('/email/track/open/{token}', [EmailTrackingController::class, 'trackOpen'])->name('email.track.open');
+Route::get('/email/track/click/{token}', [EmailTrackingController::class, 'trackClick'])->name('email.track.click');
 
 Route::middleware('auth')->group(function () {
 
@@ -170,6 +189,21 @@ Route::middleware('auth')->group(function () {
 
     //2FA enabling 
     Route::post('/settings/2fa', [ProfileController::class, 'toggleTwoFactor'])->name('settings.2fa');
+
+    // Email Subscription Management (Admin)
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('subscription-topics', SubscriptionTopicController::class);
+        Route::resource('subscribers', SubscriberController::class)->except(['create', 'store', 'edit', 'update']);
+        Route::post('subscribers/{subscriber}/status', [SubscriberController::class, 'updateStatus'])->name('subscribers.update-status');
+        Route::get('subscribers/export', [SubscriberController::class, 'export'])->name('subscribers.export');
+        
+        Route::resource('email-campaigns', EmailCampaignController::class);
+        Route::post('email-campaigns/{emailCampaign}/send', [EmailCampaignController::class, 'send'])->name('email-campaigns.send');
+        
+        Route::get('email-analytics', [EmailAnalyticsController::class, 'index'])->name('email-analytics.index');
+        Route::get('email-analytics/campaign/{emailCampaign}', [EmailAnalyticsController::class, 'campaign'])->name('email-analytics.campaign');
+        Route::get('email-analytics/topic/{subscriptionTopic}', [EmailAnalyticsController::class, 'topic'])->name('email-analytics.topic');
+    });
     });
 });
 

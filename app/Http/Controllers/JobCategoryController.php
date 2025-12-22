@@ -8,9 +8,22 @@ use Illuminate\Support\Str;
 
 class JobCategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = JobCategory::withCount('careers')->latest()->paginate(15);
+        $query = JobCategory::withCount('careers');
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('slug', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $categories = $query->latest()->paginate(15)->withQueryString();
+        
         return view('admin.job_categories.index', compact('categories'));
     }
 

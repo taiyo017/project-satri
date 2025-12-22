@@ -12,9 +12,47 @@ use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::latest()->paginate(10);
+        $query = Contact::query();
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('subject', 'like', "%{$search}%")
+                    ->orWhere('message', 'like', "%{$search}%");
+            });
+        }
+
+        // Status filter (read/unread)
+        if ($request->filled('status')) {
+            if ($request->status === 'read') {
+                $query->where('is_read', true);
+            } elseif ($request->status === 'unread') {
+                $query->where('is_read', false);
+            }
+        }
+
+        // Date filter
+        if ($request->filled('date_filter')) {
+            switch ($request->date_filter) {
+                case 'today':
+                    $query->whereDate('created_at', today());
+                    break;
+                case 'week':
+                    $query->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                    break;
+                case 'month':
+                    $query->whereMonth('created_at', now()->month)
+                          ->whereYear('created_at', now()->year);
+                    break;
+            }
+        }
+
+        $contacts = $query->latest()->paginate(10)->withQueryString();
         return view('admin.contacts.index', compact('contacts'));
     }
 

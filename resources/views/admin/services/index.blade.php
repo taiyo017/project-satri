@@ -1,23 +1,24 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
-                <h2 class="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                <h2 class="font-bold text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Services Management') }}
                 </h2>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5 sm:mt-1">
                     Manage your services and offerings
                 </p>
             </div>
 
             <!-- Create Button -->
             <a href="{{ route('services.create') }}"
-                class="inline-flex items-center gap-2 px-5 py-2.5 text-white text-sm font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                class="inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2 sm:py-2.5 text-white text-xs sm:text-sm font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap"
                 style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                {{ __('Add New Service') }}
+                <span class="hidden sm:inline">{{ __('Add New Service') }}</span>
+                <span class="sm:hidden">{{ __('Add') }}</span>
             </a>
         </div>
     </x-slot>
@@ -37,16 +38,16 @@
         @endif
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Services</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white mt-1">{{ $services->total() }}</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Services</p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">{{ $services->total() }}</p>
                     </div>
-                    <div class="p-3 rounded-xl" style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-2.5 rounded-lg" style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
@@ -55,15 +56,15 @@
             </div>
 
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active</p>
-                        <p class="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Active</p>
+                        <p class="text-xl font-bold text-green-600 dark:text-green-400 mt-1">
                             {{ $services->where('status', 'active')->count() }}</p>
                     </div>
-                    <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
-                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
+                    <div class="p-2.5 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                        <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -73,15 +74,15 @@
             </div>
 
             <div
-                class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Inactive</p>
-                        <p class="text-2xl font-bold text-gray-600 dark:text-gray-400 mt-1">
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Inactive</p>
+                        <p class="text-xl font-bold text-gray-600 dark:text-gray-400 mt-1">
                             {{ $services->where('status', 'inactive')->count() }}</p>
                     </div>
-                    <div class="p-3 bg-gray-100 dark:bg-gray-700 rounded-xl">
-                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor"
+                    <div class="p-2.5 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
@@ -108,20 +109,29 @@
             }">
 
             <!-- Table Header with Search -->
-            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <div
+                class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-800/50">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" style="color: #1363C6;" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                    <div class="flex items-center gap-2">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">All Services</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                            Showing {{ $services->count() }} of {{ $services->total() }} results
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            ({{ $services->count() }} of {{ $services->total() }})
                         </p>
+                    </div>
                     </div>
 
                     <!-- Search & Filter -->
-                    <div class="flex items-center gap-3">
+                    <form method="GET" action="{{ route('services.index') }}" class="flex items-center gap-3">
                         <div class="relative">
-                            <input type="text" placeholder="Search services..."
-                                class="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-colors text-sm">
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="Search services..."
+                                class="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-colors text-sm w-64">
                             <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -129,13 +139,37 @@
                             </svg>
                         </div>
 
-                        <select
-                            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-colors text-sm">
+                        <select name="status"
+                            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-colors text-sm"
+                            onchange="this.form.submit()">
                             <option value="">All Status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active
+                            </option>
+                            <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>
+                                Inactive</option>
                         </select>
-                    </div>
+
+                        <button type="submit"
+                            class="inline-flex items-center gap-2 px-4 py-2 text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-[1.02]"
+                            style="background: linear-gradient(135deg, #1363C6 0%, #0d4a99 100%);">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            Search
+                        </button>
+
+                        @if (request('search') || request('status'))
+                            <a href="{{ route('services.index') }}"
+                                class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                Clear
+                            </a>
+                        @endif
+                    </form>
                 </div>
             </div>
 
@@ -173,16 +207,16 @@
 
                                 <!-- Service Details -->
                                 <td class="px-6 py-4">
-                                    <div class="flex items-center gap-4">
+                                    <div class="flex items-center gap-3">
                                         <!-- Icon or Image -->
                                         @if (isset($service->icon) && $service->icon)
                                             <img src="{{ asset('storage/' . $service->icon) }}"
                                                 alt="{{ $service->title }}"
-                                                class="w-12 h-12 rounded-lg object-cover border-2 border-gray-200 dark:border-gray-700">
+                                                class="w-10 h-10 rounded-lg object-cover border-2 border-gray-200 dark:border-gray-700 flex-shrink-0">
                                         @else
-                                            <div class="w-12 h-12 rounded-lg flex items-center justify-center"
+                                            <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                                                 style="background: linear-gradient(135deg, rgba(19, 99, 198, 0.1) 0%, rgba(13, 74, 153, 0.1) 100%);">
-                                                <svg class="w-6 h-6" style="color: #1363C6;" fill="none"
+                                                <svg class="w-5 h-5" style="color: #1363C6;" fill="none"
                                                     stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2"
@@ -193,11 +227,11 @@
 
                                         <!-- Title & Description -->
                                         <div class="flex flex-col min-w-0">
-                                            <span class="font-semibold text-gray-900 dark:text-white text-base">
+                                            <span class="font-semibold text-gray-900 dark:text-white text-sm truncate">
                                                 {{ Str::limit($service->title, 50) }}
                                             </span>
                                             @if (isset($service->slug))
-                                                <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                                                     /{{ $service->slug }}
                                                 </span>
                                             @endif

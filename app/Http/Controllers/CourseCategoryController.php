@@ -8,9 +8,22 @@ use Illuminate\Support\Str;
 
 class CourseCategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = CourseCategory::latest()->paginate(15);
+        $query = CourseCategory::query();
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('slug', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $categories = $query->latest()->paginate(15)->withQueryString();
+        
         return view('admin.course_categories.index', compact('categories'));
     }
 

@@ -8,9 +8,38 @@ use Illuminate\Support\Facades\Storage;
 
 class TestimonialController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $testimonials = Testimonial::latest()->paginate(10);
+        $query = Testimonial::query();
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('company', 'like', "%{$search}%")
+                    ->orWhere('position', 'like', "%{$search}%")
+                    ->orWhere('message', 'like', "%{$search}%");
+            });
+        }
+
+        // Status filter
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Featured filter
+        if ($request->filled('featured')) {
+            $query->where('is_featured', $request->featured === 'yes');
+        }
+
+        // Rating filter
+        if ($request->filled('rating')) {
+            $query->where('rating', $request->rating);
+        }
+
+        $testimonials = $query->latest()->paginate(10)->withQueryString();
+        
         return view('admin.testimonials.index', compact('testimonials'));
     }
 

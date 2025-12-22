@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CourseLaunched;
 use App\Models\Course;
 use App\Models\CourseCategory;
 use App\Models\CourseSyllabus;
@@ -11,19 +12,47 @@ use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
-    /**
-     * Display a listing of courses.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::with(['category', 'applications'])
-            ->withCount(['applications', 'applications as new_applications_count' => function ($query) {
-                $query->where('is_read', false);
-            }])
-            ->latest()
-            ->paginate(10);
+        $query = Course::with(['category', 'applications'])
+            ->withCount(['applications', 'applications as new_applications_count' => function ($q) {
+                $q->where('is_read', false);
+            }]);
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('short_description', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhereHas('category', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        // Status filter
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Category filter
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        // Featured filter
+        if ($request->filled('featured')) {
+            $query->where('is_featured', $request->featured === 'yes');
+        }
+
+        $courses = $query->latest()->paginate(10)->withQueryString();
         
-        return view('admin.courses.index', compact('courses'));
+        // Get categories for filter dropdown
+        $categories = CourseCategory::orderBy('name')->get();
+        
+        return view('admin.courses.index', compact('courses', 'categories'));
     }
 
     /**
@@ -86,6 +115,9 @@ class CourseController extends Controller
                 $course->syllabus()->create($syllabusData);
             }
         }
+
+        // Trigger event to notify subscribers
+        event(new CourseLaunched($course));
 
         return redirect()->route('courses.index')
             ->with('success', 'Course created successfully!');
