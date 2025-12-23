@@ -225,9 +225,9 @@
 
                                     {{-- Name & Position --}}
                                     <div class="flex-1 min-w-0">
-                                        <h4 class="font-bold text-sm text-gray-900 dark:text-white truncate">
+                                        <h2 class="font-bold text-sm text-gray-900 dark:text-white truncate">
                                             {{ $testimonial->name }}
-                                        </h4>
+                                        </h2>
                                         @if ($testimonial->position || $testimonial->company)
                                             <p class="text-xs text-gray-600 dark:text-gray-400 truncate">
                                                 {{ $testimonial->position }}{{ $testimonial->position && $testimonial->company ? ' at ' : '' }}{{ $testimonial->company }}
