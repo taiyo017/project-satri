@@ -2,7 +2,7 @@
 
 @php
     $currentSlug = request()->route()?->parameter('slug') ?? '';
-    $fullPage = $currentSlug === 'service';
+    $fullPage = $currentSlug === 'services';
 
     $fields = $section->fields->pluck('field_value', 'field_key')->toArray();
     $title = $fields['heading'] ?? '';

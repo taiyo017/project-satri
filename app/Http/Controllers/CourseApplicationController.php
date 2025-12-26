@@ -9,6 +9,66 @@ use Illuminate\Support\Str;
 
 class CourseApplicationController extends Controller
 {
+    /**
+     * Display all course applications
+     */
+    public function index(Request $request)
+    {
+        $query = CourseApplication::with('course');
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhereHas('course', function ($q) use ($search) {
+                        $q->where('title', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        // Course filter
+        if ($request->filled('course')) {
+            $query->where('course_id', $request->course);
+        }
+
+        // Status filter
+        if ($request->filled('status')) {
+            if ($request->status === 'read') {
+                $query->where('is_read', true);
+            } elseif ($request->status === 'unread') {
+                $query->where('is_read', false);
+            }
+        }
+
+        $applications = $query->latest()->paginate(20)->withQueryString();
+        
+        // Get courses for filter dropdown
+        $courses = \App\Models\Course::orderBy('title')->get();
+        
+        return view('admin.course-applications.index', compact('applications', 'courses'));
+    }
+
+    /**
+     * Mark application as read
+     */
+    public function markAsRead(CourseApplication $application)
+    {
+        $application->markAsRead();
+        return redirect()->back()->with('success', 'Application marked as read.');
+    }
+
+    /**
+     * Delete application
+     */
+    public function destroy(CourseApplication $application)
+    {
+        $application->delete();
+        return redirect()->back()->with('success', 'Application deleted successfully.');
+    }
+
     public function store(Request $request, $course_id)
     {
         $request->validate([

@@ -203,6 +203,18 @@
                                         placeholder="e.g., fa-home or <svg>...</svg>">
                                 </template>
 
+                                {{-- Checkbox --}}
+                                <template x-if="field.field_type === 'checkbox'">
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" 
+                                            :checked="field.field_value === '1' || field.field_value === 1 || field.field_value === true"
+                                            @change="field.field_value = $event.target.checked ? '1' : '0'; markSectionModified(section)"
+                                            class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                        <span class="ms-3 text-sm font-medium text-gray-700 dark:text-gray-300" x-text="(field.field_value === '1' || field.field_value === 1 || field.field_value === true) ? 'Yes' : 'No'"></span>
+                                    </label>
+                                </template>
+
                                 {{-- Image/File Upload --}}
                                 <template x-if="field.field_type === 'image' || field.field_type === 'file'">
                                     <div class="space-y-3">
@@ -597,7 +609,7 @@
                                     JSON.stringify(field.field_value) : field.field_value
                             }));
 
-                            await axios.put(`/sections/${section.id}`, {
+                            await axios.put(`/admin/sections/${section.id}`, {
                                 fields: fieldsData
                             });
 
@@ -618,7 +630,7 @@
 
                         this.loading = true;
                         try {
-                            await axios.delete(`/sections/${id}`);
+                            await axios.delete(`/admin/sections/${id}`);
                             this.sections.splice(index, 1);
                             this.showToast('Section deleted successfully!');
                         } catch (error) {
@@ -648,7 +660,7 @@
 
                     async updateOrder(section, newOrder) {
                         try {
-                            await axios.post(`/sections/${section.id}/reorder`, {
+                            await axios.post(`/admin/sections/${section.id}/reorder`, {
                                 order_index: newOrder
                             });
                             section.order_index = newOrder;
@@ -685,7 +697,7 @@
                             formData.append('image', file);
 
                             const response = await axios.post(
-                                `/sections/fields/${field.id}/upload`,
+                                `/admin/sections/fields/${field.id}/upload`,
                                 formData, {
                                     onUploadProgress: (progressEvent) => {
                                         if (progressEvent.total) {
@@ -754,7 +766,7 @@
                             formData.append('image', file);
 
                             const response = await axios.post(
-                                `/sections/fields/${field.id}/upload`,
+                                `/admin/sections/fields/${field.id}/upload`,
                                 formData, {
                                     onUploadProgress: (progressEvent) => {
                                         if (progressEvent.total) {

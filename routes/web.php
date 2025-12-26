@@ -38,6 +38,12 @@ use App\Http\Controllers\Admin\SubscriptionTopicController;
 use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\Admin\EmailCampaignController;
 use App\Http\Controllers\Admin\EmailAnalyticsController;
+use App\Http\Controllers\AppCategoryController;
+use App\Http\Controllers\AppController;
+use App\Http\Controllers\AppFileController;
+use App\Http\Controllers\AppScreenshotController;
+use App\Http\Controllers\AppVersionController;
+use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -60,150 +66,183 @@ Route::get('/email/track/open/{token}', [EmailTrackingController::class, 'trackO
 Route::get('/email/track/click/{token}', [EmailTrackingController::class, 'trackClick'])->name('email.track.click');
 
 Route::middleware('auth')->group(function () {
+    Route::prefix('admin')->group(function () {
 
-    Route::resource('dashboard', DashboardController::class)
-        ->only(['index'])
-        ->names([
-            'index' => 'dashboard'
-        ]);
+        Route::resource('dashboard', DashboardController::class)
+            ->only(['index'])
+            ->names([
+                'index' => 'dashboard'
+            ]);
 
 
-    //Profile
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        //Profile
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    //Settings
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::patch('/settings', [SettingController::class, 'update'])->name('settings.update');
+        //Settings
+        Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+        Route::patch('/settings', [SettingController::class, 'update'])->name('settings.update');
 
-    // Admin routes with settings check
-    Route::middleware('settings.configured')->group(function () {
-        //Pages
-        Route::resource('pages', PageController::class);
+        // Admin routes with settings check
+        Route::middleware('settings.configured')->group(function () {
+            //Pages
+            Route::resource('pages', PageController::class);
 
-    // Sections Routes
-    Route::post('pages/{page}/sections', [SectionController::class, 'store'])
-        ->name('pages.sections.store');
+            // Sections Routes
+            Route::post('pages/{page}/sections', [SectionController::class, 'store'])
+                ->name('pages.sections.store');
 
-    Route::put('sections/{section}', [SectionController::class, 'update'])
-        ->name('sections.update');
+            Route::put('sections/{section}', [SectionController::class, 'update'])
+                ->name('sections.update');
 
-    Route::delete('sections/{section}', [SectionController::class, 'destroy'])
-        ->name('sections.destroy');
+            Route::delete('sections/{section}', [SectionController::class, 'destroy'])
+                ->name('sections.destroy');
 
-    Route::post('sections/{section}/reorder', [SectionController::class, 'reorder'])
-        ->name('sections.reorder');
+            Route::post('sections/{section}/reorder', [SectionController::class, 'reorder'])
+                ->name('sections.reorder');
 
-    // Section Fields Routes
-    Route::put('sections/{section}/fields/{field}', [SectionFieldController::class, 'update'])
-        ->name('sections.fields.update');
+            // Section Fields Routes
+            Route::put('sections/{section}/fields/{field}', [SectionFieldController::class, 'update'])
+                ->name('sections.fields.update');
 
-    Route::post('sections/fields/{field}/upload', [SectionFieldController::class, 'upload'])
-        ->name('sections.fields.upload');
+            Route::post('sections/fields/{field}/upload', [SectionFieldController::class, 'upload'])
+                ->name('sections.fields.upload');
 
-    Route::post('sections/{section}/fields/repeater', [SectionFieldController::class, 'addRepeaterItem'])
-        ->name('sections.fields.repeater.add');
+            Route::post('sections/{section}/fields/repeater', [SectionFieldController::class, 'addRepeaterItem'])
+                ->name('sections.fields.repeater.add');
 
-    Route::delete('sections/fields/{field}/repeater/{itemId}', [SectionFieldController::class, 'deleteRepeaterItem'])
-        ->name('sections.fields.repeater.delete');
+            Route::delete('sections/fields/{field}/repeater/{itemId}', [SectionFieldController::class, 'deleteRepeaterItem'])
+                ->name('sections.fields.repeater.delete');
 
-    //Services
-    Route::resource('services', ServiceController::class);
+            //Services
+            Route::resource('services', ServiceController::class);
 
-    //Projects
-    Route::resource('projects', ProjectController::class);
+            //Projects
+            Route::resource('projects', ProjectController::class);
 
-    //Team Members
-    Route::resource('team-members', TeamMemberController::class);
+            //Team Members
+            Route::resource('team-members', TeamMemberController::class);
 
-    //FAQs
-    Route::resource('faqs', FaqController::class)->except('show');
+            //FAQs
+            Route::resource('faqs', FaqController::class)->except('show');
 
-    //Testimonials
-    Route::resource('testimonials', TestimonialController::class);
+            //Testimonials
+            Route::resource('testimonials', TestimonialController::class);
 
-    // Contact List
-    Route::get('/contacts', [ContactController::class, 'index'])
-        ->name('contacts.index');
-    Route::get('/contacts/{contact}', [ContactController::class, 'show'])
-        ->name('contacts.show');
-    Route::post('/contacts/{contact}/mark-read', [ContactController::class, 'markAsRead'])
-        ->name('contacts.markRead');
-    Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])
-        ->name('contacts.destroy');
-    Route::get('/contacts/export', [ContactController::class, 'export'])
-        ->name('contacts.export');
-    Route::get('/contacts/{contact}/reply', [ContactController::class, 'reply'])
-        ->name('contacts.reply');
-    Route::post('/contacts/{contact}/reply', [ContactController::class, 'reply'])
-        ->name('contacts.reply.send');
+            // Contact List
+            Route::get('/contacts', [ContactController::class, 'index'])
+                ->name('contacts.index');
+            Route::get('/contacts/{contact}', [ContactController::class, 'show'])
+                ->name('contacts.show');
+            Route::post('/contacts/{contact}/mark-read', [ContactController::class, 'markAsRead'])
+                ->name('contacts.markRead');
+            Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])
+                ->name('contacts.destroy');
+            Route::get('/contacts/export', [ContactController::class, 'export'])
+                ->name('contacts.export');
+            Route::get('/contacts/{contact}/reply', [ContactController::class, 'reply'])
+                ->name('contacts.reply');
+            Route::post('/contacts/{contact}/reply', [ContactController::class, 'reply'])
+                ->name('contacts.reply.send');
 
-    //Courses
-    Route::resource('course-categories', CourseCategoryController::class);
-    Route::resource('courses', CourseController::class);
-    Route::get('courses/{course}/applications', [CourseController::class, 'applications'])->name('courses.applications');
+            //Courses
+            Route::resource('course-categories', CourseCategoryController::class);
+            Route::resource('courses', CourseController::class);
+            Route::get('courses/{course}/applications', [CourseController::class, 'applications'])->name('courses.applications');
 
-    // Optional: mark application as read
-    Route::post('course-applications/{application}/mark-read', [CourseController::class, 'markApplicationRead'])->name('course-applications.markRead');
+            // Course Applications Management
+            Route::get('course-applications', [CourseApplicationController::class, 'index'])->name('course-applications.index');
+            Route::post('course-applications/{application}/mark-read', [CourseApplicationController::class, 'markAsRead'])->name('course-applications.markRead');
+            Route::delete('course-applications/{application}', [CourseApplicationController::class, 'destroy'])->name('course-applications.destroy');
 
-    // Optional: forward email to applicant
-    Route::post('course-applications/{application}/forward-email', [CourseController::class, 'forwardEmail'])->name('course-applications.forwardEmail');
+            // Optional: mark application as read
+            Route::post('course-applications/{application}/mark-read', [CourseController::class, 'markApplicationRead'])->name('course-applications.markRead');
 
-    // Optional: export course applications
-    Route::get('courses/{course}/applications/export', [CourseApplicationController::class, 'export'])
-        ->name('course-applications.export');
+            // Optional: forward email to applicant
+            Route::post('course-applications/{application}/forward-email', [CourseController::class, 'forwardEmail'])->name('course-applications.forwardEmail');
 
-    //Careers
-    Route::resource('job-categories', JobCategoryController::class);
-    Route::resource('careers', CareerController::class);
-    Route::get('careers/{career}/applications', [CareerController::class, 'applications'])->name('careers.applications');
+            // Optional: export course applications
+            Route::get('courses/{course}/applications/export', [CourseApplicationController::class, 'export'])
+                ->name('course-applications.export');
 
-    // Optional: mark application as read
-    Route::post('applications/{application}/mark-read', [CareerController::class, 'markApplicationRead'])->name('applications.markRead');
+            //Careers
+            Route::resource('job-categories', JobCategoryController::class);
+            Route::resource('careers', CareerController::class);
+            Route::get('careers/{career}/applications', [CareerController::class, 'applications'])->name('careers.applications');
 
-    // Optional: forward email to applicant
-    Route::post('careers/{application}/forward-email', [CareerController::class, 'forwardEmail'])->name('applications.forwardEmail');
-    Route::get('careers/{career}/applications/export', [CareerApplicationController::class, 'export'])
-        ->name('applications.export');
+            // Optional: mark application as read
+            Route::post('applications/{application}/mark-read', [CareerController::class, 'markApplicationRead'])->name('applications.markRead');
 
-    // Gallery CRUD
+            // Optional: forward email to applicant
+            Route::post('careers/{application}/forward-email', [CareerController::class, 'forwardEmail'])->name('applications.forwardEmail');
+            Route::get('careers/{career}/applications/export', [CareerApplicationController::class, 'export'])
+                ->name('applications.export');
 
-    Route::prefix('galleries')->group(function () {
-        // AJAX endpoint to fetch trash items
-        Route::get('trash-list', [GalleryController::class, 'trashIndex'])->name('galleries.trash.index');
+            //App Store
+            Route::resource('app-categories', AppCategoryController::class);
+            Route::resource('apps', AppController::class);
 
-        // Bulk operations
-        Route::delete('bulk-trash', [GalleryController::class, 'bulkTrash'])->name('galleries.bulk-trash');
-        Route::delete('empty-trash', [GalleryController::class, 'emptyTrash'])->name('galleries.trash.empty');
+            // App Versions
+            Route::post('apps/{app}/versions', [AppVersionController::class, 'store'])->name('apps.versions.store');
+            Route::put('apps/{app}/versions/{version}', [AppVersionController::class, 'update'])->name('apps.versions.update');
+            Route::delete('apps/{app}/versions/{version}', [AppVersionController::class, 'destroy'])->name('apps.versions.destroy');
 
-        // Single item operations
-        Route::delete('{id}/trash', [GalleryController::class, 'trash'])->name('galleries.trash');
-        Route::post('{id}/restore', [GalleryController::class, 'restore'])->name('galleries.restore');
-        Route::delete('{id}/force-delete', [GalleryController::class, 'forceDelete'])->name('galleries.force-delete');
-    });
-    Route::resource('galleries', GalleryController::class)->where(['gallery' => '[0-9]+']);
+            // App Files
+            Route::post('apps/{app}/versions/{version}/files', [AppFileController::class, 'store'])->name('apps.versions.files.store');
+            Route::delete('apps/{app}/versions/{version}/files/{file}', [AppFileController::class, 'destroy'])->name('apps.versions.files.destroy');
 
-    // Gallery Category CRUD
-    Route::resource('gallery-categories', GalleryCategoryController::class);
+            // App Screenshots
+            Route::post('apps/{app}/screenshots', [AppScreenshotController::class, 'store'])->name('apps.screenshots.store');
+            Route::delete('apps/{app}/screenshots/{screenshot}', [AppScreenshotController::class, 'destroy'])->name('apps.screenshots.destroy');
 
-    //2FA enabling 
-    Route::post('/settings/2fa', [ProfileController::class, 'toggleTwoFactor'])->name('settings.2fa');
+            // QR Codes
+            Route::post('apps/{app}/qr/generate', [QrCodeController::class, 'generate'])->name('apps.qr.generate');
+            Route::post('apps/{app}/qr/regenerate', [QrCodeController::class, 'regenerate'])->name('apps.qr.regenerate');
 
-    // Email Subscription Management (Admin)
-    Route::prefix('admin')->name('admin.')->group(function () {
-        Route::resource('subscription-topics', SubscriptionTopicController::class);
-        Route::resource('subscribers', SubscriberController::class)->except(['create', 'store', 'edit', 'update']);
-        Route::post('subscribers/{subscriber}/status', [SubscriberController::class, 'updateStatus'])->name('subscribers.update-status');
-        Route::get('subscribers/export', [SubscriberController::class, 'export'])->name('subscribers.export');
-        
-        Route::resource('email-campaigns', EmailCampaignController::class);
-        Route::post('email-campaigns/{emailCampaign}/send', [EmailCampaignController::class, 'send'])->name('email-campaigns.send');
-        
-        Route::get('email-analytics', [EmailAnalyticsController::class, 'index'])->name('email-analytics.index');
-        Route::get('email-analytics/campaign/{emailCampaign}', [EmailAnalyticsController::class, 'campaign'])->name('email-analytics.campaign');
-        Route::get('email-analytics/topic/{subscriptionTopic}', [EmailAnalyticsController::class, 'topic'])->name('email-analytics.topic');
-    });
+            // App Reviews
+            Route::get('apps/{app}/reviews', [\App\Http\Controllers\AppReviewController::class, 'index'])->name('apps.reviews.index');
+            Route::delete('apps/{app}/reviews/{review}', [\App\Http\Controllers\AppReviewController::class, 'destroy'])->name('apps.reviews.destroy');
+            Route::post('apps/{app}/reviews/{review}/status', [\App\Http\Controllers\AppReviewController::class, 'updateStatus'])->name('apps.reviews.updateStatus');
+
+            // Gallery CRUD
+
+            Route::prefix('galleries')->group(function () {
+                // AJAX endpoint to fetch trash items
+                Route::get('trash-list', [GalleryController::class, 'trashIndex'])->name('galleries.trash.index');
+
+                // Bulk operations
+                Route::delete('bulk-trash', [GalleryController::class, 'bulkTrash'])->name('galleries.bulk-trash');
+                Route::delete('empty-trash', [GalleryController::class, 'emptyTrash'])->name('galleries.trash.empty');
+
+                // Single item operations
+                Route::delete('{id}/trash', [GalleryController::class, 'trash'])->name('galleries.trash');
+                Route::post('{id}/restore', [GalleryController::class, 'restore'])->name('galleries.restore');
+                Route::delete('{id}/force-delete', [GalleryController::class, 'forceDelete'])->name('galleries.force-delete');
+            });
+            Route::resource('galleries', GalleryController::class)->where(['gallery' => '[0-9]+']);
+
+            // Gallery Category CRUD
+            Route::resource('gallery-categories', GalleryCategoryController::class);
+
+            //2FA enabling 
+            Route::post('/settings/2fa', [ProfileController::class, 'toggleTwoFactor'])->name('settings.2fa');
+
+            // Email Subscription Management (Admin)
+            Route::name('admin.')->group(function () {
+                Route::resource('subscription-topics', SubscriptionTopicController::class);
+                Route::resource('subscribers', SubscriberController::class)->except(['create', 'store', 'edit', 'update']);
+                Route::post('subscribers/{subscriber}/status', [SubscriberController::class, 'updateStatus'])->name('subscribers.update-status');
+                Route::get('subscribers/export', [SubscriberController::class, 'export'])->name('subscribers.export');
+
+                Route::resource('email-campaigns', EmailCampaignController::class);
+                Route::post('email-campaigns/{emailCampaign}/send', [EmailCampaignController::class, 'send'])->name('email-campaigns.send');
+
+                Route::get('email-analytics', [EmailAnalyticsController::class, 'index'])->name('email-analytics.index');
+                Route::get('email-analytics/campaign/{emailCampaign}', [EmailAnalyticsController::class, 'campaign'])->name('email-analytics.campaign');
+                Route::get('email-analytics/topic/{subscriptionTopic}', [EmailAnalyticsController::class, 'topic'])->name('email-analytics.topic');
+            });
+        });
     });
 });
 
@@ -252,6 +291,12 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
     ->middleware('auth');
 
 //Frontend Routes
+Route::get('/apps', [\App\Http\Controllers\Frontend\AppController::class, 'index'])->name('frontend.apps.index');
+Route::get('/apps/{slug}', [\App\Http\Controllers\Frontend\AppController::class, 'show'])->name('frontend.apps.show');
+Route::get('/apps/{slug}/download', [\App\Http\Controllers\Frontend\AppController::class, 'download'])->name('frontend.apps.download');
+Route::post('/apps/{slug}/reviews', [\App\Http\Controllers\Frontend\AppReviewController::class, 'store'])->name('frontend.apps.reviews.store')->middleware('throttle:3,60');
+Route::get('/qr/{token}', [QrCodeController::class, 'scan'])->name('apps.qr.scan');
+
 Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.page.show');
 Route::get('/career/{slug}', [FrontendCareerController::class, 'show'])->name('career.show');
 Route::get('/course/{slug}', [FrontendCourseController::class, 'show'])->name('course.show');

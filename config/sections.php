@@ -340,4 +340,38 @@ return [
         ],
     ],
 
+    'map' => [
+        'name' => 'Map Location Section',
+        'layouts' => ['map_default', 'map_with_info', 'map_fullwidth'],
+        'fields' => [
+            ['key' => 'title', 'type' => 'text', 'label' => 'Section Title', 'placeholder' => 'Find Us'],
+            ['key' => 'subtitle', 'type' => 'text', 'label' => 'Subtitle', 'placeholder' => 'Visit Our Location'],
+            ['key' => 'description', 'type' => 'wysiwyg', 'label' => 'Description'],
+            ['key' => 'map_iframe', 'type' => 'textarea', 'label' => 'Google Maps Embed Code (Full iframe tag)'],
+            ['key' => 'address', 'type' => 'textarea', 'label' => 'Address'],
+            ['key' => 'phone', 'type' => 'text', 'label' => 'Phone Number'],
+            ['key' => 'email', 'type' => 'text', 'label' => 'Email Address'],
+            ['key' => 'working_hours', 'type' => 'textarea', 'label' => 'Working Hours'],
+            ['key' => 'map_height', 'type' => 'text', 'label' => 'Map Height (px)', 'placeholder' => '400'],
+            ['key' => 'show_contact_info', 'type' => 'checkbox', 'label' => 'Show Contact Information'],
+        ],
+    ],
+
+    'apps' => [
+        'name' => 'Apps Section',
+        'layouts' => ['apps_grid', 'apps_featured', 'apps_carousel'],
+        'fields' => [
+            ['key' => 'title', 'type' => 'text', 'label' => 'Section Title', 'placeholder' => 'Our Apps'],
+            ['key' => 'subtitle', 'type' => 'text', 'label' => 'Subtitle', 'placeholder' => 'Download Center'],
+            ['key' => 'description', 'type' => 'wysiwyg', 'label' => 'Description'],
+            ['key' => 'show_categories', 'type' => 'checkbox', 'label' => 'Show Category Filter'],
+            ['key' => 'show_featured_only', 'type' => 'checkbox', 'label' => 'Show Featured Apps Only'],
+            ['key' => 'apps_limit', 'type' => 'text', 'label' => 'Number of Apps to Show', 'placeholder' => '8'],
+            ['key' => 'buttons', 'type' => 'repeater', 'label' => 'Buttons', 'fields' => [
+                ['key' => 'text', 'type' => 'text', 'label' => 'Button Text'],
+                ['key' => 'url', 'type' => 'url', 'label' => 'Button URL'],
+            ]],
+        ],
+    ],
+
 ];

@@ -20,21 +20,21 @@
                 ['slug' => 'our-projects', 'label' => 'Products'],
             ],
         ],
-        'our-courses' => [
+        'courses' => [
             'route' => 'frontend.page.show',
             'label' => 'Courses',
             'icon' =>
                 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
         ],
-        'career' => [
+        'services' => [
             'route' => 'frontend.page.show',
-            'label' => 'Careers',
+            'label' => 'Services',
             'icon' =>
                 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
         ],
         'gallery' => [
             'route' => 'frontend.page.show',
-            'label' => 'Our Gallery',
+            'label' => 'Gallery',
             'icon' =>
                 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
         ],
@@ -146,9 +146,20 @@
             </div>
 
             {{-- Right Section --}}
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2">
+                {{-- App Store Button - Desktop & Tablet --}}
+                <a href="{{ route('frontend.apps.index') }}"
+                    class="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20 hover:border-white/30"
+                    aria-label="App Store">
+                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+                    </svg>
+                    <span class="hidden sm:inline text-sm font-semibold">Apps</span>
+                </a>
+
+                {{-- Dark Mode Toggle --}}
                 <button @click.prevent="darkMode = !darkMode"
-                    class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 hover:scale-105 active:scale-95"
+                    class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 hover:scale-105 active:scale-95 border border-white/20"
                     aria-label="Toggle dark mode">
                     <svg class="hidden dark:block w-5 h-5 transition-transform duration-300" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
@@ -162,8 +173,9 @@
                     </svg>
                 </button>
 
+                {{-- Mobile Menu Toggle --}}
                 <button @click="isMobileMenuOpen = !isMobileMenuOpen"
-                    class="lg:hidden relative flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 hover:scale-105 active:scale-95"
+                    class="lg:hidden relative flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 hover:scale-105 active:scale-95 border border-white/20"
                     aria-label="Toggle mobile menu" :aria-expanded="isMobileMenuOpen.toString()">
                     <svg x-show="!isMobileMenuOpen" class="h-6 w-6 transition-all duration-200" fill="none"
                         stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

@@ -38,12 +38,13 @@
         ],
         [
             'title' => 'Courses',
-            'routePattern' => ['courses.*', 'course-categories.*'],
+            'routePattern' => ['courses.*', 'course-categories.*', 'course-applications.*'],
             'icon' => 'courses',
             'subItems' => [
                 ['title' => 'All Courses', 'route' => 'courses.index'],
                 ['title' => 'Add New Course', 'route' => 'courses.create'],
                 ['title' => 'Categories', 'route' => 'course-categories.index'],
+                ['title' => 'All Students', 'route' => 'course-applications.index'],
             ],
         ],
         [
@@ -54,6 +55,16 @@
                 ['title' => 'Job Posts', 'route' => 'careers.index'],
                 ['title' => 'Create Job Post', 'route' => 'careers.create'],
                 ['title' => 'Job Categories', 'route' => 'job-categories.index'],
+            ],
+        ],
+        [
+            'title' => 'App Store',
+            'routePattern' => ['apps.*', 'app-categories.*'],
+            'icon' => 'apps',
+            'subItems' => [
+                ['title' => 'All Apps', 'route' => 'apps.index'],
+                ['title' => 'Add New App', 'route' => 'apps.create'],
+                ['title' => 'Categories', 'route' => 'app-categories.index'],
             ],
         ],
         [
